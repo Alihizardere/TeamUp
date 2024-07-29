@@ -10,8 +10,6 @@ import UIKit
 final class HomeViewController: UIViewController {
 
   // MARK: - Properties
-  static let identifier = "HomeViewController"
-
 
   // MARK: - Lifecycle
     override func viewDidLoad() {

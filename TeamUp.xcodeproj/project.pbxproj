@@ -27,6 +27,10 @@
 		3DFF951C2C57D697001DD9D5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFF951B2C57D697001DD9D5 /* FirebaseStorage */; };
 		3DFF951E2C57D697001DD9D5 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFF951D2C57D697001DD9D5 /* FirebaseStorageCombine-Community */; };
 		3DFF95202C57D736001DD9D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF951F2C57D736001DD9D5 /* GoogleService-Info.plist */; };
+		3DFF95242C58079B001DD9D5 /* CreateMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF95232C58079B001DD9D5 /* CreateMatchViewController.xib */; };
+		3DFF95252C58079B001DD9D5 /* CreateMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF95222C58079B001DD9D5 /* CreateMatchViewController.swift */; };
+		3DFF95292C5807C8001DD9D5 /* PlayerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF95282C5807C8001DD9D5 /* PlayerListViewController.xib */; };
+		3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF95272C5807C8001DD9D5 /* PlayerListViewController.swift */; };
 		45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772CD2C57EF3400C952C8 /* LandingViewController.swift */; };
 		45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772CE2C57EF3400C952C8 /* LandingViewController.xib */; };
 		45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772D12C57EF4600C952C8 /* HomeViewController.swift */; };
@@ -42,6 +46,10 @@
 		3DFF94D32C57CE60001DD9D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DFF94D52C57CE60001DD9D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DFF951F2C57D736001DD9D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3DFF95222C58079B001DD9D5 /* CreateMatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMatchViewController.swift; sourceTree = "<group>"; };
+		3DFF95232C58079B001DD9D5 /* CreateMatchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateMatchViewController.xib; sourceTree = "<group>"; };
+		3DFF95272C5807C8001DD9D5 /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
+		3DFF95282C5807C8001DD9D5 /* PlayerListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerListViewController.xib; sourceTree = "<group>"; };
 		45C772CD2C57EF3400C952C8 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		45C772CE2C57EF3400C952C8 /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
 		45C772D12C57EF4600C952C8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -120,9 +128,29 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		3DFF95212C580773001DD9D5 /* CreateMatch */ = {
+			isa = PBXGroup;
+			children = (
+				3DFF95222C58079B001DD9D5 /* CreateMatchViewController.swift */,
+				3DFF95232C58079B001DD9D5 /* CreateMatchViewController.xib */,
+			);
+			path = CreateMatch;
+			sourceTree = "<group>";
+		};
+		3DFF95262C5807B2001DD9D5 /* PlayerList */ = {
+			isa = PBXGroup;
+			children = (
+				3DFF95272C5807C8001DD9D5 /* PlayerListViewController.swift */,
+				3DFF95282C5807C8001DD9D5 /* PlayerListViewController.xib */,
+			);
+			path = PlayerList;
+			sourceTree = "<group>";
+		};
 		45C772CA2C57EF0900C952C8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3DFF95262C5807B2001DD9D5 /* PlayerList */,
+				3DFF95212C580773001DD9D5 /* CreateMatch */,
 				45C772CB2C57EF1100C952C8 /* Landing */,
 				45C772CC2C57EF1C00C952C8 /* Home */,
 			);
@@ -228,6 +256,8 @@
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
 				45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */,
 				45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */,
+				3DFF95242C58079B001DD9D5 /* CreateMatchViewController.xib in Resources */,
+				3DFF95292C5807C8001DD9D5 /* PlayerListViewController.xib in Resources */,
 				3DFF95202C57D736001DD9D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +271,8 @@
 			files = (
 				45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */,
 				3DFF94CC2C57CE5F001DD9D5 /* ViewController.swift in Sources */,
+				3DFF95252C58079B001DD9D5 /* CreateMatchViewController.swift in Sources */,
+				3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */,
 				3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */,
 				45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */,
 				3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */,
