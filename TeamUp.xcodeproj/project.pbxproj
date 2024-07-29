@@ -27,6 +27,10 @@
 		3DFF951C2C57D697001DD9D5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFF951B2C57D697001DD9D5 /* FirebaseStorage */; };
 		3DFF951E2C57D697001DD9D5 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFF951D2C57D697001DD9D5 /* FirebaseStorageCombine-Community */; };
 		3DFF95202C57D736001DD9D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF951F2C57D736001DD9D5 /* GoogleService-Info.plist */; };
+		45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772CD2C57EF3400C952C8 /* LandingViewController.swift */; };
+		45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772CE2C57EF3400C952C8 /* LandingViewController.xib */; };
+		45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772D12C57EF4600C952C8 /* HomeViewController.swift */; };
+		45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772D22C57EF4600C952C8 /* HomeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		3DFF94D32C57CE60001DD9D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DFF94D52C57CE60001DD9D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DFF951F2C57D736001DD9D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		45C772CD2C57EF3400C952C8 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		45C772CE2C57EF3400C952C8 /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
+		45C772D12C57EF4600C952C8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		45C772D22C57EF4600C952C8 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,7 @@
 		3DFF94C62C57CE5F001DD9D5 /* TeamUp */ = {
 			isa = PBXGroup;
 			children = (
+				45C772CA2C57EF0900C952C8 /* Modules */,
 				3DFF95002C57D352001DD9D5 /* App */,
 				3DFF95012C57D371001DD9D5 /* Resources */,
 				3DFF94CB2C57CE5F001DD9D5 /* ViewController.swift */,
@@ -109,6 +118,33 @@
 				3DFF94D22C57CE60001DD9D5 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		45C772CA2C57EF0900C952C8 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				45C772CB2C57EF1100C952C8 /* Landing */,
+				45C772CC2C57EF1C00C952C8 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		45C772CB2C57EF1100C952C8 /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				45C772CD2C57EF3400C952C8 /* LandingViewController.swift */,
+				45C772CE2C57EF3400C952C8 /* LandingViewController.xib */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		45C772CC2C57EF1C00C952C8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				45C772D12C57EF4600C952C8 /* HomeViewController.swift */,
+				45C772D22C57EF4600C952C8 /* HomeViewController.xib */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +226,8 @@
 			files = (
 				3DFF94D12C57CE60001DD9D5 /* Assets.xcassets in Resources */,
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
+				45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */,
+				45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */,
 				3DFF95202C57D736001DD9D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,8 +239,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */,
 				3DFF94CC2C57CE5F001DD9D5 /* ViewController.swift in Sources */,
 				3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */,
+				45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */,
 				3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
