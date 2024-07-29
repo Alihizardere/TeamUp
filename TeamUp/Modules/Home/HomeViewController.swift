@@ -7,7 +7,13 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
+
+  // MARK: - Properties
+  static let identifier = "HomeViewController"
+
+
+  // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         print("This is Home page")
