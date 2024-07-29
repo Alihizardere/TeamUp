@@ -17,4 +17,19 @@ final class HomeViewController: UIViewController {
         print("This is Home page")
     }
 
+  // MARK: - Actions
+    @IBAction func playerListButtonTapped(_ sender: UIButton) {
+      let playerListVC = PlayerListViewController(nibName: "PlayerListViewController", bundle: nil)
+      navigateToDestinationVC(viewController: playerListVC)
+    }
+
+    @IBAction func createMatchButtonTapped(_ sender: UIButton) {
+      let createMatchVC = CreateMatchViewController(nibName: "CreateMatchViewController", bundle: nil)
+      navigateToDestinationVC(viewController: createMatchVC)
+    }
+
+    // MARK: - Functions
+    private func navigateToDestinationVC(viewController: UIViewController) {
+      navigationController?.pushViewController(viewController, animated: true)
+    }
 }
