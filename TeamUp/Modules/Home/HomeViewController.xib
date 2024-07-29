@@ -25,6 +25,9 @@
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Maç Oluştur"/>
+                    <connections>
+                        <action selector="createMatchButtonTapped:" destination="-1" eventType="touchUpInside" id="kRy-GK-QFs"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-Nb-yT2">
                     <rect key="frame" x="145.66666666666666" y="366.33333333333331" width="102" height="34.333333333333314"/>
@@ -32,6 +35,9 @@
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Oyuncular"/>
+                    <connections>
+                        <action selector="playerListButtonTapped:" destination="-1" eventType="touchUpInside" id="Qoj-Ym-urd"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
