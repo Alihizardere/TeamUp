@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerListViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="FDi-4C-tMY" id="lDJ-n7-coe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,14 +19,51 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oyuncu Listesi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tql-IN-DKV">
+                    <rect key="frame" x="16" y="75" width="361" height="25.333333333333329"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                    <color key="textColor" red="1" green="0.25970178890000001" blue="0.23409718860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Bw-QC-V1g">
+                    <rect key="frame" x="16" y="752" width="361" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.25970178890000001" blue="0.23409718860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="iMo-vs-3Ug"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="addPlayerButtonTapped:" destination="-1" eventType="touchUpInside" id="aqG-9z-OuV"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FDi-4C-tMY">
+                    <rect key="frame" x="0.0" y="100.33333333333331" width="393" height="651.66666666666674"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemPurpleColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="FDi-4C-tMY" firstAttribute="top" secondItem="tql-IN-DKV" secondAttribute="bottom" id="3KX-XY-jfc"/>
+                <constraint firstItem="tql-IN-DKV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="8YY-pc-mgE"/>
+                <constraint firstItem="FDi-4C-tMY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9wE-6A-bUD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Bw-QC-V1g" secondAttribute="trailing" constant="16" id="G8K-Zb-fQO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9Bw-QC-V1g" secondAttribute="bottom" constant="16" id="J3N-Ge-DdZ"/>
+                <constraint firstItem="9Bw-QC-V1g" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="MdQ-8f-77M"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FDi-4C-tMY" secondAttribute="trailing" id="QuD-Zw-4bN"/>
+                <constraint firstItem="tql-IN-DKV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="RaJ-2r-klp"/>
+                <constraint firstItem="9Bw-QC-V1g" firstAttribute="top" secondItem="FDi-4C-tMY" secondAttribute="bottom" id="XFg-Zd-R4K"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tql-IN-DKV" secondAttribute="trailing" constant="16" id="yLl-gR-2Gs"/>
+            </constraints>
             <point key="canvasLocation" x="51" y="-11"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
