@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateMatchViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="39z-7T-pL5" id="gWK-c0-F4z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,14 +19,37 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="39z-7T-pL5">
+                    <rect key="frame" x="0.0" y="59" width="393" height="732"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfK-CN-nHI">
+                    <rect key="frame" x="16" y="799" width="361" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Create Match"/>
+                    <connections>
+                        <action selector="createMatchButtonTapped:" destination="-1" eventType="touchUpInside" id="SL6-cb-HhI"/>
+                    </connections>
+                </button>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemMintColor"/>
-            <point key="canvasLocation" x="51" y="-11"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="RfK-CN-nHI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="LLv-LX-eoQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RfK-CN-nHI" secondAttribute="trailing" constant="16" id="Mf8-mM-4ga"/>
+                <constraint firstItem="39z-7T-pL5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dK7-qI-YhQ"/>
+                <constraint firstItem="RfK-CN-nHI" firstAttribute="top" secondItem="39z-7T-pL5" secondAttribute="bottom" constant="8" id="jTa-fd-WLd"/>
+                <constraint firstItem="39z-7T-pL5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lyg-Ts-L7V"/>
+                <constraint firstItem="RfK-CN-nHI" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="16" id="q0q-5Q-JPs"/>
+                <constraint firstItem="39z-7T-pL5" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xXi-Ts-QDy"/>
+            </constraints>
+            <point key="canvasLocation" x="49.618320610687022" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
