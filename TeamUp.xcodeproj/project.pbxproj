@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseManager.swift */; };
+		3DDF17672C59059A00F2BF80 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17662C59059A00F2BF80 /* Player.swift */; };
 		3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF94C72C57CE5F001DD9D5 /* AppDelegate.swift */; };
 		3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF94C92C57CE5F001DD9D5 /* SceneDelegate.swift */; };
 		3DFF94CC2C57CE5F001DD9D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF94CB2C57CE5F001DD9D5 /* ViewController.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3DDF17632C59053400F2BF80 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		3DDF17662C59059A00F2BF80 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DFF94C42C57CE5F001DD9D5 /* TeamUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF94C72C57CE5F001DD9D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DFF94C92C57CE5F001DD9D5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3DDF17622C5904DB00F2BF80 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3DDF17632C59053400F2BF80 /* FirebaseManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3DDF17652C59057400F2BF80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3DDF17662C59059A00F2BF80 /* Player.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3DFF94BB2C57CE5F001DD9D5 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +120,8 @@
 		3DFF94C62C57CE5F001DD9D5 /* TeamUp */ = {
 			isa = PBXGroup;
 			children = (
+				3DDF17652C59057400F2BF80 /* Model */,
+				3DDF17622C5904DB00F2BF80 /* Helpers */,
 				45C772CA2C57EF0900C952C8 /* Modules */,
 				3DFF95002C57D352001DD9D5 /* App */,
 				3DFF95012C57D371001DD9D5 /* Resources */,
@@ -273,8 +295,10 @@
 				3DFF94CC2C57CE5F001DD9D5 /* ViewController.swift in Sources */,
 				3DFF95252C58079B001DD9D5 /* CreateMatchViewController.swift in Sources */,
 				3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */,
+				3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */,
 				3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */,
 				45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */,
+				3DDF17672C59059A00F2BF80 /* Player.swift in Sources */,
 				3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
