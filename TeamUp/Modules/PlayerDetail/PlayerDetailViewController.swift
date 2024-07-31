@@ -15,7 +15,6 @@ final class PlayerDetailViewController: UIViewController {
   @IBOutlet weak var playerSurname: UITextField!
   @IBOutlet weak var playerPosition: UITextField!
   @IBOutlet weak var playerOverall: UITextField!
-  var players = [Player]()
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -23,7 +22,7 @@ final class PlayerDetailViewController: UIViewController {
     tapGesture()
   }
 
-// MARK: -  Private Functions
+  // MARK: -  Private Functions
   private func tapGesture(){
     let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
     profileImage.isUserInteractionEnabled = true
@@ -48,20 +47,15 @@ final class PlayerDetailViewController: UIViewController {
       playerName: name,
       playerSurname: surname,
       position: position,
-      overall: Int(overall),
-      completion: { result in
-         switch result {
-         case .success(let player):
-           self.players = [Player]()
-           self.navigationController?.popViewController(animated: true)
-         case .failure(let error):
-           print("Error adding user: \(error.localizedDescription)")
-         }
+      overall: Int(overall)) { result in
+        switch result {
+        case .success(let success):
+          self.navigationController?.popViewController(animated: true)
+        case .failure(let error):
+          print("Error adding user: \(error.localizedDescription)")
+        }
       }
-    )
-
   }
-  
 }
 
 // MARK: - UIImagePickerControllerDelegate && UINavigationControllerDelegate Extensions

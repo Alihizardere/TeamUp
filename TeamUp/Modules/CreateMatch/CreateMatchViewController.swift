@@ -29,7 +29,7 @@ final class CreateMatchViewController: UIViewController {
     private func fetchPlayers() {
         FirebaseService.shared.fetchPlayerKeys { keys in
             self.players.removeAll()
-            let group = DispatchGroup() // Added DispatchGroup to wait for all async tasks to complete
+            let group = DispatchGroup()
             for key in keys {
                 group.enter()
                 FirebaseService.shared.fetchPlayerData(forKey: key) { player in

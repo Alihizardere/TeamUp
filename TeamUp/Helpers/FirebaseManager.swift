@@ -60,7 +60,7 @@ final class FirebaseService {
     playerSurname: String?,
     position: String?,
     overall: Int?,
-    completion: @escaping (Result<Player, Error>) -> Void
+    completion: @escaping (Result<Void, Error>) -> Void
   ) {
     guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
 
@@ -93,7 +93,7 @@ final class FirebaseService {
           overall: overall
         )
         self.savePlayer(player)
-        completion(.success(player))
+        completion(.success(()))
       }
     }
   }
@@ -108,7 +108,6 @@ final class FirebaseService {
       "position": player.position ?? "",
       "overall": player.overall ?? 0
     ]
-
     databaseRef.child("players").child(player.id ?? "").setValue(playerData)
   }
 }
