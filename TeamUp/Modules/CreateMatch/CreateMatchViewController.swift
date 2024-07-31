@@ -8,7 +8,7 @@
 import UIKit
 
 final class CreateMatchViewController: UIViewController {
-//MARK: - Variables
+    //MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     var players = [Player]()
     
@@ -27,31 +27,32 @@ final class CreateMatchViewController: UIViewController {
     
     //MARK: - Private Functions
     private func fetchPlayers() {
-            FirebaseService.shared.fetchPlayerKeys { keys in
-                self.players.removeAll()
-                let group = DispatchGroup() // Added DispatchGroup to wait for all async tasks to complete
-                for key in keys {
-                    group.enter()
-                    FirebaseService.shared.fetchPlayerData(forKey: key) { player in
-                        if let player = player {
-                            self.players.append(player)
-                        }
-                        group.leave()
+        FirebaseService.shared.fetchPlayerKeys { keys in
+            self.players.removeAll()
+            let group = DispatchGroup() // Added DispatchGroup to wait for all async tasks to complete
+            for key in keys {
+                group.enter()
+                FirebaseService.shared.fetchPlayerData(forKey: key) { player in
+                    if let player = player {
+                        self.players.append(player)
                     }
-                }
-                group.notify(queue: .main) {
-                    self.tableView.reloadData()
+                    group.leave()
                 }
             }
+            group.notify(queue: .main) {
+                self.tableView.reloadData()
+            }
         }
+    }
     
     //MARK: - Button Actions
     @IBAction func createMatchButtonTapped(_ sender: Any) {
-        print("Next Page")
+        let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+        navigationController?.pushViewController(matchDetailVC, animated: true)
     }
 }
 
-//MARK: - Extension TableViewDelegate && TableViewDataSource
+   //MARK: - Extension TableViewDelegate && TableViewDataSource
 extension CreateMatchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         players.count
@@ -63,6 +64,4 @@ extension CreateMatchViewController: UITableViewDelegate, UITableViewDataSource 
         cell.configure(with: player)
         return cell
     }
-    
-    
 }
