@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		3DB61D2B2C5A376C000ECAE0 /* WeatherLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */; };
 		3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */; };
-		3DB61D302C5A382B000ECAE0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DB61D2F2C5A382B000ECAE0 /* Alamofire */; };
-		3DB61D322C5A382B000ECAE0 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3DB61D312C5A382B000ECAE0 /* AlamofireDynamic */; };
 		3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D332C5A385D000ECAE0 /* Router.swift */; };
 		3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D362C5A38E1000ECAE0 /* Constants.swift */; };
 		3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseManager.swift */; };
@@ -46,11 +44,25 @@
 		3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF95272C5807C8001DD9D5 /* PlayerListViewController.swift */; };
 		458E31232C5A28640039B64F /* MatchDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 458E31222C5A28640039B64F /* MatchDetailViewController.xib */; };
 		458E31242C5A28640039B64F /* MatchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458E31212C5A28640039B64F /* MatchDetailViewController.swift */; };
+		45A8C5E62C5A52FA00B496A9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 45A8C5E52C5A52FA00B496A9 /* Alamofire */; };
 		45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772CD2C57EF3400C952C8 /* LandingViewController.swift */; };
 		45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772CE2C57EF3400C952C8 /* LandingViewController.xib */; };
 		45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772D12C57EF4600C952C8 /* HomeViewController.swift */; };
 		45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772D22C57EF4600C952C8 /* HomeViewController.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		45A8C5E32C5A50F300B496A9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLogic.swift; sourceTree = "<group>"; };
@@ -97,8 +109,7 @@
 				3DFF95062C57D697001DD9D5 /* FirebaseAuth in Frameworks */,
 				3DFF950E2C57D697001DD9D5 /* FirebaseDynamicLinks in Frameworks */,
 				3DFF951E2C57D697001DD9D5 /* FirebaseStorageCombine-Community in Frameworks */,
-				3DB61D302C5A382B000ECAE0 /* Alamofire in Frameworks */,
-				3DB61D322C5A382B000ECAE0 /* AlamofireDynamic in Frameworks */,
+				45A8C5E62C5A52FA00B496A9 /* Alamofire in Frameworks */,
 				3DDF17752C59430100F2BF80 /* Kingfisher in Frameworks */,
 				3DFF951C2C57D697001DD9D5 /* FirebaseStorage in Frameworks */,
 				3DFF95182C57D697001DD9D5 /* FirebaseMLModelDownloader in Frameworks */,
@@ -291,6 +302,7 @@
 				3DFF94C02C57CE5F001DD9D5 /* Sources */,
 				3DFF94C12C57CE5F001DD9D5 /* Frameworks */,
 				3DFF94C22C57CE5F001DD9D5 /* Resources */,
+				45A8C5E32C5A50F300B496A9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -313,8 +325,7 @@
 				3DFF951B2C57D697001DD9D5 /* FirebaseStorage */,
 				3DFF951D2C57D697001DD9D5 /* FirebaseStorageCombine-Community */,
 				3DDF17742C59430100F2BF80 /* Kingfisher */,
-				3DB61D2F2C5A382B000ECAE0 /* Alamofire */,
-				3DB61D312C5A382B000ECAE0 /* AlamofireDynamic */,
+				45A8C5E52C5A52FA00B496A9 /* Alamofire */,
 			);
 			productName = TeamUp;
 			productReference = 3DFF94C42C57CE5F001DD9D5 /* TeamUp.app */;
@@ -347,7 +358,7 @@
 			packageReferences = (
 				3DFF95022C57D697001DD9D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3DDF17732C59430100F2BF80 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				3DB61D2E2C5A382B000ECAE0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				45A8C5E42C5A52FA00B496A9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 3DFF94C52C57CE5F001DD9D5 /* Products */;
 			projectDirPath = "";
@@ -613,14 +624,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3DB61D2E2C5A382B000ECAE0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
 		3DDF17732C59430100F2BF80 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -637,19 +640,17 @@
 				minimumVersion = 10.29.0;
 			};
 		};
+		45A8C5E42C5A52FA00B496A9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = exactVersion;
+				version = 5.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3DB61D2F2C5A382B000ECAE0 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3DB61D2E2C5A382B000ECAE0 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		3DB61D312C5A382B000ECAE0 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3DB61D2E2C5A382B000ECAE0 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
 		3DDF17742C59430100F2BF80 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3DDF17732C59430100F2BF80 /* XCRemoteSwiftPackageReference "Kingfisher" */;
@@ -724,6 +725,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3DFF95022C57D697001DD9D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		45A8C5E52C5A52FA00B496A9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45A8C5E42C5A52FA00B496A9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
