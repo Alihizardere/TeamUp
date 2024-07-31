@@ -49,7 +49,7 @@ final class PlayerDetailViewController: UIViewController {
       position: position,
       overall: Int(overall)) { result in
         switch result {
-        case .success(let success):
+        case .success():
           self.navigationController?.popViewController(animated: true)
         case .failure(let error):
           print("Error adding user: \(error.localizedDescription)")

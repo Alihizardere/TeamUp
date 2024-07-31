@@ -29,13 +29,18 @@ final class PlayerListViewController: UIViewController {
   private func fetchPlayers(){
     FirebaseService.shared.fetchPlayerKeys { keys in
       self.players.removeAll()
+      let group = DispatchGroup()
       for key in keys {
+        group.enter()
         FirebaseService.shared.fetchPlayerData(forKey: key) { player in
           if let player = player {
             self.players.append(player)
-            self.tableView.reloadData()
           }
+          group.leave()
         }
+      }
+      group.notify(queue: .main) {
+          self.tableView.reloadData()
       }
     }
   }
