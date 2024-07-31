@@ -22,8 +22,7 @@ final class Webservice {
     decodeType type: T.Type,
     completionHandler: @escaping (Result<T, Error>) -> Void
   ){
-    AF.request(request).responseData { [weak self] response in
-      guard let self else { return }
+    AF.request(request).responseData { response in
       switch response.result {
       case .success(let data):
         do {
