@@ -9,52 +9,64 @@ import UIKit
 import CoreLocation
 
 final class CreateMatchViewController: UIViewController {
-    //MARK: - Properties
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var lblTemprature: UILabel!
-    @IBOutlet weak var lblDesc: UILabel!
-    @IBOutlet weak var tempImage: UIImageView!
+    //MARK: - IBOutlets
+    @IBOutlet weak var groupNameTextField: UITextField!
+    @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var hourTextField: UITextField!
+    @IBOutlet weak var matchDateTextField: UITextField!
+    @IBOutlet weak var hostIbanTextField: UITextField!
+    @IBOutlet weak var gameTypeTextField: UITextField!
     
-    var players = [Player]()
+    //MARK: - Properties
+    var activeTextField: UITextField?
     private let locationManager = CLLocationManager()
+    private let pickerView = UIPickerView()
+    private let datePicker = UIDatePicker()
+
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        setupPickerView()
+        setupDatePicker()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchPlayers()
     }
     
     //MARK: - Private Functions
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: PlayerCell.identifier, bundle: nil), forCellReuseIdentifier: PlayerCell.identifier)
+    
+    private func setupPickerView() {
+        hourTextField.inputView = pickerView
+        gameTypeTextField.inputView = pickerView
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        hourTextField.delegate = self
+        gameTypeTextField.delegate = self
     }
     
-    private func fetchPlayers() {
-        FirebaseService.shared.fetchPlayerKeys { keys in
-            self.players.removeAll()
-            let group = DispatchGroup()
-            for key in keys {
-                group.enter()
-                FirebaseService.shared.fetchPlayerData(forKey: key) { player in
-                    if let player = player {
-                        self.players.append(player)
-                    }
-                    group.leave()
-                }
-            }
-            group.notify(queue: .main) {
-                self.tableView.reloadData()
-            }
+    private func setupDatePicker() {
+            datePicker.datePickerMode = .date
+            matchDateTextField.inputView = datePicker
+            datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         }
-    }
+        
+        @objc private func dateChanged() {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .long
+            matchDateTextField.text = formatter.string(from: datePicker.date)
+        }
+    
+    private func showErrorAlert(message: String) {
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    
     
     //MARK: - Button Actions
     @IBAction func createMatchButtonTapped(_ sender: Any) {
@@ -63,16 +75,51 @@ final class CreateMatchViewController: UIViewController {
     }
 }
 
-//MARK: - Extension TableViewDelegate && TableViewDataSource
-extension CreateMatchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        players.count
+//MARK: - Extension UIPickerViewDelegate && UIPickerViewDataSource
+extension CreateMatchViewController:  UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlayerCell.identifier, for: indexPath) as? PlayerCell else { return UITableViewCell() }
-        let player = players[indexPath.row]
-        cell.configure(with: player)
-        return cell
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch activeTextField {
+        case hourTextField:
+            return Constants.hours.count
+        case gameTypeTextField:
+            return Constants.gameType.count
+        default:
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch activeTextField {
+        case hourTextField:
+            return Constants.hours[row]
+        case gameTypeTextField:
+            return Constants.gameType[row]
+        default:
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            switch activeTextField {
+            case hourTextField:
+                hourTextField.text = Constants.hours[row]
+            case gameTypeTextField:
+                gameTypeTextField.text = Constants.gameType[row]
+            default:
+                break
+            }
+            activeTextField?.resignFirstResponder()
+        }
+}
+
+//MARK: - UITextFieldDelegate
+extension CreateMatchViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+        pickerView.reloadAllComponents()
     }
 }
