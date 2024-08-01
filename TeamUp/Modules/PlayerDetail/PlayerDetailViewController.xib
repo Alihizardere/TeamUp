@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerDetailViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="addPlayerButton" destination="efK-l9-fg2" id="Q5n-vu-MLN"/>
                 <outlet property="playerName" destination="Tq9-iX-qkZ" id="O8g-Nt-6sV"/>
                 <outlet property="playerOverall" destination="Jqt-0G-SNw" id="yFF-Xd-tnV"/>
                 <outlet property="playerPosition" destination="NQC-xt-WEk" id="nhE-mf-BSG"/>
