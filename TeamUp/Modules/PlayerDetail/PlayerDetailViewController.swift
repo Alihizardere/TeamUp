@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class PlayerDetailViewController: UIViewController {
 
@@ -15,17 +16,33 @@ final class PlayerDetailViewController: UIViewController {
   @IBOutlet weak var playerSurname: UITextField!
   @IBOutlet weak var playerPosition: UITextField!
   @IBOutlet weak var playerOverall: UITextField!
+  @IBOutlet weak var addPlayerButton: UIButton!
   let pickerView = UIPickerView()
   var activeTextField: UITextField?
+  var selectedPlayer: Player?
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupSelectedInfo()
     setupPickerView()
     setupTapGesture()
   }
 
   // MARK: -  Private Functions
+  private func setupSelectedInfo(){
+    guard let player = selectedPlayer else { return }
+    playerName.text = player.name
+    playerSurname.text = player.surname
+    playerPosition.text = player.position
+    if let overall = player.overall,
+       let url = URL(string: player.imageUrl ?? ""){
+      playerOverall.text = String(overall)
+      profileImage.kf.setImage(with: url)
+    }
+    addPlayerButton.setTitle("Güncelle", for: .normal)
+  }
+
   private func setupPickerView() {
     playerPosition.inputView = pickerView
     playerOverall.inputView = pickerView
@@ -53,22 +70,45 @@ final class PlayerDetailViewController: UIViewController {
     guard let name = playerName.text, !name.isEmpty,
           let surname = playerSurname.text, !surname.isEmpty,
           let position = playerPosition.text, !position.isEmpty,
-          let overall = playerOverall.text, !overall.isEmpty,
-          let image = profileImage.image else { return }
+          let overall = playerOverall.text, !overall.isEmpty else { return }
 
-    FirebaseService.shared.uploadPlayerImage(
-      image,
-      playerName: name,
-      playerSurname: surname,
-      position: position,
-      overall: Int(overall)) { result in
-        switch result {
-        case .success():
-          self.navigationController?.popViewController(animated: true)
-        case .failure(let error):
-          print("Error adding user: \(error.localizedDescription)")
+    if let image = profileImage.image {
+      if let player = selectedPlayer {
+
+        let updatedPlayer = Player(
+          id: player.id,
+          name: name,
+          surname: surname,
+          imageUrl: player.imageUrl,
+          position: position,
+          overall: Int(overall)
+        )
+        FirebaseService.shared.updatePlayer(updatedPlayer) { result in
+          switch result {
+          case .success():
+            self.navigationController?.popViewController(animated: true)
+          case .failure(let error):
+            print("Error updating player: \(error.localizedDescription)")
+          }
         }
+      } else {
+        FirebaseService.shared.uploadPlayerImage(
+          image,
+          playerName: name,
+          playerSurname: surname,
+          position: position,
+          overall: Int(overall)) { result in
+            switch result {
+            case .success():
+              self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+              print("Error adding player: \(error.localizedDescription)")
+            }
+          }
       }
+    } else {
+      print("Image is required.")
+    }
   }
 }
 

@@ -98,6 +98,25 @@ final class FirebaseService {
     }
   }
 
+  func updatePlayer(_ player: Player, completion: @escaping (Result<Void, Error>) -> Void){
+
+    let playerData: [String: Any] = [
+      "name": player.name ?? "",
+      "surname": player.surname ?? "",
+      "imageUrl": player.imageUrl ?? "",
+      "position": player.position ?? "",
+      "overall": player.overall ?? 0
+    ]
+
+    databaseRef.child("players").child(player.id ?? "").updateChildValues(playerData) { error, _ in
+      if let error = error {
+        completion(.failure(error))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+
   private func savePlayer(_ player: Player?) {
     guard let player = player else { return }
 

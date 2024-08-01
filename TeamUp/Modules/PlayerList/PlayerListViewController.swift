@@ -63,4 +63,11 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
     cell.configure(with: player)
     return cell
   }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let player = players[indexPath.row]
+    let playerDetailVC = PlayerDetailViewController(nibName: "PlayerDetailViewController", bundle: nil)
+    playerDetailVC.selectedPlayer = player
+    navigationController?.pushViewController(playerDetailVC, animated: true)
+  }
 }
