@@ -10,7 +10,6 @@ import CoreLocation
 
 final class CreateMatchViewController: UIViewController {
     //MARK: - IBOutlets
-    @IBOutlet weak var groupNameTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var hourTextField: UITextField!
     @IBOutlet weak var matchDateTextField: UITextField!
@@ -22,6 +21,8 @@ final class CreateMatchViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
+    private let ibanPrefix = String(repeating: " ", count:1)
+    
     
     
     //MARK: - Lifecycle
@@ -29,6 +30,7 @@ final class CreateMatchViewController: UIViewController {
         super.viewDidLoad()
         setupPickerView()
         setupDatePicker()
+        setupTextFields()
         loadUserDefaults()
     }
     
@@ -51,7 +53,6 @@ final class CreateMatchViewController: UIViewController {
     private func saveToUserDefaults() {
         let defaults = UserDefaults.standard
         let textFieldDictionary: [String: UITextField] = [
-            "groupName": groupNameTextField,
             "location": locationTextField,
             "hour": hourTextField,
             "matchDate": matchDateTextField,
@@ -67,7 +68,6 @@ final class CreateMatchViewController: UIViewController {
     private func loadUserDefaults() {
         let defaults = UserDefaults.standard
         let textFieldDictionary: [String: UITextField] = [
-            "groupName": groupNameTextField,
             "location": locationTextField,
             "hour": hourTextField,
             "matchDate": matchDateTextField,
@@ -82,21 +82,22 @@ final class CreateMatchViewController: UIViewController {
     
     private func validateTextFields() -> Bool {
         let textFields: [UITextField] = [
-            groupNameTextField,
             locationTextField,
             hourTextField,
             matchDateTextField,
             hostIbanTextField,
             gameTypeTextField
         ]
-        
         for textField in textFields {
             if textField.text?.isEmpty ?? true {
                 return false
             }
         }
-        
         return true
+    }
+    
+    private func setupTextFields() {
+        hostIbanTextField.delegate = self
     }
     
     private func setupDatePicker() {
@@ -175,5 +176,18 @@ extension CreateMatchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
         pickerView.reloadAllComponents()
+        
+        if textField == hostIbanTextField {
+            textField.text = ibanPrefix
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField == hostIbanTextField else { return true }
+        
+        if range.location < ibanPrefix.count {
+            return false
+        }
+        return true
     }
 }
