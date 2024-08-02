@@ -22,14 +22,14 @@ final class CreateMatchViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
-
+    
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPickerView()
         setupDatePicker()
-
+        loadUserDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +41,6 @@ final class CreateMatchViewController: UIViewController {
     private func setupPickerView() {
         hourTextField.inputView = pickerView
         gameTypeTextField.inputView = pickerView
-        
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -49,29 +48,84 @@ final class CreateMatchViewController: UIViewController {
         gameTypeTextField.delegate = self
     }
     
-    private func setupDatePicker() {
-            datePicker.datePickerMode = .date
-            matchDateTextField.inputView = datePicker
-            datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+    private func saveToUserDefaults() {
+        let defaults = UserDefaults.standard
+        let textFieldDictionary: [String: UITextField] = [
+            "groupName": groupNameTextField,
+            "location": locationTextField,
+            "hour": hourTextField,
+            "matchDate": matchDateTextField,
+            "hostIban": hostIbanTextField,
+            "gameType": gameTypeTextField
+        ]
+        
+        for(key, textfield) in textFieldDictionary {
+            defaults.set(textfield.text, forKey: key)
+        }
+    }
+    
+    private func loadUserDefaults() {
+        let defaults = UserDefaults.standard
+        let textFieldDictionary: [String: UITextField] = [
+            "groupName": groupNameTextField,
+            "location": locationTextField,
+            "hour": hourTextField,
+            "matchDate": matchDateTextField,
+            "hostIban": hostIbanTextField,
+            "gameType": gameTypeTextField
+        ]
+        
+        for (key, textField) in textFieldDictionary {
+            textField.text = defaults.string(forKey: key)
+        }
+    }
+    
+    private func validateTextFields() -> Bool {
+        let textFields: [UITextField] = [
+            groupNameTextField,
+            locationTextField,
+            hourTextField,
+            matchDateTextField,
+            hostIbanTextField,
+            gameTypeTextField
+        ]
+        
+        for textField in textFields {
+            if textField.text?.isEmpty ?? true {
+                return false
+            }
         }
         
-        @objc private func dateChanged() {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .long
-            matchDateTextField.text = formatter.string(from: datePicker.date)
-        }
+        return true
+    }
     
-    private func showErrorAlert(message: String) {
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+    private func setupDatePicker() {
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .wheels
         }
+        datePicker.datePickerMode = .date
+        datePicker.minimumDate = Date()
+        matchDateTextField.inputView = datePicker
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+    }
+    
+    @objc private func dateChanged() {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        matchDateTextField.text = formatter.string(from: datePicker.date)
+    }
     
     
     //MARK: - Button Actions
     @IBAction func createMatchButtonTapped(_ sender: Any) {
-        let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
-        navigationController?.pushViewController(matchDetailVC, animated: true)
+        if validateTextFields() {
+            saveToUserDefaults()
+            let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+            navigationController?.pushViewController(matchDetailVC, animated: true)
+        } else {
+            UIAlertController.showAlert(on: self, title: "Eksik Bilgi", message: "Lütfen tüm alanları doldurun", primaryButtonTitle: "Tamam")
+        }
+        
     }
 }
 
@@ -104,16 +158,16 @@ extension CreateMatchViewController:  UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            switch activeTextField {
-            case hourTextField:
-                hourTextField.text = Constants.hours[row]
-            case gameTypeTextField:
-                gameTypeTextField.text = Constants.gameType[row]
-            default:
-                break
-            }
-            activeTextField?.resignFirstResponder()
+        switch activeTextField {
+        case hourTextField:
+            hourTextField.text = Constants.hours[row]
+        case gameTypeTextField:
+            gameTypeTextField.text = Constants.gameType[row]
+        default:
+            break
         }
+        activeTextField?.resignFirstResponder()
+    }
 }
 
 //MARK: - UITextFieldDelegate

@@ -15,6 +15,7 @@ final class MatchDetailViewController: UIViewController {
     @IBOutlet weak var lblTemp: UILabel!
     @IBOutlet weak var lblTempDesc: UILabel!
     @IBOutlet weak var lblWind: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var weatherImage: UIImageView!
     
     //MARK: - Properties
@@ -24,6 +25,7 @@ final class MatchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
+        loadUserDefaults()
     }
     
     //MARK: - Private Functions
@@ -58,6 +60,12 @@ final class MatchDetailViewController: UIViewController {
                 print("Failed to fetch weather data: \(error)")
             }
         }
+    }
+    
+    private func loadUserDefaults() {
+        let defaults = UserDefaults.standard
+        lblHour.text = defaults.string(forKey: "hour") ?? "N/A"
+        lblDate.text = defaults.string(forKey: "matchDate") ?? "N/A"
     }
     
     private func updateWeatherImage(for weather: Weather) {
