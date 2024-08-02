@@ -70,4 +70,33 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
     playerDetailVC.selectedPlayer = player
     navigationController?.pushViewController(playerDetailVC, animated: true)
   }
+
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { _, _, _ in
+      let player = self.players[indexPath.row]
+      UIAlertController.showAlert(
+        on: self ,
+        title: "Oyuncuyu sil",
+        message: "Oyuncuyu silmek istediğine emin misin?",
+        primaryButtonTitle: "Evet",
+        primaryButtonStyle: .destructive,
+        primaryButtonHandler: {
+          FirebaseService.shared.deletePlayer(player) { result in
+            switch result {
+            case .success(let success):
+              self.players.remove(at: indexPath.row)
+              tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .failure(let error):
+              UIAlertController.showAlert(
+                on: self,
+                title: "Silme İşlemi",
+                message: "Silme işlemi yapılamadı tekrar deneyiniz."
+              )
+            }
+          }
+        },
+        secondaryButtonTitle: "Hayır")
+    }
+    return UISwipeActionsConfiguration(actions: [deleteAction])
+  }
 }
