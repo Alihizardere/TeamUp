@@ -16,31 +16,20 @@ final class PlayerListViewController: UIViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.delegate = self
-    tableView.dataSource = self
-    tableView.register(UINib(nibName: PlayerCell.identifier, bundle: nil), forCellReuseIdentifier: PlayerCell.identifier)
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    fetchPlayers()
+    tableView.register(
+      UINib(nibName: PlayerCell.identifier, bundle: nil),
+      forCellReuseIdentifier: PlayerCell.identifier
+    )
+    observePlayers()
   }
 
   // MARK: - Private Functions
-  private func fetchPlayers(){
-    FirebaseService.shared.fetchPlayerKeys { keys in
-      self.players.removeAll()
-      let group = DispatchGroup()
-      for key in keys {
-        group.enter()
-        FirebaseService.shared.fetchPlayerData(forKey: key) { player in
-          if let player = player {
-            self.players.append(player)
-          }
-          group.leave()
-        }
-      }
-      group.notify(queue: .main) {
-          self.tableView.reloadData()
+  private func observePlayers() {
+    FirebaseService.shared.observePlayer { [weak self] players in
+      guard let self else { return }
+      DispatchQueue.main.async {
+        self.players = players
+        self.tableView.reloadData()
       }
     }
   }
@@ -72,30 +61,34 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { _, _, _ in
-      let player = self.players[indexPath.row]
+    let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { [weak self] _, _, completionHandler in
+      guard let self else { return }
+      let player = players[indexPath.row]
+
       UIAlertController.showAlert(
-        on: self ,
-        title: "Oyuncuyu sil",
-        message: "Oyuncuyu silmek istediğine emin misin?",
-        primaryButtonTitle: "Evet",
+        on: self,
+        title: "Delete Player",
+        message: "Are you sure you want to delete the player?",
+        primaryButtonTitle: "OK",
         primaryButtonStyle: .destructive,
         primaryButtonHandler: {
+          self.players.remove(at: indexPath.row)
+          tableView.deleteRows(at: [indexPath], with: .automatic)
           FirebaseService.shared.deletePlayer(player) { result in
             switch result {
-            case .success(let success):
-              self.players.remove(at: indexPath.row)
-              tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .success:
+              completionHandler(true)
             case .failure(let error):
               UIAlertController.showAlert(
                 on: self,
-                title: "Silme İşlemi",
-                message: "Silme işlemi yapılamadı tekrar deneyiniz."
+                title: "Delete",
+                message: "Deletion failed, try again."
               )
+              completionHandler(false)
             }
           }
         },
-        secondaryButtonTitle: "Hayır")
+        secondaryButtonTitle: "Cancel")
     }
     return UISwipeActionsConfiguration(actions: [deleteAction])
   }

@@ -22,38 +22,6 @@ final class FirebaseService {
     self.storageRef = Storage.storage().reference()
   }
 
-  // MARK: - Functions
-  func fetchPlayerKeys(completion: @escaping ([String]) -> Void) {
-    databaseRef.child("players").observeSingleEvent(of: .value) { snapshot in
-      var keys = [String]()
-      for child in snapshot.children {
-        if let key = (child as? DataSnapshot)?.key {
-          keys.append(key)
-        }
-      }
-      completion(keys)
-    }
-  }
-
-  func fetchPlayerData(forKey key: String, completion: @escaping (Player?) -> Void) {
-    databaseRef.child("players").child(key).observeSingleEvent(of: .value) { snapshot in
-      guard let dictionary = snapshot.value as? [String: Any] else {
-        completion(nil)
-        return
-      }
-
-      let player = Player(
-        id: key,
-        name: dictionary["name"] as? String,
-        surname: dictionary["surname"] as? String,
-        imageUrl: dictionary["imageUrl"] as? String,
-        position: dictionary["position"] as? String,
-        overall: dictionary["overall"] as? Int
-      )
-      completion(player)
-    }
-  }
-
   func uploadPlayerImage(
     _ image: UIImage?,
     playerName: String?,
@@ -91,6 +59,27 @@ final class FirebaseService {
         self.savePlayer(player)
         completion(.success(()))
       }
+    }
+  }
+
+  func observePlayer(completion: @escaping ([Player]) -> Void) {
+    databaseRef.child("players").observe(.value) { snapshot in
+      var players = [Player]()
+      for child in snapshot.children {
+        if let snapshot = child as? DataSnapshot,
+           let dictionary = snapshot.value as? [String: Any] {
+          let player = Player(
+            id: snapshot.key,
+            name: dictionary["name"] as? String,
+            surname: dictionary["surname"] as? String,
+            imageUrl: dictionary["imageUrl"] as? String,
+            position: dictionary["position"] as? String,
+            overall: dictionary["overall"] as? Int
+          )
+          players.append(player)
+        }
+      }
+      completion(players)
     }
   }
 
@@ -146,7 +135,6 @@ final class FirebaseService {
         }
       }
     }
-
   }
 }
 
