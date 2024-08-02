@@ -67,17 +67,13 @@ final class FirebaseService {
     let playerID = databaseRef.child("players").childByAutoId().key ?? UUID().uuidString
     let imageRef = storageRef.child("profile_images/\(playerID).jpg")
 
-    imageRef.putData(imageData, metadata: nil) {
-      metadata,
-      error in
+    imageRef.putData(imageData, metadata: nil) { metadata, error in
       if let error = error {
         completion(.failure(error))
         return
       }
       
-      imageRef.downloadURL {
-        url,
-        error in
+      imageRef.downloadURL { url, error in
         if let error = error {
           completion(.failure(error))
           return
@@ -118,7 +114,7 @@ final class FirebaseService {
   }
 
   private func savePlayer(_ player: Player?) {
-    guard let player = player else { return }
+    guard let player else { return }
 
     let playerData: [String: Any] = [
       "name": player.name ?? "",
@@ -128,6 +124,29 @@ final class FirebaseService {
       "overall": player.overall ?? 0
     ]
     databaseRef.child("players").child(player.id ?? "").setValue(playerData)
+  }
+
+  func deletePlayer(_ player: Player?, completion: @escaping (Result<Void,Error>)-> Void){
+    guard let player else { return }
+
+    let playerRef = databaseRef.child("players").child(player.id ?? "")
+
+    if let imageUrl = player.imageUrl {
+      let storageRef = Storage.storage().reference(forURL: imageUrl)
+      storageRef.delete { error in
+        if let error = error {
+          completion(.failure(error))
+        }
+      }
+      playerRef.removeValue { error, _ in
+        if let error = error {
+          completion(.failure(error))
+        } else {
+          completion(.success(()))
+        }
+      }
+    }
+
   }
 }
 
