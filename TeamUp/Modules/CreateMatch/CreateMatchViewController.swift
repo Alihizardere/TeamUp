@@ -24,7 +24,7 @@ final class CreateMatchViewController: UIViewController {
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
     private let ibanPrefix = String(repeating: " ", count: 1)
-    private let ibanMaxLength = 32
+    private let ibanMaxLength = 26
     private let pasteButton = UIButton(type: .system)
     
     //MARK: - Lifecycle
@@ -59,6 +59,7 @@ final class CreateMatchViewController: UIViewController {
             "location": locationTextField,
             "hour": hourTextField,
             "matchDate": matchDateTextField,
+            "hostName": hostNameTextField,
             "hostIban": hostIbanTextField,
             "gameType": gameTypeTextField
         ]
@@ -75,6 +76,7 @@ final class CreateMatchViewController: UIViewController {
             "hour": hourTextField,
             "matchDate": matchDateTextField,
             "hostIban": hostIbanTextField,
+            "hostName": hostNameTextField,
             "gameType": gameTypeTextField
         ]
         
@@ -145,9 +147,6 @@ final class CreateMatchViewController: UIViewController {
                 hostIbanTextField.text = pasteString
             }
         }
-    
-  
- 
     
     //MARK: - Button Actions
     @IBAction func createMatchButtonTapped(_ sender: Any) {
