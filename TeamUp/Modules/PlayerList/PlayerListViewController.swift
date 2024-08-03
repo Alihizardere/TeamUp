@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlayerListViewController: UIViewController {
+final class PlayerListViewController: BaseViewController {
 
   // MARK: - Properties
   @IBOutlet weak var tableView: UITableView!
@@ -25,12 +25,23 @@ final class PlayerListViewController: UIViewController {
 
   // MARK: - Private Functions
   private func observePlayers() {
+    showLoading()
     guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
     FirebaseService.shared.observePlayer(sportType: sportType) { [weak self] players in
       guard let self else { return }
       DispatchQueue.main.async {
         self.players = players
         self.tableView.reloadData()
+        self.hideLoading()
+        if self.players.isEmpty {
+          self.tableView.setEmptyView(
+            title: "No Players Yet",
+            message: "Add new players to get started!",
+            image: UIImage(named: "no-results")
+          )
+        } else {
+          self.tableView.restore()
+        }
       }
     }
   }

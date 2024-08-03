@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class PlayerDetailViewController: UIViewController {
+final class PlayerDetailViewController: BaseViewController {
 
   // MARK: - Properties
   @IBOutlet weak var profileImage: UIImageView!
@@ -90,6 +90,8 @@ final class PlayerDetailViewController: UIViewController {
           let overall = playerOverall.text, !overall.isEmpty,
           let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
 
+    showLoading()
+
     if let image = profileImage.image {
       if let player = selectedPlayer {
 
@@ -120,6 +122,7 @@ final class PlayerDetailViewController: UIViewController {
           position: position,
           overall: Int(overall),
           sportType: sportType) { result in
+            self.hideLoading()
             switch result {
             case .success():
               self.navigationController?.popViewController(animated: true)

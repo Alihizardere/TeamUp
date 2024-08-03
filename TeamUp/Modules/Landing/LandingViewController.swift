@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LandingViewController: UIViewController {
+final class LandingViewController: BaseViewController {
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
