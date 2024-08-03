@@ -8,38 +8,33 @@
 import UIKit
 
 final class LoadingView {
-    //MARK: - Properties
-    static let shared = LoadingView()
-    private var timer: Timer?
-    private var minimumDuration: TimeInterval = 3.0
-    private var blurView: UIVisualEffectView
-    
-    //MARK: - Init method
-    private init() {
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.frame = UIScreen.main.bounds
+  var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+  static let shared = LoadingView()
+  var blurView: UIVisualEffectView = UIVisualEffectView()
+
+  private init() {
+    configure()
+  }
+
+  func configure() {
+    blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    blurView.translatesAutoresizingMaskIntoConstraints = false
+    blurView.frame = UIWindow(frame: UIScreen.main.bounds).frame
+    activityIndicator.center = blurView.center
+    activityIndicator.hidesWhenStopped = true
+    blurView.contentView.addSubview(activityIndicator)
+  }
+
+  func startLoading() {
+    UIApplication.shared.windows.first?.addSubview(blurView)
+    blurView.translatesAutoresizingMaskIntoConstraints = false
+    activityIndicator.startAnimating()
+  }
+
+  func hideLoading() {
+    DispatchQueue.main.async {
+      self.blurView.removeFromSuperview()
+      self.activityIndicator.stopAnimating()
     }
-    
-    //MARK: - Functions
-    func startLoading() {
-        guard let window = UIApplication.shared.windows.first else {
-            return
-        }
-        
-        if blurView.superview == nil {
-            window.addSubview(blurView)
-            
-            NSLayoutConstraint.activate([
-                blurView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
-                blurView.trailingAnchor.constraint(equalTo: window.trailingAnchor),
-                blurView.topAnchor.constraint(equalTo: window.topAnchor),
-                blurView.bottomAnchor.constraint(equalTo: window.bottomAnchor)
-            ])
-        }
-    }
-    
-    func hideLoading() {
-        blurView.removeFromSuperview()
-    }
+  }
 }
