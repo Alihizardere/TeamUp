@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateMatchViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="createMatchButton" destination="RfK-CN-nHI" id="KFG-K5-8Mn"/>
                 <outlet property="gameTypeTextField" destination="gEt-H1-KUu" id="a7T-MI-qJk"/>
                 <outlet property="hostIbanTextField" destination="q2w-ml-yRy" id="Thu-eu-Wp7"/>
+                <outlet property="hostNameTextField" destination="2SU-8D-EqI" id="LmT-Vy-8CQ"/>
                 <outlet property="hourTextField" destination="U9f-e6-WwM" id="Xei-G2-SIl"/>
                 <outlet property="locationTextField" destination="bIq-Qa-Mem" id="p0S-l0-SzY"/>
                 <outlet property="matchDateTextField" destination="gXM-cz-h9w" id="UIC-wA-eu0"/>
@@ -44,6 +46,9 @@
                     <rect key="frame" x="45" y="505.33333333333326" width="340" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="DCt-wA-fig"/>
+                    </connections>
                 </textField>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="mmK-B0-5gR">
                     <rect key="frame" x="8" y="109.33333333333334" width="377" height="355.66666666666663"/>
