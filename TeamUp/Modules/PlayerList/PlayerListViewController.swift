@@ -25,7 +25,8 @@ final class PlayerListViewController: UIViewController {
 
   // MARK: - Private Functions
   private func observePlayers() {
-    FirebaseService.shared.observePlayer { [weak self] players in
+    guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
+    FirebaseService.shared.observePlayer(sportType: sportType) { [weak self] players in
       guard let self else { return }
       DispatchQueue.main.async {
         self.players = players
@@ -63,6 +64,7 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { [weak self] _, _, completionHandler in
       guard let self else { return }
+      guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
       let player = players[indexPath.row]
 
       UIAlertController.showAlert(
@@ -74,11 +76,11 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
         primaryButtonHandler: {
           self.players.remove(at: indexPath.row)
           tableView.deleteRows(at: [indexPath], with: .automatic)
-          FirebaseService.shared.deletePlayer(player) { result in
+          FirebaseService.shared.deletePlayer(player, sportType: sportType) { result in
             switch result {
             case .success:
               completionHandler(true)
-            case .failure(let error):
+            case .failure:
               UIAlertController.showAlert(
                 on: self,
                 title: "Delete",

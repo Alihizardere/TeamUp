@@ -28,11 +28,12 @@ final class FirebaseService {
     playerSurname: String?,
     position: String?,
     overall: Int?,
+    sportType: String,
     completion: @escaping (Result<Void, Error>) -> Void
   ) {
     guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
 
-    let playerID = databaseRef.child("players").childByAutoId().key ?? UUID().uuidString
+    let playerID = databaseRef.child("players").child("\(sportType)_players").childByAutoId().key ?? UUID().uuidString
     let imageRef = storageRef.child("profile_images/\(playerID).jpg")
 
     imageRef.putData(imageData, metadata: nil) { metadata, error in
@@ -56,14 +57,14 @@ final class FirebaseService {
           position: position,
           overall: overall
         )
-        self.savePlayer(player)
+        self.savePlayer(player, sportType: sportType)
         completion(.success(()))
       }
     }
   }
 
-  func observePlayer(completion: @escaping ([Player]) -> Void) {
-    databaseRef.child("players").observe(.value) { snapshot in
+  func observePlayer(sportType: String, completion: @escaping ([Player]) -> Void) {
+    databaseRef.child("players").child("\(sportType)_players").observe(.value) { snapshot in
       var players = [Player]()
       for child in snapshot.children {
         if let snapshot = child as? DataSnapshot,
@@ -83,7 +84,7 @@ final class FirebaseService {
     }
   }
 
-  func updatePlayer(_ player: Player, completion: @escaping (Result<Void, Error>) -> Void){
+  func updatePlayer(_ player: Player, sportType: String, completion: @escaping (Result<Void, Error>) -> Void){
 
     let playerData: [String: Any] = [
       "name": player.name ?? "",
@@ -93,7 +94,7 @@ final class FirebaseService {
       "overall": player.overall ?? 0
     ]
 
-    databaseRef.child("players").child(player.id ?? "").updateChildValues(playerData) { error, _ in
+    databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "").updateChildValues(playerData) { error, _ in
       if let error = error {
         completion(.failure(error))
       } else {
@@ -102,7 +103,7 @@ final class FirebaseService {
     }
   }
 
-  private func savePlayer(_ player: Player?) {
+  private func savePlayer(_ player: Player?, sportType: String) {
     guard let player else { return }
 
     let playerData: [String: Any] = [
@@ -112,13 +113,13 @@ final class FirebaseService {
       "position": player.position ?? "",
       "overall": player.overall ?? 0
     ]
-    databaseRef.child("players").child(player.id ?? "").setValue(playerData)
+    databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "").setValue(playerData)
   }
 
-  func deletePlayer(_ player: Player?, completion: @escaping (Result<Void,Error>)-> Void){
+  func deletePlayer(_ player: Player?, sportType: String, completion: @escaping (Result<Void,Error>)-> Void){
     guard let player else { return }
 
-    let playerRef = databaseRef.child("players").child(player.id ?? "")
+    let playerRef = databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "")
 
     if let imageUrl = player.imageUrl {
       let storageRef = Storage.storage().reference(forURL: imageUrl)

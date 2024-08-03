@@ -20,6 +20,7 @@ final class PlayerDetailViewController: UIViewController {
   let pickerView = UIPickerView()
   var activeTextField: UITextField?
   var selectedPlayer: Player?
+  var positions = [String]()
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -49,9 +50,25 @@ final class PlayerDetailViewController: UIViewController {
 
     pickerView.delegate = self
     pickerView.dataSource = self
-
+    
     playerPosition.delegate = self
     playerOverall.delegate = self
+
+    updatePickerData()
+  }
+
+  private func updatePickerData() {
+    guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
+
+    switch sportType {
+    case "football":
+      positions = Constants.footballPositions
+    case "volleyball":
+      positions = Constants.volleyballPositions
+    default:
+      positions = []
+    }
+    pickerView.reloadAllComponents()
   }
 
   private func setupTapGesture() {
@@ -70,7 +87,8 @@ final class PlayerDetailViewController: UIViewController {
     guard let name = playerName.text, !name.isEmpty,
           let surname = playerSurname.text, !surname.isEmpty,
           let position = playerPosition.text, !position.isEmpty,
-          let overall = playerOverall.text, !overall.isEmpty else { return }
+          let overall = playerOverall.text, !overall.isEmpty,
+          let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
 
     if let image = profileImage.image {
       if let player = selectedPlayer {
@@ -83,21 +101,25 @@ final class PlayerDetailViewController: UIViewController {
           position: position,
           overall: Int(overall)
         )
-        FirebaseService.shared.updatePlayer(updatedPlayer) { result in
-          switch result {
-          case .success():
-            self.navigationController?.popViewController(animated: true)
-          case .failure(let error):
-            print("Error updating player: \(error.localizedDescription)")
+
+        FirebaseService.shared.updatePlayer(
+          updatedPlayer,
+          sportType: sportType) { result in
+            switch result {
+            case .success():
+              self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+              print("Error updating player: \(error.localizedDescription)")
+            }
           }
-        }
       } else {
         FirebaseService.shared.uploadPlayerImage(
           image,
           playerName: name,
           playerSurname: surname,
           position: position,
-          overall: Int(overall)) { result in
+          overall: Int(overall),
+          sportType: sportType) { result in
             switch result {
             case .success():
               self.navigationController?.popViewController(animated: true)
@@ -126,13 +148,13 @@ extension PlayerDetailViewController: UIImagePickerControllerDelegate, UINavigat
 // MARK: - UIPickerViewDelegate && UIPickerViewDataSource
 extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
+     1
   }
 
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     switch activeTextField {
     case playerPosition:
-      return Constants.positions.count
+      return positions.count
     case playerOverall:
       return Constants.scores.count
     default:
@@ -143,7 +165,7 @@ extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     switch activeTextField {
     case playerPosition:
-      return Constants.positions[row]
+      return positions[row]
     case playerOverall:
       return Constants.scores[row]
     default:
@@ -154,7 +176,7 @@ extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     switch activeTextField {
     case playerPosition:
-      playerPosition.text = Constants.positions[row]
+      playerPosition.text = positions[row]
     case playerOverall:
       playerOverall.text = Constants.scores[row]
     default:
