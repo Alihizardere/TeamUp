@@ -21,6 +21,10 @@ final class MatchDetailViewController: UIViewController {
     @IBOutlet weak var lblShowAllPlayers: UILabel!
     @IBOutlet weak var lblHostIban: UILabel!
     @IBOutlet weak var lblHostName: UILabel!
+    @IBOutlet weak var weatherView: UIView!
+    @IBOutlet weak var nextMatchView: UIView!
+    @IBOutlet weak var hostView: UIView!
+    @IBOutlet weak var playersView: UIView!
     
     //MARK: - Properties
     private let locationManager = CLLocationManager()
@@ -33,7 +37,9 @@ final class MatchDetailViewController: UIViewController {
         loadUserDefaults()
         observePlayers()
         setupShowAllPlayersTapGesture()
+        setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
     }
+    
     
     //MARK: - Private Functions
     private func setupLocationManager() {
@@ -84,7 +90,7 @@ final class MatchDetailViewController: UIViewController {
         let defaults = UserDefaults.standard
         lblHour.text = defaults.string(forKey: "hour") ?? "N/A"
         lblDate.text = defaults.string(forKey: "matchDate") ?? "N/A"
-        lblHostIban.text = defaults.string(forKey: "hostIban") ?? "N/A"
+        lblHostIban.text = (("TR\(defaults.string(forKey: "hostIban") ?? "N/A")"))
         lblHostName.text = defaults.string(forKey: "hostName") ?? "N/A"
     }
     
@@ -100,6 +106,13 @@ final class MatchDetailViewController: UIViewController {
             weatherImage.tintColor = .systemGray3
         default:
             weatherImage.image = UIImage(systemName: "questionmark.circle")
+        }
+    }
+    
+    private func setupCornerRadius(for views: [UIView], radius: CGFloat) {
+        views.forEach { view in
+            view.layer.cornerRadius = radius
+            view.layer.masksToBounds = true
         }
     }
     
