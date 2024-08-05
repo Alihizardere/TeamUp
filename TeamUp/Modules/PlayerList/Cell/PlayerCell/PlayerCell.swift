@@ -11,6 +11,7 @@ import Kingfisher
 class PlayerCell: UITableViewCell {
 
   // MARK: - Properties
+  @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var surnameLabel: UILabel!
@@ -19,13 +20,13 @@ class PlayerCell: UITableViewCell {
   static let identifier = "PlayerCell"
 
   override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    super.awakeFromNib()
+    containerView.addShadow(cornerRadius: 25)
+  }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+  }
 
   func configure(with player: Player) {
     nameLabel.text = player.name
@@ -38,5 +39,4 @@ class PlayerCell: UITableViewCell {
       profileImage.image = UIImage(named: "placeholder")
     }
   }
-
 }
