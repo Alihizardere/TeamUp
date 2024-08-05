@@ -1,16 +1,17 @@
 //
-//  SetTeamsViewController.swift
+//  PlayerViewController.swift
 //  TeamUp
 //
-//  Created by Doğukan Temizyürek on 5.08.2024.
+//  Created by Doğukan Temizyürek on 6.08.2024.
 //
 
 import UIKit
 
-final class SetTeamsViewController: BaseViewController {
+final class SetPlayers: BaseViewController {
     @IBOutlet weak var team1StackView: UIStackView!
     @IBOutlet weak var team2StackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var players = [Player]()
     var initialImage: UIImage?
     var lastRemovedPlayer: Player?
@@ -119,19 +120,14 @@ final class SetTeamsViewController: BaseViewController {
             }
         }
     }
-    
     @IBAction func btnTakeItBack(_ sender: UIButton) {
         guard let lastRemovedPlayer = lastRemovedPlayer else { return }
         
-        // Determine where to insert the player in the collection view
-        let newIndexPath = IndexPath(row: players.count, section: 0)
-        
         // Add the player back to the collection view
         players.append(lastRemovedPlayer)
-        collectionView.insertItems(at: [newIndexPath])
+        collectionView.insertItems(at: [IndexPath(row: players.count - 1, section: 0)])
         
-        // Optionally, update the UIImageView with the initial image if needed
-        // (If you want to keep the image view as is, you can comment this part out)
+        // Update the UIImageView with the initial image
         clearImageViews(in: team1StackView)
         clearImageViews(in: team2StackView)
     }
@@ -145,47 +141,17 @@ final class SetTeamsViewController: BaseViewController {
     }
     
     private func clearImageViews(in stackView: UIStackView) {
-        // Iterate through all arranged subviews of the stack view
         for view in stackView.arrangedSubviews {
-            // Check if the subview is a column stack view
             guard let columnStackView = view as? UIStackView else { continue }
-            
-            // Iterate through subviews of the column stack view
             for subview in columnStackView.arrangedSubviews {
                 if let playerStackView = subview as? UIStackView {
-                    // Iterate through subviews of the player stack view
                     for stackSubview in playerStackView.arrangedSubviews {
                         if let imageView = stackSubview as? UIImageView {
-                            // If the image view's image matches the image of the last removed player, reset it
-                            if imageView.image == initialImage {
-                                imageView.image = initialImage
-                                imageView.backgroundColor = .lightGray
-                            }
+                            imageView.image = initialImage
+                            imageView.backgroundColor = .lightGray
                         }
                         if let label = stackSubview as? UILabel {
-                            // Reset label text
                             label.text = ""
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func updateImageViewForLastRemovedPlayer(_ player: Player) {
-        // Iterate through all stack views to find the image view for the last removed player
-        for stackView in [team1StackView, team2StackView] {
-            for view in stackView?.arrangedSubviews ?? [] {
-                guard let columnStackView = view as? UIStackView else { continue }
-                for subview in columnStackView.arrangedSubviews {
-                    if let playerStackView = subview as? UIStackView {
-                        for stackSubview in playerStackView.arrangedSubviews {
-                            if let imageView = stackSubview as? UIImageView {
-                                if imageView.image == initialImage {
-                                    // Update imageView with player's image if this is the one to restore
-                                    imageView.image = UIImage(named: "kit5")
-                                }
-                            }
                         }
                     }
                 }
@@ -194,7 +160,7 @@ final class SetTeamsViewController: BaseViewController {
     }
 }
 
-extension SetTeamsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SetPlayers: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return players.count
     }
@@ -209,7 +175,7 @@ extension SetTeamsViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
-extension SetTeamsViewController: UICollectionViewDragDelegate {
+extension SetPlayers: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let player = players[indexPath.row]
         if let image = UIImage(named: "kit5") {
@@ -223,7 +189,7 @@ extension SetTeamsViewController: UICollectionViewDragDelegate {
     }
 }
 
-extension SetTeamsViewController: UIDropInteractionDelegate {
+extension SetPlayers: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: UIImage.self)
     }

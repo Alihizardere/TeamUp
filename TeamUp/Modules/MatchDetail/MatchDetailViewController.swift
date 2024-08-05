@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-final class MatchDetailViewController: UIViewController {
+final class MatchDetailViewController: BaseViewController {
     //MARK: - IBOutlets
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var lblHour: UILabel!
@@ -123,7 +123,7 @@ final class MatchDetailViewController: UIViewController {
     }
     
     @objc private func showAllPlayersTapped() {
-        let playerListVC = PlayerListViewController(nibName: "PlayerListViewController", bundle: nil)
+        let playerListVC = PlayerListViewController(nibName: "SetTeamsViewController", bundle: nil)
         navigationController?.pushViewController(playerListVC, animated: true)
     }
 }

@@ -51,6 +51,10 @@
 		45979D3E2C5E300A00F3263E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45979D3D2C5E300A00F3263E /* LoadingView.swift */; };
 		45979D402C5E30B000F3263E /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45979D3F2C5E30B000F3263E /* EmptyView.swift */; };
 		45A8C5E62C5A52FA00B496A9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 45A8C5E52C5A52FA00B496A9 /* Alamofire */; };
+		45B1216B2C617E87003AC229 /* SetPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B121692C617E87003AC229 /* SetPlayers.swift */; };
+		45B1216C2C617E87003AC229 /* SetPlayers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B1216A2C617E87003AC229 /* SetPlayers.xib */; };
+		45B121702C617EEC003AC229 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1216E2C617EEC003AC229 /* PlayerCollectionViewCell.swift */; };
+		45B121712C617EEC003AC229 /* PlayerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B1216F2C617EEC003AC229 /* PlayerCollectionViewCell.xib */; };
 		45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772CD2C57EF3400C952C8 /* LandingViewController.swift */; };
 		45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C772CE2C57EF3400C952C8 /* LandingViewController.xib */; };
 		45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C772D12C57EF4600C952C8 /* HomeViewController.swift */; };
@@ -101,6 +105,10 @@
 		458E31222C5A28640039B64F /* MatchDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchDetailViewController.xib; sourceTree = "<group>"; };
 		45979D3D2C5E300A00F3263E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		45979D3F2C5E30B000F3263E /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		45B121692C617E87003AC229 /* SetPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPlayers.swift; sourceTree = "<group>"; };
+		45B1216A2C617E87003AC229 /* SetPlayers.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetPlayers.xib; sourceTree = "<group>"; };
+		45B1216E2C617EEC003AC229 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
+		45B1216F2C617EEC003AC229 /* PlayerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerCollectionViewCell.xib; sourceTree = "<group>"; };
 		45C772CD2C57EF3400C952C8 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		45C772CE2C57EF3400C952C8 /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
 		45C772D12C57EF4600C952C8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -303,9 +311,29 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		45B121682C617E11003AC229 /* SetPlayers */ = {
+			isa = PBXGroup;
+			children = (
+				45B1216D2C617EB3003AC229 /* Cell */,
+				45B121692C617E87003AC229 /* SetPlayers.swift */,
+				45B1216A2C617E87003AC229 /* SetPlayers.xib */,
+			);
+			path = SetPlayers;
+			sourceTree = "<group>";
+		};
+		45B1216D2C617EB3003AC229 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				45B1216E2C617EEC003AC229 /* PlayerCollectionViewCell.swift */,
+				45B1216F2C617EEC003AC229 /* PlayerCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		45C772CA2C57EF0900C952C8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				45B121682C617E11003AC229 /* SetPlayers */,
 				458E31202C5A284B0039B64F /* MatchDetail */,
 				3DDF17682C591B0100F2BF80 /* PlayerDetail */,
 				3DFF95262C5807B2001DD9D5 /* PlayerList */,
@@ -417,9 +445,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFF94D12C57CE60001DD9D5 /* Assets.xcassets in Resources */,
+				45B1216C2C617E87003AC229 /* SetPlayers.xib in Resources */,
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
 				45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */,
 				3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */,
+				45B121712C617EEC003AC229 /* PlayerCollectionViewCell.xib in Resources */,
 				45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */,
 				3DFF95242C58079B001DD9D5 /* CreateMatchViewController.xib in Resources */,
 				3DFF95292C5807C8001DD9D5 /* PlayerListViewController.xib in Resources */,
@@ -446,6 +476,7 @@
 				3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */,
 				3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */,
 				3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */,
+				45B1216B2C617E87003AC229 /* SetPlayers.swift in Sources */,
 				3DB528D62C5A66BD004DD7B6 /* WeatherResponse.swift in Sources */,
 				3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */,
 				3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */,
@@ -457,6 +488,7 @@
 				45979D402C5E30B000F3263E /* EmptyView.swift in Sources */,
 				3DDF176C2C591B3900F2BF80 /* PlayerDetailViewController.swift in Sources */,
 				45979D3E2C5E300A00F3263E /* LoadingView.swift in Sources */,
+				45B121702C617EEC003AC229 /* PlayerCollectionViewCell.swift in Sources */,
 				3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
