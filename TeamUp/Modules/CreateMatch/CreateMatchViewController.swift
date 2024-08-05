@@ -152,7 +152,7 @@ final class CreateMatchViewController: UIViewController {
     @IBAction func createMatchButtonTapped(_ sender: Any) {
         if validateTextFields() {
             saveToUserDefaults()
-            let setTeamsVC = SetTeamsViewController(nibName: "SetTeamsViewController", bundle: nil)
+            let setTeamsVC = SetPlayers(nibName: "SetPlayers", bundle: nil)
             navigationController?.pushViewController(setTeamsVC, animated: true)
         } else {
             UIAlertController.showAlert(on: self, title: "Eksik Bilgi", message: "Lütfen tüm alanları doldurun", primaryButtonTitle: "Tamam")
