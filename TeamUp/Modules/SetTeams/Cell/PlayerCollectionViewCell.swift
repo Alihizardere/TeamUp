@@ -7,11 +7,19 @@
 
 import UIKit
 
-class PlayerCollectionViewCell: UICollectionViewCell {
+final class PlayerCollectionViewCell: UICollectionViewCell {
+    
+    static let identifier = "PlayerCollectionViewCell"
 
+    @IBOutlet weak var lblPlayerName: UILabel!
+    @IBOutlet weak var lblPlayerSurname: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
+    
+    func configure(with player: Player) {
+        lblPlayerName.text = player.name
+        lblPlayerSurname.text = player.surname
+    }
 }

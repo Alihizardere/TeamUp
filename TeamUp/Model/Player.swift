@@ -5,13 +5,14 @@
 //  Created by alihizardere on 30.07.2024.
 //
 
-import Foundation
+import UIKit
 
-struct Player: Decodable {
-  let id: String?
-  let name: String?
-  let surname: String?
-  let imageUrl: String?
-  let position: String?
-  let overall: Int?
+struct Player {
+    let id: String?
+    let name: String?
+    let surname: String?
+    let imageUrl: String?
+    let position: String?
+    let overall: Int?
+    
 }
