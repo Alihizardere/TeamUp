@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */; };
 		3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51AB8E2C61687E00E1950B /* UIView.swift */; };
+		3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */; };
 		3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */; };
 		3DB528D62C5A66BD004DD7B6 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB528D52C5A66BD004DD7B6 /* WeatherResponse.swift */; };
 		3DB61D2B2C5A376C000ECAE0 /* WeatherLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */; };
@@ -77,6 +78,7 @@
 /* Begin PBXFileReference section */
 		3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShowable.swift; sourceTree = "<group>"; };
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCustomView.swift; sourceTree = "<group>"; };
 		3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		3DB528D52C5A66BD004DD7B6 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLogic.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				45979D3D2C5E300A00F3263E /* LoadingView.swift */,
 				45979D3F2C5E30B000F3263E /* EmptyView.swift */,
+				3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */,
 				3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */,
 				3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */,
+				3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */,
 				3DFF94CC2C57CE5F001DD9D5 /* BaseViewController.swift in Sources */,
 				3DFF95252C58079B001DD9D5 /* CreateMatchViewController.swift in Sources */,
 				3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */,

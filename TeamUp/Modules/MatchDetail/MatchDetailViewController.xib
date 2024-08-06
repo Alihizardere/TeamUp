@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MatchDetailViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="0ek-3D-dd7" id="AHF-I6-ibs"/>
+                <outlet property="firstTeamView" destination="byM-O3-w2t" id="Bm8-0K-ekX"/>
                 <outlet property="hostView" destination="gQc-fa-EQF" id="dtR-07-8dq"/>
                 <outlet property="lblDate" destination="tIr-va-Ygy" id="kln-Qe-Mke"/>
                 <outlet property="lblHostIban" destination="FuE-A1-uR7" id="LIA-V0-0Or"/>
@@ -24,6 +26,8 @@
                 <outlet property="lblWind" destination="uLX-07-LgP" id="nSO-h7-i6b"/>
                 <outlet property="nextMatchView" destination="Luh-Ym-xrP" id="5ZL-zs-zlt"/>
                 <outlet property="playersView" destination="cpQ-LG-9EM" id="v8e-xo-QgI"/>
+                <outlet property="secondTeamView" destination="cgC-4j-SLS" id="uJ4-Xg-693"/>
+                <outlet property="teamSegmentedControl" destination="jzU-FL-cfI" id="p5w-Re-NYI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="weatherImage" destination="MwA-xW-co6" id="et5-cm-23M"/>
                 <outlet property="weatherView" destination="a1p-3k-wN1" id="B9F-s9-bH6"/>
@@ -38,10 +42,10 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ek-3D-dd7">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="1460"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="1226"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xFo-ZF-Feg">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="1460"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xFo-ZF-Feg">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="1226"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1b-km-rZD">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="260"/>
@@ -216,7 +220,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yco-Pa-kiX">
-                                            <rect key="frame" x="0.0" y="260" width="393" height="200"/>
+                                            <rect key="frame" x="0.0" y="264" width="393" height="200"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEm-xB-dlz">
                                                     <rect key="frame" x="8" y="7.9999999999999982" width="169" height="31.333333333333329"/>
@@ -347,39 +351,57 @@
                                                 <constraint firstAttribute="trailing" secondItem="YSg-VB-Ztz" secondAttribute="trailing" constant="8" id="iRu-5t-U88"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgp-Q4-Z0e">
-                                            <rect key="frame" x="0.0" y="460" width="393" height="200"/>
-                                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-FL-cfI">
+                                            <rect key="frame" x="0.0" y="468" width="393" height="51"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="T88-y5-3Z8"/>
+                                                <constraint firstAttribute="height" constant="50" id="whu-Bd-iNP"/>
+                                            </constraints>
+                                            <segments>
+                                                <segment title="Team 1"/>
+                                                <segment title="Team 2"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="teamSegmentedControlTapped:" destination="-1" eventType="valueChanged" id="une-H5-amE"/>
+                                            </connections>
+                                        </segmentedControl>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGp-FH-gPG">
+                                            <rect key="frame" x="0.0" y="522" width="393" height="500"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="football-background" translatesAutoresizingMaskIntoConstraints="NO" id="dRO-bN-faV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="n8a-ca-2h6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byM-O3-w2t">
+                                                            <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-4j-SLS">
+                                                            <rect key="frame" x="0.0" y="250" width="393" height="250"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                            <constraints>
+                                                <constraint firstItem="dRO-bN-faV" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="DgD-cE-Ote"/>
+                                                <constraint firstAttribute="trailing" secondItem="n8a-ca-2h6" secondAttribute="trailing" id="Ssy-gp-kls"/>
+                                                <constraint firstAttribute="bottom" secondItem="n8a-ca-2h6" secondAttribute="bottom" id="UcG-OD-cvQ"/>
+                                                <constraint firstAttribute="height" constant="500" id="Vsh-1N-6LA"/>
+                                                <constraint firstAttribute="trailing" secondItem="dRO-bN-faV" secondAttribute="trailing" id="giP-sZ-wrh"/>
+                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="l8g-bE-Slg"/>
+                                                <constraint firstAttribute="bottom" secondItem="dRO-bN-faV" secondAttribute="bottom" id="loh-Ai-5uD"/>
+                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="vVE-5K-YzW"/>
+                                                <constraint firstItem="dRO-bN-faV" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="vsU-cX-yLi"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neq-Zv-BcM">
-                                            <rect key="frame" x="0.0" y="660" width="393" height="200"/>
+                                            <rect key="frame" x="0.0" y="1026" width="393" height="200"/>
                                             <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="6at-8D-SD8"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOx-SR-7aX">
-                                            <rect key="frame" x="0.0" y="860" width="393" height="200"/>
-                                            <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="S5x-n4-ufu"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWu-lq-lAE">
-                                            <rect key="frame" x="0.0" y="1060" width="393" height="200"/>
-                                            <color key="backgroundColor" systemColor="systemTealColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="YZ4-Lh-2EJ"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NW-8d-Fya">
-                                            <rect key="frame" x="0.0" y="1260" width="393" height="200"/>
-                                            <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="XKD-xp-4ar"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -419,6 +441,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="doc.on.clipboard.fill" catalog="system" width="112" height="128"/>
+        <image name="football-background" width="684" height="608"/>
         <image name="mappin" catalog="system" width="106" height="128"/>
         <image name="person.and.background.striped.horizontal" catalog="system" width="128" height="99"/>
         <image name="sun.min.fill" catalog="system" width="128" height="123"/>
@@ -443,20 +466,8 @@
         <systemColor name="systemGrayColor">
             <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
