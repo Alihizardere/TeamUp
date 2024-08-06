@@ -132,7 +132,12 @@ final class SetPlayers: BaseViewController {
         clearImageViews(in: team2StackView)
     }
     
-    private func indexPathFor(dragItem: UIDragItem) -> IndexPath? {
+  @IBAction func goToNextPage(_ sender: UIButton) {
+    let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+    navigationController?.pushViewController(matchDetailVC, animated: true)
+  }
+  
+  private func indexPathFor(dragItem: UIDragItem) -> IndexPath? {
         guard let player = dragItem.localObject as? Player else { return nil }
         if let index = players.firstIndex(where: { $0.id == player.id }) {
             return IndexPath(row: index, section: 0)
