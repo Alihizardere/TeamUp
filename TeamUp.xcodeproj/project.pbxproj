@@ -11,6 +11,7 @@
 		3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */; };
 		3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51AB8E2C61687E00E1950B /* UIView.swift */; };
 		3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */; };
+		3D81557E2C636E6C00DEEC27 /* PlayerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */; };
 		3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */; };
 		3DB528D62C5A66BD004DD7B6 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB528D52C5A66BD004DD7B6 /* WeatherResponse.swift */; };
 		3DB61D2B2C5A376C000ECAE0 /* WeatherLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */; };
@@ -81,6 +82,7 @@
 		3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCustomView.swift; sourceTree = "<group>"; };
+		3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewModel.swift; sourceTree = "<group>"; };
 		3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		3DB528D52C5A66BD004DD7B6 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		3DB61D2A2C5A376C000ECAE0 /* WeatherLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLogic.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				3DDF17692C591B3900F2BF80 /* PlayerDetailViewController.swift */,
 				3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */,
+				3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */,
 			);
 			path = PlayerDetail;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				3DB61D2B2C5A376C000ECAE0 /* WeatherLogic.swift in Sources */,
 				45C772D32C57EF4600C952C8 /* HomeViewController.swift in Sources */,
 				3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */,
+				3D81557E2C636E6C00DEEC27 /* PlayerDetailViewModel.swift in Sources */,
 				3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */,
 				3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */,
 				3DFF94CC2C57CE5F001DD9D5 /* BaseViewController.swift in Sources */,
