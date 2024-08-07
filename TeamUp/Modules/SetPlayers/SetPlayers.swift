@@ -8,17 +8,21 @@
 import UIKit
 
 final class SetPlayers: BaseViewController {
-    // MARK: - IBOutlets
+    //MARK: - IBOutlets
     @IBOutlet weak var team1StackView: UIStackView!
     @IBOutlet weak var team2StackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    // MARK: - Properties
-    var players = [Player]()
-    var initialImage: UIImage?
-    var lastRemovedPlayer: Player?
+    
+    //MARK: - Properties
+    private var players = [Player]()
+    private var initialImage: UIImage?
+    private var lastRemovedPlayer: Player?
+    private var lastAddedImageView: UIImageView?
+    private var addedPlayersHistory: [(player: Player, imageView: UIImageView)] = []
     fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
-
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,9 +38,10 @@ final class SetPlayers: BaseViewController {
         observePlayers()
     }
     
+    //MARK: - Private Functions
     private func setupStackViews() {
-        updateImageViews(team1StackView, count: 8)
-        updateImageViews(team2StackView, count: 8)
+        updateImageViews(team1StackView, count: 6)
+        updateImageViews(team2StackView, count: 6)
     }
     
     private func setDragAndDropSettings() {
@@ -67,7 +72,35 @@ final class SetPlayers: BaseViewController {
         return stackView
     }
     
-    func updateImageViews(_ stackView: UIStackView, count: Int) {
+    private func createPlayerStackView() -> UIStackView {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .lightGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        let playerLabel = UILabel()
+        playerLabel.textAlignment = .center
+        playerLabel.textColor = .black
+        playerLabel.numberOfLines = 1
+        playerLabel.adjustsFontSizeToFitWidth = true
+        playerLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let playerStackView = UIStackView(arrangedSubviews: [imageView, playerLabel])
+        playerStackView.axis = .vertical
+        playerStackView.spacing = 5
+        playerStackView.alignment = .center
+        playerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Constraints for playerLabel to ensure it appears properly
+        playerLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        playerLabel.widthAnchor.constraint(equalTo: playerStackView.widthAnchor).isActive = true
+        
+        return playerStackView
+    }
+    
+    private func updateImageViews(_ stackView: UIStackView, count: Int) {
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
@@ -90,58 +123,20 @@ final class SetPlayers: BaseViewController {
         stackView.distribution = .fillEqually
     }
     
-    private func createPlayerStackView() -> UIStackView {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .lightGray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
-        let playerLabel = UILabel()
-        playerLabel.textAlignment = .center
-        playerLabel.textColor = .black
-        
-        let playerStackView = UIStackView(arrangedSubviews: [imageView, playerLabel])
-        playerStackView.axis = .vertical
-        playerStackView.spacing = 5
-        playerStackView.alignment = .center
-        
-        return playerStackView
-    }
-    
     private func observePlayers() {
-        guard let sportType = UserDefaults.standard.string(forKey: "sportType") else {
-            print("Sport type is nil or not set")
-            return
-        }
+        showLoading()
+        guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
         firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
-            guard let self = self else { return }
+            guard let self else { return }
             DispatchQueue.main.async {
                 self.players = players
                 self.collectionView.reloadData()
+                self.hideLoading()
             }
         }
     }
-  
-    @IBAction func btnTakeItBack(_ sender: UIButton) {
-        guard let lastRemovedPlayer = lastRemovedPlayer else { return }
-        
-        // Add the player back to the collection view
-        players.append(lastRemovedPlayer)
-        collectionView.insertItems(at: [IndexPath(row: players.count - 1, section: 0)])
-        
-        // Update the UIImageView with the initial image
-        clearImageViews(in: team1StackView)
-        clearImageViews(in: team2StackView)
-    }
     
-  @IBAction func goToNextPage(_ sender: UIButton) {
-    let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
-    navigationController?.pushViewController(matchDetailVC, animated: true)
-  }
-  
-  private func indexPathFor(dragItem: UIDragItem) -> IndexPath? {
+    private func indexPathFor(dragItem: UIDragItem) -> IndexPath? {
         guard let player = dragItem.localObject as? Player else { return nil }
         if let index = players.firstIndex(where: { $0.id == player.id }) {
             return IndexPath(row: index, section: 0)
@@ -149,26 +144,58 @@ final class SetPlayers: BaseViewController {
         return nil
     }
     
-    private func clearImageViews(in stackView: UIStackView) {
-        for view in stackView.arrangedSubviews {
-            guard let columnStackView = view as? UIStackView else { continue }
-            for subview in columnStackView.arrangedSubviews {
-                if let playerStackView = subview as? UIStackView {
-                    for stackSubview in playerStackView.arrangedSubviews {
-                        if let imageView = stackSubview as? UIImageView {
-                            imageView.image = initialImage
-                            imageView.backgroundColor = .lightGray
-                        }
-                        if let label = stackSubview as? UILabel {
-                            label.text = ""
+    private func clearLastRemovedImageView() {
+        for stackView in [team1StackView, team2StackView] {
+            guard let stackView = stackView else { continue }
+            for view in stackView.arrangedSubviews {
+                guard let columnStackView = view as? UIStackView else { continue }
+                for subview in columnStackView.arrangedSubviews {
+                    if let playerStackView = subview as? UIStackView {
+                        for stackSubview in playerStackView.arrangedSubviews {
+                            if let imageView = stackSubview as? UIImageView, let image = imageView.image, image == UIImage(named: "kit5") {
+                                imageView.image = initialImage
+                                imageView.backgroundColor = .lightGray
+                                if let label = playerStackView.arrangedSubviews.last as? UILabel, label.text == lastRemovedPlayer?.name {
+                                    label.text = ""
+                                    return
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
+    
+    //MARK: - Button Actions
+    @IBAction func btnTakeItBack(_ sender: UIButton) {
+        guard !addedPlayersHistory.isEmpty else { return }
+        
+        // Get the last added player and imageView from the history
+        let lastAdded = addedPlayersHistory.removeLast()
+        
+        // Add the player back to the collection view
+        players.append(lastAdded.player)
+        collectionView.insertItems(at: [IndexPath(row: players.count - 1, section: 0)])
+        
+        // Update the tracked UIImageView with the initial image
+        lastAdded.imageView.image = initialImage
+        lastAdded.imageView.backgroundColor = .lightGray
+        
+        // Clear the player label text
+        if let playerStackView = lastAdded.imageView.superview as? UIStackView {
+            let playerLabel = playerStackView.arrangedSubviews.last as? UILabel
+            playerLabel?.text = ""
+        }
+    }
+    
+    @IBAction func goToNextPage(_ sender: UIButton) {
+        let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+        navigationController?.pushViewController(matchDetailVC, animated: true)
+    }
 }
 
+//MARK: - Extension UICollectionViewDelegate, UICollectionViewDataSource
 extension SetPlayers: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return players.count
@@ -184,6 +211,7 @@ extension SetPlayers: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
+//MARK: - Extension UICollectionViewDragDelegate
 extension SetPlayers: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let player = players[indexPath.row]
@@ -198,6 +226,7 @@ extension SetPlayers: UICollectionViewDragDelegate {
     }
 }
 
+//MARK: - Extension UIDropInteractionDelegate
 extension SetPlayers: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: UIImage.self)
@@ -209,6 +238,8 @@ extension SetPlayers: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         guard let destinationView = interaction.view as? UIImageView else { return }
+        let playerStackView = destinationView.superview as? UIStackView
+        let playerLabel = playerStackView?.arrangedSubviews.last as? UILabel
         
         session.loadObjects(ofClass: UIImage.self) { items in
             guard let images = items as? [UIImage], let image = images.first else { return }
@@ -220,8 +251,12 @@ extension SetPlayers: UIDropInteractionDelegate {
                 destinationView.image = image
                 
                 if let dragItem = session.items.first, let indexPath = self.indexPathFor(dragItem: dragItem) {
-                    self.lastRemovedPlayer = self.players.remove(at: indexPath.row)
+                    let removedPlayer = self.players.remove(at: indexPath.row)
                     self.collectionView.deleteItems(at: [indexPath])
+                    self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
+                    
+                    // Update the playerLabel with the player's name
+                    playerLabel?.text = (removedPlayer.name ?? "") + " " + (removedPlayer.surname ?? "")
                 }
             }
         }
