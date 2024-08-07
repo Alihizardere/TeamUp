@@ -4,16 +4,14 @@
 //
 //  Created by alihizardere on 30.07.2024.
 //
-
-import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 
 protocol FirebaseServiceProtocol {
-  func uploadPlayer(_ image: UIImage?, playerName: String?, playerSurname: String?,position: String?,overall: Int?, sportType: String, completion: @escaping (Result<Void, Error>) -> Void)
-  func fetchPlayers(sportType: String, completion: @escaping ([Player]) -> Void)
-  func updatePlayer(_ player: Player, sportType: String, completion: @escaping (Result<Void, Error>) -> Void)
-  func deletePlayer(_ player: Player?, sportType: String, completion: @escaping (Result<Void,Error>)-> Void)
+  func uploadPlayer( imageData: Data?, player: Player?, sportType: String?, completion: @escaping (Result<Void, Error>) -> Void)
+  func fetchPlayers(sportType: String?, completion: @escaping ([Player]) -> Void)
+  func updatePlayer(_ player: Player?, sportType: String?, completion: @escaping (Result<Void, Error>) -> Void)
+  func deletePlayer(_ player: Player?, sportType: String?, completion: @escaping (Result<Void,Error>)-> Void)
 }
 
 
@@ -30,20 +28,17 @@ final class FirebaseService: FirebaseServiceProtocol {
   }
 
   func uploadPlayer(
-    _ image: UIImage?,
-    playerName: String?,
-    playerSurname: String?,
-    position: String?,
-    overall: Int?,
-    sportType: String,
+    imageData: Data?,
+    player: Player?,
+    sportType: String?,
     completion: @escaping (Result<Void, Error>) -> Void
   ) {
-    guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
+    guard let player, let sportType else { return }
 
     let playerID = databaseRef.child("players").child("\(sportType)_players").childByAutoId().key ?? UUID().uuidString
     let imageRef = storageRef.child("profile_images/\(playerID).jpg")
 
-    imageRef.putData(imageData, metadata: nil) { metadata, error in
+    imageRef.putData(imageData!, metadata: nil) { metadata, error in
       if let error = error {
         completion(.failure(error))
         return
@@ -58,11 +53,11 @@ final class FirebaseService: FirebaseServiceProtocol {
         guard let downloadURL = url else { return }
         let player = Player(
           id: playerID,
-          name: playerName,
-          surname:playerSurname ,
+          name: player.name,
+          surname: player.surname ,
           imageUrl: downloadURL.absoluteString,
-          position: position,
-          overall: overall
+          position: player.position,
+          overall: player.overall
         )
         self.savePlayer(player, sportType: sportType)
         completion(.success(()))
@@ -70,7 +65,9 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
   }
 
-  func fetchPlayers(sportType: String, completion: @escaping ([Player]) -> Void) {
+  func fetchPlayers(sportType: String?, completion: @escaping ([Player]) -> Void) {
+    guard let sportType else { return }
+
     databaseRef.child("players").child("\(sportType)_players").observe(.value) { snapshot in
       var players = [Player]()
       for child in snapshot.children {
@@ -91,7 +88,8 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
   }
 
-  func updatePlayer(_ player: Player, sportType: String, completion: @escaping (Result<Void, Error>) -> Void){
+  func updatePlayer(_ player: Player?, sportType: String?, completion: @escaping (Result<Void, Error>) -> Void){
+    guard let player, let sportType else { return }
 
     let playerData: [String: Any] = [
       "name": player.name ?? "",
@@ -110,8 +108,8 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
   }
 
-  func deletePlayer(_ player: Player?, sportType: String, completion: @escaping (Result<Void,Error>)-> Void){
-    guard let player else { return }
+  func deletePlayer(_ player: Player?, sportType: String?, completion: @escaping (Result<Void,Error>)-> Void){
+    guard let player, let sportType else { return }
 
     let playerRef = databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "")
 
@@ -132,8 +130,8 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
   }
 
-  private func savePlayer(_ player: Player?, sportType: String) {
-    guard let player else { return }
+  private func savePlayer(_ player: Player?, sportType: String?) {
+    guard let player, let sportType else { return }
 
     let playerData: [String: Any] = [
       "name": player.name ?? "",

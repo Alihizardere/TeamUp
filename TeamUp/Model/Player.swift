@@ -14,5 +14,4 @@ struct Player {
     let imageUrl: String?
     let position: String?
     let overall: Int?
-    
 }
