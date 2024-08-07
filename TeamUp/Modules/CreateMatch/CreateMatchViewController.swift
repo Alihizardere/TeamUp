@@ -18,139 +18,110 @@ final class CreateMatchViewController: UIViewController {
     @IBOutlet weak var hostNameTextField: UITextField!
     @IBOutlet weak var createMatchButton: UIButton!
     
-    //MARK: - Properties
-    var activeTextField: UITextField?
-    private let locationManager = CLLocationManager()
+    // MARK: - Properties
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
-    private let ibanPrefix = String(repeating: " ", count: 1)
     private let ibanMaxLength = 26
-    private let pasteButton = UIButton(type: .system)
+    private var activeTextField: UITextField?
+    private var viewModel: CreateMatchViewModelProtocol = CreateMatchViewModel()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+        setupViewModel()
+        setupTapGesture()
+    }
+    
+    // MARK: - Private Functions
+    private func configureUI() {
         setupPickerView()
         setupDatePicker()
         setupTextFields()
-        loadUserDefaults()
         updateCreateButtonState()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func setupViewModel() {
+        viewModel.delegate = self
     }
     
-    //MARK: - Private Functions
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     private func setupPickerView() {
-        hourTextField.inputView = pickerView
-        gameTypeTextField.inputView = pickerView
         pickerView.delegate = self
         pickerView.dataSource = self
-        
+        hourTextField.inputView = pickerView
+        gameTypeTextField.inputView = pickerView
+        hourTextField.inputAccessoryView = createToolbar()
+        gameTypeTextField.inputAccessoryView = createToolbar()
+    }
+    
+    private func setupDatePicker() {
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.datePickerMode = .date
+        datePicker.minimumDate = Date()
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        matchDateTextField.inputView = datePicker
+        matchDateTextField.inputAccessoryView = createToolbar()
+    }
+    
+    private func setupTextFields() {
+        hostIbanTextField.rightView = createPasteButton()
+        hostIbanTextField.rightViewMode = .always
+        hostIbanTextField.delegate = self
         hourTextField.delegate = self
         gameTypeTextField.delegate = self
     }
     
-    private func saveToUserDefaults() {
-        let defaults = UserDefaults.standard
-        let textFieldDictionary: [String: UITextField] = [
-            "location": locationTextField,
-            "hour": hourTextField,
-            "matchDate": matchDateTextField,
-            "hostName": hostNameTextField,
-            "hostIban": hostIbanTextField,
-            "gameType": gameTypeTextField
-        ]
-        
-        for (key, textfield) in textFieldDictionary {
-            defaults.set(textfield.text, forKey: key)
-        }
-    }
-    
-    private func loadUserDefaults() {
-        let defaults = UserDefaults.standard
-        let textFieldDictionary: [String: UITextField] = [
-            "location": locationTextField,
-            "hour": hourTextField,
-            "matchDate": matchDateTextField,
-            "hostIban": hostIbanTextField,
-            "hostName": hostNameTextField,
-            "gameType": gameTypeTextField
-        ]
-        
-        for (key, textField) in textFieldDictionary {
-            textField.text = defaults.string(forKey: key)
-        }
-    }
-    
-    private func validateTextFields() -> Bool {
-        let textFields: [UITextField] = [
-            locationTextField,
-            hourTextField,
-            matchDateTextField,
-            hostIbanTextField,
-            hostNameTextField,
-            gameTypeTextField
-        ]
-        
-        var allValid = true
-        for textField in textFields {
-            if textField.text?.isEmpty ?? true {
-                textField.layer.borderColor = UIColor.red.cgColor
-                textField.layer.borderWidth = 0.5
-                textField.layer.cornerRadius = 6.0
-                allValid = false
-            } else {
-                textField.layer.borderColor = UIColor.clear.cgColor
-                textField.layer.borderWidth = 0.0
-                textField.layer.cornerRadius = 6.0
-            }
-        }
-        return allValid
-    }
-    
-    private func setupTextFields() {
-        
+    private func createPasteButton() -> UIButton {
+        let pasteButton = UIButton(type: .system)
         pasteButton.setImage(UIImage(systemName: "doc.on.clipboard"), for: .normal)
         pasteButton.tintColor = .systemGray
         pasteButton.addTarget(self, action: #selector(pasteIban), for: .touchUpInside)
-        
-        hostIbanTextField.rightView = pasteButton
-        hostIbanTextField.rightViewMode = .always
+        return pasteButton
     }
     
-    private func setupDatePicker() {
-        if #available(iOS 14.0, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        datePicker.datePickerMode = .date
-        datePicker.minimumDate = Date()
-        matchDateTextField.inputView = datePicker
-        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+    private func createToolbar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        toolbar.setItems([
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(doneButtonTapped))
+        ], animated: false)
+        return toolbar
     }
     
     private func updateCreateButtonState() {
-        createMatchButton.isEnabled = validateTextFields()
+        createMatchButton.isEnabled = viewModel.createButtonIsEnabled
     }
-    
     
     @objc private func dateChanged() {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         matchDateTextField.text = formatter.string(from: datePicker.date)
+        viewModel.setField(field: .matchDate, value: matchDateTextField.text)
+    }
+    
+    @objc private func doneButtonTapped() {
+        view.endEditing(true)
     }
     
     @objc private func pasteIban() {
-            if let pasteString = UIPasteboard.general.string {
-                hostIbanTextField.text = pasteString
-            }
+        if let pasteString = UIPasteboard.general.string {
+            hostIbanTextField.text = pasteString
+            viewModel.setField(field: .hostIban, value: pasteString)
         }
+    }
     
-    //MARK: - Button Actions
     @IBAction func createMatchButtonTapped(_ sender: Any) {
-        if validateTextFields() {
+        if viewModel.validateFields() {
             saveToUserDefaults()
             let setTeamsVC = SetPlayers(nibName: "SetPlayers", bundle: nil)
             navigationController?.pushViewController(setTeamsVC, animated: true)
@@ -158,9 +129,25 @@ final class CreateMatchViewController: UIViewController {
             UIAlertController.showAlert(on: self, title: "Eksik Bilgi", message: "Lütfen tüm alanları doldurun", primaryButtonTitle: "Tamam")
         }
     }
+    
+    private func saveToUserDefaults() {
+        let textFields: [String: UITextField] = [
+            "location": locationTextField,
+            "hour": hourTextField,
+            "matchDate": matchDateTextField,
+            "hostName": hostNameTextField,
+            "hostIban": hostIbanTextField,
+            "gameType": gameTypeTextField
+        ]
+        
+        let defaults = UserDefaults.standard
+        textFields.forEach { key, textField in
+            defaults.set(textField.text, forKey: key)
+        }
+    }
 }
 
-//MARK: - Extension UIPickerViewDelegate && UIPickerViewDataSource
+// MARK: - UIPickerViewDelegate & UIPickerViewDataSource
 extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -191,39 +178,66 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch activeTextField {
         case hourTextField:
-            hourTextField.text = Constants.hours[row]
+            let selectedHour = Constants.hours[row]
+            hourTextField.text = selectedHour
+            viewModel.setField(field: .hour, value: selectedHour)
         case gameTypeTextField:
-            gameTypeTextField.text = Constants.gameType[row]
+            let selectedGameType = Constants.gameType[row]
+            gameTypeTextField.text = selectedGameType
+            viewModel.setField(field: .gameType, value: selectedGameType)
         default:
             break
         }
-        activeTextField?.resignFirstResponder()
-        updateCreateButtonState()
+        doneButtonTapped()
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension CreateMatchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
         pickerView.reloadAllComponents()
         
         if textField == hostIbanTextField {
-            textField.text = ibanPrefix
+            textField.text = String(repeating: " ", count: 1)
         }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard textField == hostIbanTextField else { return true }
-        
-        let newLength = (textField.text?.count ?? 0) + string.count - range.length
-        if range.location < ibanPrefix.count {
-            return false
+        if textField == hostIbanTextField {
+            let characterSet = CharacterSet(charactersIn: "0123456789")
+            let typedCharacterSet = CharacterSet(charactersIn: string)
+            let isNumeric = characterSet.isSuperset(of: typedCharacterSet)
+            let newLength = (textField.text?.count ?? 0) + string.count - range.length
+            return isNumeric && newLength <= ibanMaxLength
         }
-        return newLength <= ibanMaxLength
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case locationTextField:
+            viewModel.setField(field: .location, value: textField.text)
+        case hourTextField:
+            viewModel.setField(field: .hour, value: textField.text)
+        case matchDateTextField:
+            viewModel.setField(field: .matchDate, value: textField.text)
+        case hostIbanTextField:
+            viewModel.setField(field: .hostIban, value: textField.text)
+        case gameTypeTextField:
+            viewModel.setField(field: .gameType, value: textField.text)
+        case hostNameTextField:
+            viewModel.setField(field: .hostName, value: textField.text)
+        default:
+            break
+        }
         updateCreateButtonState()
+    }
+}
+
+// MARK: - CreateMatchViewModelDelegate
+extension CreateMatchViewController: CreateMatchViewModelDelegate {
+    func didUpdateCreateButtonState(isEnabled: Bool) {
+        createMatchButton.isEnabled = isEnabled
     }
 }

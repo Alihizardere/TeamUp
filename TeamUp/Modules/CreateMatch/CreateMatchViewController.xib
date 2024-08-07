@@ -67,6 +67,9 @@
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="M6d-NM-4Dw"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </stackView>
@@ -84,6 +87,9 @@
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="jOZ-jQ-le0"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </stackView>
@@ -101,6 +107,9 @@
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="dsJ-ge-MSg"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </stackView>
@@ -118,6 +127,9 @@
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="lKY-lb-ieF"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </stackView>
@@ -135,6 +147,9 @@
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="08p-bI-LJj"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </stackView>

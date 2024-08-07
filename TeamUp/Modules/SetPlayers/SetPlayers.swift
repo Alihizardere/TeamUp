@@ -25,14 +25,7 @@ final class SetPlayers: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        guard let collectionView = collectionView else {
-            fatalError("collectionView outlet is not connected")
-        }
         collectionView.register(UINib(nibName: PlayerCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
-        
         setupStackViews()
         setDragAndDropSettings()
         observePlayers()
@@ -75,10 +68,11 @@ final class SetPlayers: BaseViewController {
     private func createPlayerStackView() -> UIStackView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        imageView.image = UIImage(named: "kit1")
         
         let playerLabel = UILabel()
         playerLabel.textAlignment = .center
@@ -93,7 +87,6 @@ final class SetPlayers: BaseViewController {
         playerStackView.alignment = .center
         playerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Constraints for playerLabel to ensure it appears properly
         playerLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         playerLabel.widthAnchor.constraint(equalTo: playerStackView.widthAnchor).isActive = true
         
@@ -124,14 +117,14 @@ final class SetPlayers: BaseViewController {
     }
     
     private func observePlayers() {
-        showLoading()
+        
         guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
         firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.players = players
                 self.collectionView.reloadData()
-                self.hideLoading()
+                
             }
         }
     }
@@ -154,7 +147,6 @@ final class SetPlayers: BaseViewController {
                         for stackSubview in playerStackView.arrangedSubviews {
                             if let imageView = stackSubview as? UIImageView, let image = imageView.image, image == UIImage(named: "kit5") {
                                 imageView.image = initialImage
-                                imageView.backgroundColor = .lightGray
                                 if let label = playerStackView.arrangedSubviews.last as? UILabel, label.text == lastRemovedPlayer?.name {
                                     label.text = ""
                                     return
@@ -174,13 +166,10 @@ final class SetPlayers: BaseViewController {
         // Get the last added player and imageView from the history
         let lastAdded = addedPlayersHistory.removeLast()
         
-        // Add the player back to the collection view
         players.append(lastAdded.player)
         collectionView.insertItems(at: [IndexPath(row: players.count - 1, section: 0)])
         
-        // Update the tracked UIImageView with the initial image
         lastAdded.imageView.image = initialImage
-        lastAdded.imageView.backgroundColor = .lightGray
         
         // Clear the player label text
         if let playerStackView = lastAdded.imageView.superview as? UIStackView {
