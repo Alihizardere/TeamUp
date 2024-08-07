@@ -8,14 +8,17 @@
 import UIKit
 
 final class SetPlayers: BaseViewController {
+    // MARK: - IBOutlets
     @IBOutlet weak var team1StackView: UIStackView!
     @IBOutlet weak var team2StackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: - Properties
     var players = [Player]()
     var initialImage: UIImage?
     var lastRemovedPlayer: Player?
-    
+    fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -112,7 +115,7 @@ final class SetPlayers: BaseViewController {
             print("Sport type is nil or not set")
             return
         }
-        FirebaseService.shared.observePlayer(sportType: sportType) { [weak self] players in
+        firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.players = players
@@ -120,6 +123,7 @@ final class SetPlayers: BaseViewController {
             }
         }
     }
+  
     @IBAction func btnTakeItBack(_ sender: UIButton) {
         guard let lastRemovedPlayer = lastRemovedPlayer else { return }
         

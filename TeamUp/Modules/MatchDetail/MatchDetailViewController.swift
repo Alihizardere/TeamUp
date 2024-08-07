@@ -31,6 +31,7 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet weak var containerView: UIView!
   
     //MARK: - Properties
+   fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
     private let locationManager = CLLocationManager()
     private var players = [Player]()
     private var draggableViews: [PlayerCustomView] = []
@@ -83,7 +84,7 @@ final class MatchDetailViewController: BaseViewController {
     
     private func observePlayers() {
         guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
-        FirebaseService.shared.observePlayer(sportType: sportType) { [weak self] players in
+        firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.players = players

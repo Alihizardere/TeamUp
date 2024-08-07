@@ -21,6 +21,7 @@ final class PlayerDetailViewController: BaseViewController {
   var activeTextField: UITextField?
   var selectedPlayer: Player?
   var positions = [String]()
+  fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -104,7 +105,7 @@ final class PlayerDetailViewController: BaseViewController {
           overall: Int(overall)
         )
 
-        FirebaseService.shared.updatePlayer(
+        firebaseService.updatePlayer(
           updatedPlayer,
           sportType: sportType) { result in
             switch result {
@@ -115,7 +116,7 @@ final class PlayerDetailViewController: BaseViewController {
             }
           }
       } else {
-        FirebaseService.shared.uploadPlayerImage(
+        firebaseService.uploadPlayer(
           image,
           playerName: name,
           playerSurname: surname,

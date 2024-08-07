@@ -9,20 +9,27 @@ import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 
-final class FirebaseService {
+protocol FirebaseServiceProtocol {
+  func uploadPlayer(_ image: UIImage?, playerName: String?, playerSurname: String?,position: String?,overall: Int?, sportType: String, completion: @escaping (Result<Void, Error>) -> Void)
+  func fetchPlayers(sportType: String, completion: @escaping ([Player]) -> Void)
+  func updatePlayer(_ player: Player, sportType: String, completion: @escaping (Result<Void, Error>) -> Void)
+  func deletePlayer(_ player: Player?, sportType: String, completion: @escaping (Result<Void,Error>)-> Void)
+}
+
+
+final class FirebaseService: FirebaseServiceProtocol {
 
   // MARK: - Properties
-  static let shared = FirebaseService()
   private let databaseRef: DatabaseReference
   private let storageRef: StorageReference
 
   // MARK: - Init Method
-  private init() {
+   init() {
     self.databaseRef = Database.database().reference()
     self.storageRef = Storage.storage().reference()
   }
 
-  func uploadPlayerImage(
+  func uploadPlayer(
     _ image: UIImage?,
     playerName: String?,
     playerSurname: String?,
@@ -63,7 +70,7 @@ final class FirebaseService {
     }
   }
 
-  func observePlayer(sportType: String, completion: @escaping ([Player]) -> Void) {
+  func fetchPlayers(sportType: String, completion: @escaping ([Player]) -> Void) {
     databaseRef.child("players").child("\(sportType)_players").observe(.value) { snapshot in
       var players = [Player]()
       for child in snapshot.children {
@@ -103,19 +110,6 @@ final class FirebaseService {
     }
   }
 
-  private func savePlayer(_ player: Player?, sportType: String) {
-    guard let player else { return }
-
-    let playerData: [String: Any] = [
-      "name": player.name ?? "",
-      "surname": player.surname ?? "",
-      "imageUrl": player.imageUrl ?? "",
-      "position": player.position ?? "",
-      "overall": player.overall ?? 0
-    ]
-    databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "").setValue(playerData)
-  }
-
   func deletePlayer(_ player: Player?, sportType: String, completion: @escaping (Result<Void,Error>)-> Void){
     guard let player else { return }
 
@@ -136,6 +130,19 @@ final class FirebaseService {
         }
       }
     }
+  }
+
+  private func savePlayer(_ player: Player?, sportType: String) {
+    guard let player else { return }
+
+    let playerData: [String: Any] = [
+      "name": player.name ?? "",
+      "surname": player.surname ?? "",
+      "imageUrl": player.imageUrl ?? "",
+      "position": player.position ?? "",
+      "overall": player.overall ?? 0
+    ]
+    databaseRef.child("players").child("\(sportType)_players").child(player.id ?? "").setValue(playerData)
   }
 }
 

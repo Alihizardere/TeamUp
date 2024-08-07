@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */; };
+		3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */; };
 		3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51AB8E2C61687E00E1950B /* UIView.swift */; };
 		3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */; };
 		3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShowable.swift; sourceTree = "<group>"; };
+		3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCustomView.swift; sourceTree = "<group>"; };
 		3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				3DDF176D2C593EE700F2BF80 /* Cell */,
 				3DFF95272C5807C8001DD9D5 /* PlayerListViewController.swift */,
 				3DFF95282C5807C8001DD9D5 /* PlayerListViewController.xib */,
+				3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */,
 			);
 			path = PlayerList;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */,
 				45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */,
 				3DDF17672C59059A00F2BF80 /* Player.swift in Sources */,
+				3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */,
 				458E31242C5A28640039B64F /* MatchDetailViewController.swift in Sources */,
 				45979D402C5E30B000F3263E /* EmptyView.swift in Sources */,
 				3DDF176C2C591B3900F2BF80 /* PlayerDetailViewController.swift in Sources */,
