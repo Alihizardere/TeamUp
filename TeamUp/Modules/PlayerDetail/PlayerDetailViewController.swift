@@ -21,43 +21,18 @@ final class PlayerDetailViewController: BaseViewController {
   var activeTextField: UITextField?
   var selectedPlayer: Player?
   var positions = [String]()
-  fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
+  var viewModel: PlayerDetailViewModelProtocol! {
+    didSet { viewModel.delegate = self }
+  }
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupSelectedInfo()
-    setupPickerView()
-    setupTapGesture()
+    viewModel = PlayerDetailViewModel()
+    viewModel.viewDidLoad()
   }
 
   // MARK: -  Private Functions
-  private func setupSelectedInfo(){
-    guard let player = selectedPlayer else { return }
-    playerName.text = player.name
-    playerSurname.text = player.surname
-    playerPosition.text = player.position
-    if let overall = player.overall,
-       let url = URL(string: player.imageUrl ?? ""){
-      playerOverall.text = String(overall)
-      profileImage.kf.setImage(with: url)
-    }
-    addPlayerButton.setTitle("Güncelle", for: .normal)
-  }
-
-  private func setupPickerView() {
-    playerPosition.inputView = pickerView
-    playerOverall.inputView = pickerView
-
-    pickerView.delegate = self
-    pickerView.dataSource = self
-    
-    playerPosition.delegate = self
-    playerOverall.delegate = self
-
-    updatePickerData()
-  }
-
   private func updatePickerData() {
     guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
 
@@ -70,12 +45,6 @@ final class PlayerDetailViewController: BaseViewController {
       positions = []
     }
     pickerView.reloadAllComponents()
-  }
-
-  private func setupTapGesture() {
-    let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-    profileImage.isUserInteractionEnabled = true
-    profileImage.addGestureRecognizer(tap)
   }
 
   @objc private func imageTapped() {
@@ -91,11 +60,8 @@ final class PlayerDetailViewController: BaseViewController {
           let overall = playerOverall.text, !overall.isEmpty,
           let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
 
-    showLoading()
-
-    if let image = profileImage.image {
+    if let image = profileImage.image, let imageData = image.jpegData(compressionQuality: 0.5) {
       if let player = selectedPlayer {
-
         let updatedPlayer = Player(
           id: player.id,
           name: name,
@@ -104,33 +70,22 @@ final class PlayerDetailViewController: BaseViewController {
           position: position,
           overall: Int(overall)
         )
+        viewModel.update(updatedPlayer: updatedPlayer, sportType: sportType)
 
-        firebaseService.updatePlayer(
-          updatedPlayer,
-          sportType: sportType) { result in
-            switch result {
-            case .success():
-              self.navigationController?.popViewController(animated: true)
-            case .failure(let error):
-              print("Error updating player: \(error.localizedDescription)")
-            }
-          }
       } else {
-        firebaseService.uploadPlayer(
-          image,
-          playerName: name,
-          playerSurname: surname,
+        let newPlayer = Player(
+          id: nil,
+          name: name,
+          surname: surname,
+          imageUrl: nil,
           position: position,
-          overall: Int(overall),
-          sportType: sportType) { result in
-            self.hideLoading()
-            switch result {
-            case .success():
-              self.navigationController?.popViewController(animated: true)
-            case .failure(let error):
-              print("Error adding player: \(error.localizedDescription)")
-            }
-          }
+          overall: Int(overall)
+        )
+        viewModel.upload(
+          imageData: imageData,
+          player: newPlayer,
+          sportType: sportType
+        )
       }
     } else {
       print("Image is required.")
@@ -195,5 +150,53 @@ extension PlayerDetailViewController: UITextFieldDelegate {
   func textFieldDidBeginEditing(_ textField: UITextField) {
     activeTextField = textField
     pickerView.reloadAllComponents()
+  }
+}
+
+// MARK: - PlayerDetailViewModelDelegates
+extension PlayerDetailViewController: PlayerDetailViewModelDelegate {
+
+  func setupUI() {
+    playerPosition.inputView = pickerView
+    playerOverall.inputView = pickerView
+
+    pickerView.delegate = self
+    pickerView.dataSource = self
+
+    playerPosition.delegate = self
+    playerOverall.delegate = self
+
+    updatePickerData()
+  }
+
+  func setupSelectedInfo() {
+    guard let player = selectedPlayer else { return }
+    playerName.text = player.name
+    playerSurname.text = player.surname
+    playerPosition.text = player.position
+    if let overall = player.overall,
+       let url = URL(string: player.imageUrl ?? ""){
+      playerOverall.text = String(overall)
+      profileImage.kf.setImage(with: url)
+    }
+    addPlayerButton.setTitle("Update", for: .normal)
+  }
+
+  func setupTapGesture() {
+    let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+    profileImage.isUserInteractionEnabled = true
+    profileImage.addGestureRecognizer(tap)
+  }
+
+  func showLoadingView() {
+    showLoading()
+  }
+
+  func hideLoadingView() {
+    hideLoading()
+  }
+  
+  func goToPreviousPage() {
+    navigationController?.popViewController(animated: true)
   }
 }
