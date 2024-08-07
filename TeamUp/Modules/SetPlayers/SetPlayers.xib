@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,6 @@
                                     <rect key="frame" x="8" y="8" width="162" height="284"/>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="AY2-Vs-acD" secondAttribute="trailing" constant="8" id="MGf-Xb-54m"/>
                                 <constraint firstItem="AY2-Vs-acD" firstAttribute="leading" secondItem="9Vc-Bh-btY" secondAttribute="leading" constant="8" id="QLq-lJ-8QU"/>
@@ -47,7 +46,6 @@
                                     <rect key="frame" x="8" y="8" width="162" height="284"/>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <constraints>
                                 <constraint firstItem="Mzw-Zg-jfq" firstAttribute="top" secondItem="fR4-Zh-ufv" secondAttribute="top" constant="8" id="G3Z-vI-A4y"/>
                                 <constraint firstItem="Mzw-Zg-jfq" firstAttribute="leading" secondItem="fR4-Zh-ufv" secondAttribute="leading" constant="8" id="lXC-LG-ztW"/>
@@ -77,6 +75,10 @@
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="mlJ-xk-bLh"/>
+                        <outlet property="delegate" destination="-1" id="Fz8-VP-6O5"/>
+                    </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4y-Mg-9g1">
                     <rect key="frame" x="317.33333333333331" y="59" width="59.666666666666686" height="35"/>
@@ -112,9 +114,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
