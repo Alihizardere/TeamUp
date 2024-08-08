@@ -75,9 +75,6 @@ final class CreateMatchViewController: UIViewController {
     private func setupTextFields() {
         hostIbanTextField.rightView = createPasteButton()
         hostIbanTextField.rightViewMode = .always
-        hostIbanTextField.delegate = self
-        hourTextField.delegate = self
-        gameTypeTextField.delegate = self
     }
     
     private func createPasteButton() -> UIButton {
@@ -96,6 +93,22 @@ final class CreateMatchViewController: UIViewController {
             UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(doneButtonTapped))
         ], animated: false)
         return toolbar
+    }
+    
+    private func saveToUserDefaults() {
+        let textFields: [String: UITextField] = [
+            "location": locationTextField,
+            "hour": hourTextField,
+            "matchDate": matchDateTextField,
+            "hostName": hostNameTextField,
+            "hostIban": hostIbanTextField,
+            "gameType": gameTypeTextField
+        ]
+        
+        let defaults = UserDefaults.standard
+        textFields.forEach { key, textField in
+            defaults.set(textField.text, forKey: key)
+        }
     }
     
     private func updateCreateButtonState() {
@@ -124,27 +137,14 @@ final class CreateMatchViewController: UIViewController {
         if viewModel.validateFields() {
             saveToUserDefaults()
             let setTeamsVC = SetPlayers(nibName: "SetPlayers", bundle: nil)
+            setTeamsVC.gameType = viewModel.gameType
             navigationController?.pushViewController(setTeamsVC, animated: true)
         } else {
             UIAlertController.showAlert(on: self, title: "Eksik Bilgi", message: "Lütfen tüm alanları doldurun", primaryButtonTitle: "Tamam")
         }
     }
     
-    private func saveToUserDefaults() {
-        let textFields: [String: UITextField] = [
-            "location": locationTextField,
-            "hour": hourTextField,
-            "matchDate": matchDateTextField,
-            "hostName": hostNameTextField,
-            "hostIban": hostIbanTextField,
-            "gameType": gameTypeTextField
-        ]
-        
-        let defaults = UserDefaults.standard
-        textFields.forEach { key, textField in
-            defaults.set(textField.text, forKey: key)
-        }
-    }
+    
 }
 
 // MARK: - UIPickerViewDelegate & UIPickerViewDataSource

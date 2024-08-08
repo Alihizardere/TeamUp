@@ -21,6 +21,7 @@ final class SetPlayers: BaseViewController {
     private var lastAddedImageView: UIImageView?
     private var addedPlayersHistory: [(player: Player, imageView: UIImageView)] = []
     fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
+    var gameType: String?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -29,12 +30,22 @@ final class SetPlayers: BaseViewController {
         setupStackViews()
         setDragAndDropSettings()
         observePlayers()
+        
+        if let gameType = gameType {
+            print("Selected game type: \(gameType)")
+            // Perform any actions needed with gameType
+        }
     }
     
     //MARK: - Private Functions
     private func setupStackViews() {
-        updateImageViews(team1StackView, count: 6)
-        updateImageViews(team2StackView, count: 6)
+        if let gameType = gameType, let playerCount = Int(gameType) {
+            updateImageViews(team1StackView, count: playerCount)
+            updateImageViews(team2StackView, count: playerCount)
+        } else {
+            updateImageViews(team1StackView, count: 6)
+            updateImageViews(team2StackView, count: 6)
+        }
     }
     
     private func setDragAndDropSettings() {
@@ -243,8 +254,6 @@ extension SetPlayers: UIDropInteractionDelegate {
                     let removedPlayer = self.players.remove(at: indexPath.row)
                     self.collectionView.deleteItems(at: [indexPath])
                     self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
-                    
-                    // Update the playerLabel with the player's name
                     playerLabel?.text = (removedPlayer.name ?? "") + " " + (removedPlayer.surname ?? "")
                 }
             }
