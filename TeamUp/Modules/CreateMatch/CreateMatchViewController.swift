@@ -136,7 +136,7 @@ final class CreateMatchViewController: UIViewController {
     @IBAction func createMatchButtonTapped(_ sender: Any) {
         if viewModel.validateFields() {
             saveToUserDefaults()
-            let setTeamsVC = SetPlayers(nibName: "SetPlayers", bundle: nil)
+            let setTeamsVC = SetPlayersViewController(nibName: "SetPlayersViewController", bundle: nil)
             setTeamsVC.gameType = viewModel.gameType
             navigationController?.pushViewController(setTeamsVC, animated: true)
         } else {
