@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetPlayers" customModule="TeamUp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetPlayersViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="jqj-Fl-KQa" id="8L8-0h-vbS"/>
                 <outlet property="team1StackView" destination="AY2-Vs-acD" id="wZW-yl-XX4"/>
@@ -78,6 +78,8 @@
                     <connections>
                         <outlet property="dataSource" destination="-1" id="mlJ-xk-bLh"/>
                         <outlet property="delegate" destination="-1" id="Fz8-VP-6O5"/>
+                        <outlet property="dragDelegate" destination="-1" id="caM-Zj-Q4Y"/>
+                        <outlet property="dropDelegate" destination="-1" id="uB8-bw-can"/>
                     </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4y-Mg-9g1">
