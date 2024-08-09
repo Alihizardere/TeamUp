@@ -31,8 +31,7 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var secondTeamView: UIView!
 
     //MARK: - PROPERTIES
-
-    private let locationManager = CLLocationManager()
+    private let defaults = UserDefaults.standard
     private var panGestureRecognizers: [UIPanGestureRecognizer] = []
     private var viewModel: MatchDetailViewModelProtocol! {
       didSet { viewModel.delegate = self}
@@ -47,18 +46,12 @@ final class MatchDetailViewController: BaseViewController {
 
     //MARK: - PRIVATE FUNCTIONS
 
-    private func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-
     private func loadUserDefaults() {
-        let defaults = UserDefaults.standard
         lblHour.text = defaults.string(forKey: "hour") ?? "N/A"
         lblDate.text = defaults.string(forKey: "matchDate") ?? "N/A"
         lblHostIban.text = (("TR\(defaults.string(forKey: "hostIban") ?? "N/A")"))
         lblHostName.text = defaults.string(forKey: "hostName") ?? "N/A"
+        lblLocation.text = defaults.string(forKey: "city") ?? "N/A"
     }
     
     private func updateWeatherImage(for weather: Weather) {
@@ -198,40 +191,19 @@ final class MatchDetailViewController: BaseViewController {
     }
 }
 
-//MARK: - Extension TableViewDelegate && TableViewDataSource
-extension MatchDetailViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks,error) in
-            guard let self = self else { return }
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let placemark = placemarks?.first else {return }
-            self.lblLocation.text = [placemark.locality, placemark.administrativeArea].compactMap{ $0 }.joined(separator: ", ")
-          viewModel.getWeather(for: location)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        //TODO: Alert eklenecek
-        print("Failed to get user location: \(error)")
-    }
-}
-
 // MARK: - MatchDetailViewModelDelegate
 
 extension MatchDetailViewController: MatchDetailViewModelDelegate {
 
   func setupUI() {
     viewModel.loadPlayers()
-    setupLocationManager()
     loadUserDefaults()
     setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
     setupShowAllPlayersTapGesture()
     changeTeam()
+    if let city = defaults.string(forKey: "city") {
+      viewModel.getWeather(city: city)
+    }
   }
 
   func configurePlayerData(players: [Player]) {
