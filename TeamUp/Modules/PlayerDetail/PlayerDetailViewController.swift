@@ -10,42 +10,29 @@ import Kingfisher
 
 final class PlayerDetailViewController: BaseViewController {
 
-  // MARK: - Properties
-  @IBOutlet weak var profileImage: UIImageView!
-  @IBOutlet weak var playerName: UITextField!
-  @IBOutlet weak var playerSurname: UITextField!
-  @IBOutlet weak var playerPosition: UITextField!
-  @IBOutlet weak var playerOverall: UITextField!
-  @IBOutlet weak var addPlayerButton: UIButton!
-  let pickerView = UIPickerView()
-  var activeTextField: UITextField?
+  // MARK: - PROPERTİES
+  @IBOutlet private weak var profileImage: UIImageView!
+  @IBOutlet private weak var playerName: UITextField!
+  @IBOutlet private weak var playerSurname: UITextField!
+  @IBOutlet private weak var playerPosition: UITextField!
+  @IBOutlet private weak var playerOverall: UITextField!
+  @IBOutlet private weak var addPlayerButton: UIButton!
+  private let pickerView = UIPickerView()
+  private var activeTextField: UITextField?
   var selectedPlayer: Player?
-  var positions = [String]()
-  var viewModel: PlayerDetailViewModelProtocol! {
+  private var viewModel: PlayerDetailViewModelProtocol! {
     didSet { viewModel.delegate = self }
   }
 
-  // MARK: - Lifecycle
+  // MARK: - LIFE CYCLE
+
   override func viewDidLoad() {
     super.viewDidLoad()
     viewModel = PlayerDetailViewModel()
     viewModel.viewDidLoad()
   }
 
-  // MARK: -  Private Functions
-  private func updatePickerData() {
-    guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
-
-    switch sportType {
-    case "football":
-      positions = Constants.footballPositions
-    case "volleyball":
-      positions = Constants.volleyballPositions
-    default:
-      positions = []
-    }
-    pickerView.reloadAllComponents()
-  }
+  // MARK: - PRIVATE FUNCTIONS
 
   @objc private func imageTapped() {
     let picker = UIImagePickerController()
@@ -53,7 +40,7 @@ final class PlayerDetailViewController: BaseViewController {
     present(picker, animated: true)
   }
 
-  @IBAction func addPlayerButtonTapped(_ sender: Any) {
+  @IBAction  private func addPlayerButtonTapped(_ sender: Any) {
     guard let name = playerName.text, !name.isEmpty,
           let surname = playerSurname.text, !surname.isEmpty,
           let position = playerPosition.text, !position.isEmpty,
@@ -106,6 +93,7 @@ extension PlayerDetailViewController: UIImagePickerControllerDelegate, UINavigat
 
 // MARK: - UIPickerViewDelegate && UIPickerViewDataSource
 extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
      1
   }
@@ -113,7 +101,7 @@ extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     switch activeTextField {
     case playerPosition:
-      return positions.count
+      return viewModel.positions.count
     case playerOverall:
       return Constants.scores.count
     default:
@@ -124,7 +112,7 @@ extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     switch activeTextField {
     case playerPosition:
-      return positions[row]
+      return viewModel.positions[row]
     case playerOverall:
       return Constants.scores[row]
     default:
@@ -135,7 +123,7 @@ extension PlayerDetailViewController: UIPickerViewDelegate, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     switch activeTextField {
     case playerPosition:
-      playerPosition.text = positions[row]
+      playerPosition.text = viewModel.positions[row]
     case playerOverall:
       playerOverall.text = Constants.scores[row]
     default:
@@ -166,7 +154,7 @@ extension PlayerDetailViewController: PlayerDetailViewModelDelegate {
     playerPosition.delegate = self
     playerOverall.delegate = self
 
-    updatePickerData()
+    viewModel.updatePickerData()
   }
 
   func setupSelectedInfo() {
@@ -198,5 +186,9 @@ extension PlayerDetailViewController: PlayerDetailViewModelDelegate {
   
   func goToPreviousPage() {
     navigationController?.popViewController(animated: true)
+  }
+
+  func reloadPickerView() {
+    pickerView.reloadAllComponents()
   }
 }

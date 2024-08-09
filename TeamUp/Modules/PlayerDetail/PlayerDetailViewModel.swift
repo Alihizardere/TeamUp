@@ -7,6 +7,7 @@
 import Foundation
 
  // MARK: - PlayerDetailViewModelDelegates
+
 protocol PlayerDetailViewModelDelegate: AnyObject {
   func setupUI()
   func setupSelectedInfo()
@@ -14,18 +15,23 @@ protocol PlayerDetailViewModelDelegate: AnyObject {
   func showLoadingView()
   func hideLoadingView()
   func goToPreviousPage()
+  func reloadPickerView()
 }
 
 protocol PlayerDetailViewModelProtocol {
   var delegate: PlayerDetailViewModelDelegate? { get set }
+  var positions: [String] { get set }
   func viewDidLoad()
   func update(updatedPlayer: Player?, sportType: String?)
   func upload(imageData: Data?, player: Player?, sportType: String?)
+  func updatePickerData()
 }
 
 // MARK: - PlayerDetailViewModel
+
 final class PlayerDetailViewModel {
   weak var delegate: PlayerDetailViewModelDelegate?
+  var positions = [String]()
   fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
 
   fileprivate func uploadPlayer(imageData: Data, player: Player, sportType: String){
@@ -59,6 +65,7 @@ final class PlayerDetailViewModel {
 }
 
 // MARK: - PlayerDetailViewModelProtocol
+
 extension PlayerDetailViewModel: PlayerDetailViewModelProtocol {
   
   func viewDidLoad() {
@@ -75,5 +82,19 @@ extension PlayerDetailViewModel: PlayerDetailViewModelProtocol {
   func update(updatedPlayer: Player?, sportType: String?) {
     guard let updatedPlayer, let sportType else { return }
     updatePlayer(updatedPlayer: updatedPlayer, sportType: sportType)
+  }
+
+  func updatePickerData() {
+    guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
+
+    switch sportType {
+    case "football":
+      positions = Constants.footballPositions
+    case "volleyball":
+      positions = Constants.volleyballPositions
+    default:
+      positions = []
+    }
+    delegate?.reloadPickerView()
   }
 }

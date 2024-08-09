@@ -9,20 +9,26 @@ import UIKit
 
 final class PlayerListViewController: BaseViewController {
 
-  // MARK: - Properties
+  // MARK: - OUTLETS
+
   @IBOutlet weak var tableView: UITableView!
+
+  // MARK: - PROPERTIES
+
   var viewModel: PlayerListViewModelProtocol! {
     didSet { viewModel.delegate = self }
   }
 
-  // MARK: - Lifecycle
+  // MARK: - LIFE CYCLE
+
   override func viewDidLoad() {
     super.viewDidLoad()
     viewModel = PlayerListViewModel()
     viewModel.viewDidLoad()
   }
 
-  // MARK: - Actions
+  // MARK: - ACTIONS
+
   @IBAction func addPlayerButtonTapped(_ sender: Any) {
     let playerDetailVC = PlayerDetailViewController(nibName: "PlayerDetailViewController", bundle: nil)
     navigationController?.pushViewController(playerDetailVC, animated: true)
@@ -30,6 +36,7 @@ final class PlayerListViewController: BaseViewController {
 }
 
 // MARK: - UITableViewDelegate && UITableViewDataSource
+
 extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     viewModel.numberOfItems
@@ -72,6 +79,7 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - PlayerListViewModelDelegates
+
 extension PlayerListViewController: PlayerListViewModelDelegate {
 
   func setupUI() {

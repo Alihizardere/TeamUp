@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - PlayerListViewModelDelegates
+
 protocol PlayerListViewModelDelegate: AnyObject {
   func reloadData()
   func setupUI()
@@ -29,6 +30,7 @@ protocol PlayerListViewModelProtocol {
 }
 
 // MARK: - PlayerListViewModel
+
 final class PlayerListViewModel {
   weak var delegate: PlayerListViewModelDelegate?
   fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
@@ -38,15 +40,13 @@ final class PlayerListViewModel {
     self.delegate?.showLoadingView()
     firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
       guard let self else { return }
-      DispatchQueue.main.async {
       self.players = players
-        self.delegate?.reloadData()
-        self.delegate?.hideLoadingView()
-        if self.players.isEmpty {
-          self.delegate?.showEmptyView()
-        } else {
-          self.delegate?.hideEmptyView()
-        }
+      delegate?.reloadData()
+      delegate?.hideLoadingView()
+      if self.players.isEmpty {
+        delegate?.showEmptyView()
+      } else {
+        delegate?.hideEmptyView()
       }
     }
   }
@@ -68,6 +68,7 @@ final class PlayerListViewModel {
 }
 
 // MARK: - PlayerListViewModelProtocols
+
 extension PlayerListViewModel: PlayerListViewModelProtocol {
 
   func viewDidLoad() {
