@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MatchDetailViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
-                <outlet property="containerView" destination="0ek-3D-dd7" id="AHF-I6-ibs"/>
                 <outlet property="firstTeamView" destination="byM-O3-w2t" id="Bm8-0K-ekX"/>
                 <outlet property="hostView" destination="gQc-fa-EQF" id="dtR-07-8dq"/>
                 <outlet property="lblDate" destination="tIr-va-Ygy" id="kln-Qe-Mke"/>

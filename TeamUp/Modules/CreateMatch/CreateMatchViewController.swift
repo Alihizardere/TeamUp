@@ -9,7 +9,9 @@ import UIKit
 import CoreLocation
 
 final class CreateMatchViewController: UIViewController {
-    //MARK: - IBOutlets
+
+    //MARK: - OUTLETS
+
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var hourTextField: UITextField!
     @IBOutlet weak var matchDateTextField: UITextField!
@@ -18,14 +20,16 @@ final class CreateMatchViewController: UIViewController {
     @IBOutlet weak var hostNameTextField: UITextField!
     @IBOutlet weak var createMatchButton: UIButton!
     
-    // MARK: - Properties
+    // MARK: - PROPERTIES
+
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
     private let ibanMaxLength = 26
     private var activeTextField: UITextField?
     private var viewModel: CreateMatchViewModelProtocol = CreateMatchViewModel()
     
-    // MARK: - Lifecycle
+    // MARK: - LIFE CYCLE
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -33,7 +37,8 @@ final class CreateMatchViewController: UIViewController {
         setupTapGesture()
     }
     
-    // MARK: - Private Functions
+    // MARK: - PRIVATE FUNCTIONS
+
     private func configureUI() {
         setupPickerView()
         setupDatePicker()
@@ -133,7 +138,7 @@ final class CreateMatchViewController: UIViewController {
         }
     }
     
-    @IBAction func createMatchButtonTapped(_ sender: Any) {
+    @IBAction func createMatchButtonTapped(_ sender: UIButton) {
         if viewModel.validateFields() {
             saveToUserDefaults()
             let setTeamsVC = SetPlayersViewController(nibName: "SetPlayersViewController", bundle: nil)
@@ -148,6 +153,7 @@ final class CreateMatchViewController: UIViewController {
 }
 
 // MARK: - UIPickerViewDelegate & UIPickerViewDataSource
+
 extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -193,6 +199,7 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 }
 
 // MARK: - UITextFieldDelegate
+
 extension CreateMatchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
@@ -236,6 +243,7 @@ extension CreateMatchViewController: UITextFieldDelegate {
 }
 
 // MARK: - CreateMatchViewModelDelegate
+
 extension CreateMatchViewController: CreateMatchViewModelDelegate {
     func didUpdateCreateButtonState(isEnabled: Bool) {
         createMatchButton.isEnabled = isEnabled
