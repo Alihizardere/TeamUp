@@ -10,12 +10,14 @@ import Alamofire
 
 enum Router: URLRequestConvertible {
 
-  case getWeather(latitude: Double, longitude: Double)
+  case getWeatherCityName(city: String)
+  case getCities
+  case getDistricts(id: Int)
 
   // MARK: - method
   var method: HTTPMethod {
     switch self {
-    case .getWeather:
+    case .getWeatherCityName, .getCities, .getDistricts:
       return  .get
     }
   }
@@ -23,7 +25,7 @@ enum Router: URLRequestConvertible {
   // MARK: - Parameters
   var parameters: [String: Any]? {
     switch self {
-    case .getWeather:
+    case .getWeatherCityName, .getCities, .getDistricts:
       return nil
     }
   }
@@ -36,10 +38,18 @@ enum Router: URLRequestConvertible {
   // MARK: - Url
   var url: URL {
     switch self {
-    case .getWeather(let latitude, let longitude):
-      let urlString = "\(Constants.baseURL)lat=\(latitude)&lon=\(longitude)&appid=\(Constants.apiKey)"
+    case .getWeatherCityName(let city):
+      let urlString = "\(Constants.baseURL)q=\(city)&appid=\(Constants.apiKey)"
       let url = URL(string: urlString)
       return url!
+    case .getCities:
+      let url = URL(string: Constants.citiesURL)
+      return url!
+    case .getDistricts(let id):
+      let urlString = "\(Constants.citiesURL)/\(id)"
+      let url = URL(string: urlString)
+      return url!
+
     }
   }
 

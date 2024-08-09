@@ -20,7 +20,7 @@ protocol MatchDetailViewModelProtocol {
   var delegate: MatchDetailViewModelDelegate? { get set }
   func viewDidLoad()
   func loadPlayers()
-  func getWeather(for location: CLLocation)
+  func getWeather(city: String)
 
 }
 
@@ -42,20 +42,17 @@ final class MatchDetailViewModel {
       }
   }
 
-  private func fetchWeather(for location: CLLocation) {
-      WeatherLogic.shared.fetchWeather(
-          latitude: location.coordinate.latitude,
-          longitude: location.coordinate.longitude
-      ) { [weak self] result in
-          switch result {
-          case .success(let weatherResponse):
-              DispatchQueue.main.async {
-                self?.delegate?.configureWeatherResponse(weatherResponse: weatherResponse)
-              }
-          case .failure(let error):
-              print("Failed to fetch weather data: \(error)")
-          }
+  private func fetchWeather(city: String) {
+    WeatherLogic.shared.fetchWeatherCityName(city: city) { [weak self] result in
+      switch result {
+      case .success(let weatherResponse):
+        DispatchQueue.main.async {
+          self?.delegate?.configureWeatherResponse(weatherResponse: weatherResponse)
+        }
+      case .failure(let error):
+        print("Failed to fetch weather data: \(error)")
       }
+    }
   }
 }
 
@@ -69,7 +66,7 @@ extension MatchDetailViewModel: MatchDetailViewModelProtocol {
     fetchPlayers()
   }
 
-  func getWeather(for location: CLLocation) {
-    fetchWeather(for: location)
+  func getWeather(city: String) {
+    fetchWeather(city: city)
   }
 }
