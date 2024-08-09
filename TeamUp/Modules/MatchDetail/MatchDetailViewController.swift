@@ -9,91 +9,50 @@ import UIKit
 import CoreLocation
 
 final class MatchDetailViewController: BaseViewController {
-    //MARK: - IBOutlets
-    @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var lblHour: UILabel!
-    @IBOutlet weak var lblTemp: UILabel!
-    @IBOutlet weak var lblTempDesc: UILabel!
-    @IBOutlet weak var lblWind: UILabel!
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var lblNumberOfPlayers: UILabel!
-    @IBOutlet weak var lblShowAllPlayers: UILabel!
-    @IBOutlet weak var lblHostIban: UILabel!
-    @IBOutlet weak var lblHostName: UILabel!
-    @IBOutlet weak var weatherView: UIView!
-    @IBOutlet weak var nextMatchView: UIView!
-    @IBOutlet weak var hostView: UIView!
-    @IBOutlet weak var playersView: UIView!
-    @IBOutlet weak var teamSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var firstTeamView: UIView!
-    @IBOutlet weak var secondTeamView: UIView!
-    @IBOutlet weak var containerView: UIView!
-  
-    //MARK: - Properties
-   fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
-    private let locationManager = CLLocationManager()
-    private var players = [Player]()
-    private var draggableViews: [PlayerCustomView] = []
-    private var panGestureRecognizers: [UIPanGestureRecognizer] = []
 
-    //MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupLocationManager()
-        loadUserDefaults()
-        observePlayers()
-        setupShowAllPlayersTapGesture()
-        setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
-        changeTeam()
+    //MARK: - OUTLETS
+    @IBOutlet private weak var lblLocation: UILabel!
+    @IBOutlet private weak var lblHour: UILabel!
+    @IBOutlet private weak var lblTemp: UILabel!
+    @IBOutlet private weak var lblTempDesc: UILabel!
+    @IBOutlet private weak var lblWind: UILabel!
+    @IBOutlet private weak var lblDate: UILabel!
+    @IBOutlet private weak var weatherImage: UIImageView!
+    @IBOutlet private weak var lblNumberOfPlayers: UILabel!
+    @IBOutlet private weak var lblShowAllPlayers: UILabel!
+    @IBOutlet private weak var lblHostIban: UILabel!
+    @IBOutlet private weak var lblHostName: UILabel!
+    @IBOutlet private weak var weatherView: UIView!
+    @IBOutlet private weak var nextMatchView: UIView!
+    @IBOutlet private weak var hostView: UIView!
+    @IBOutlet private weak var playersView: UIView!
+    @IBOutlet private weak var teamSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var firstTeamView: UIView!
+    @IBOutlet private weak var secondTeamView: UIView!
+
+    //MARK: - PROPERTIES
+
+    private let locationManager = CLLocationManager()
+    private var panGestureRecognizers: [UIPanGestureRecognizer] = []
+    private var viewModel: MatchDetailViewModelProtocol! {
+      didSet { viewModel.delegate = self}
     }
 
-    //MARK: - Private Functions
+    //MARK: - LIFE CYCLE
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel = MatchDetailViewModel()
+        viewModel.viewDidLoad()
+    }
+
+    //MARK: - PRIVATE FUNCTIONS
+
     private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
-    
-    private func fetchWeather(for location: CLLocation) {
-        WeatherLogic.shared.fetchWeather(
-            latitude: location.coordinate.latitude,
-            longitude: location.coordinate.longitude
-        ) { [weak self] result in
-            switch result {
-            case .success(let weatherResponse):
-                DispatchQueue.main.async {
-                    if let tempInFahrenheit = weatherResponse.main?.temp {
-                        let tempInCelsius = tempInFahrenheit - 273.15
-                        self?.lblTemp.text = "\(Int(tempInCelsius))°C"
-                    }
-                    if let wind = weatherResponse.wind {
-                        self?.lblWind.text = "\(Int(wind.speed ?? 700)) km/s"
-                    }
-                    if let weather = weatherResponse.weather?.first {
-                        self?.lblTempDesc.text = weather.description?.capitalized
-                        self?.updateWeatherImage(for: weather)
-                        print("Weather description from API: \(weather.description ?? "")")
-                    }
-                }
-            case .failure(let error):
-                print("Failed to fetch weather data: \(error)")
-            }
-        }
-    }
-    
-    private func observePlayers() {
-        guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
-        firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                self.players = players
-                self.lblNumberOfPlayers.text = String(players.count)
-                self.setupDraggableViews(for: players, in: self.firstTeamView)
-            }
-        }
-    }
-    
+
     private func loadUserDefaults() {
         let defaults = UserDefaults.standard
         lblHour.text = defaults.string(forKey: "hour") ?? "N/A"
@@ -132,8 +91,8 @@ final class MatchDetailViewController: BaseViewController {
 
     private func setupDraggableViews(for team: [Player], in teamView: UIView) {
       var teamDraggableViews: [PlayerCustomView] = []
-      for player in team {
-        let view = PlayerCustomView(name: player.name ?? "Unknow", imageName: "kit5", overallScore:   String(player.overall ?? 0))
+      team.forEach { item in
+        let view = PlayerCustomView(name: item.name ?? "Unknow", imageName: "kit5", overallScore:   String(item.overall ?? 0))
         teamDraggableViews.append(view)
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         view.addGestureRecognizer(panGestureRecognizer)
@@ -180,24 +139,52 @@ final class MatchDetailViewController: BaseViewController {
         view.widthAnchor.constraint(equalToConstant: size),
         view.heightAnchor.constraint(equalToConstant: size),
         view.centerXAnchor.constraint(equalTo: teamView.centerXAnchor, constant: xOffset),
-        view.centerYAnchor.constraint(equalTo: teamView.centerYAnchor, constant: -yOffset * 1.1 - 40)
+        view.centerYAnchor.constraint(equalTo: teamView.centerYAnchor, constant: -yOffset * 1.1 )
       ])
     }
   }
 
     private func changeTeam() {
-      let isTeamASelected = teamSegmentedControl.selectedSegmentIndex == 0
-      firstTeamView.isHidden = !isTeamASelected
-      secondTeamView.isHidden = isTeamASelected
+      if teamSegmentedControl.selectedSegmentIndex == 0 {
+        firstTeamView.isHidden = false
+        secondTeamView.isHidden = true
+      } else {
+        firstTeamView.isHidden = true
+        secondTeamView.isHidden = false
+      }
     }
 
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
-      guard let draggedView = gesture.view else { return }
+      guard let draggedView = gesture.view, let superview = draggedView.superview else { return }
       let translation = gesture.translation(in: view)
 
       if gesture.state == .began || gesture.state == .changed {
-        draggedView.center = CGPoint(x: draggedView.center.x + translation.x, y: draggedView.center.y + translation.y)
+        let newCenter = CGPoint(x: draggedView.center.x + translation.x, y: draggedView.center.y + translation.y)
+        let minX = draggedView.bounds.width / 2
+        let maxX = superview.bounds.width - minX
+        let minY = draggedView.bounds.height / 2
+        let maxY = superview.bounds.height - minY
+
+        draggedView.center = CGPoint(
+          x: min(max(newCenter.x, minX), maxX),
+          y: min(max(newCenter.y, minY), maxY)
+        )
+
         gesture.setTranslation(.zero, in: view)
+        gesture.setTranslation(.zero, in: view)
+
+      } else if gesture.state == .ended {
+
+         let existingConstraints = draggedView.constraints.filter({ $0.identifier == "centerX" || $0.identifier == "centerY" })
+          NSLayoutConstraint.deactivate(existingConstraints)
+          draggedView.removeConstraints(existingConstraints)
+
+          let centerXConstraint = draggedView.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: draggedView.center.x)
+          centerXConstraint.identifier = "centerX"
+          let centerYConstraint = draggedView.centerYAnchor.constraint(equalTo: superview.topAnchor, constant: draggedView.center.y)
+          centerYConstraint.identifier = "centerY"
+
+        NSLayoutConstraint.activate([centerXConstraint, centerYConstraint])
       }
     }
 
@@ -224,7 +211,7 @@ extension MatchDetailViewController: CLLocationManagerDelegate {
             }
             guard let placemark = placemarks?.first else {return }
             self.lblLocation.text = [placemark.locality, placemark.administrativeArea].compactMap{ $0 }.joined(separator: ", ")
-            self.fetchWeather(for: location)
+          viewModel.getWeather(for: location)
         }
     }
     
@@ -232,4 +219,38 @@ extension MatchDetailViewController: CLLocationManagerDelegate {
         //TODO: Alert eklenecek
         print("Failed to get user location: \(error)")
     }
+}
+
+// MARK: - MatchDetailViewModelDelegate
+
+extension MatchDetailViewController: MatchDetailViewModelDelegate {
+
+  func setupUI() {
+    viewModel.loadPlayers()
+    setupLocationManager()
+    loadUserDefaults()
+    setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
+    setupShowAllPlayersTapGesture()
+    changeTeam()
+  }
+
+  func configurePlayerData(players: [Player]) {
+    lblNumberOfPlayers.text = String(players.count)
+    setupDraggableViews(for: players, in: self.firstTeamView)
+  }
+
+  func configureWeatherResponse(weatherResponse: WeatherResponse) {
+    if let tempInFahrenheit = weatherResponse.main?.temp {
+      let tempInCelsius = tempInFahrenheit - 273.15
+      lblTemp.text = "\(Int(tempInCelsius))°C"
+    }
+    if let wind = weatherResponse.wind {
+      lblWind.text = "\(Int(wind.speed ?? 700)) km/s"
+    }
+    if let weather = weatherResponse.weather?.first {
+      lblTempDesc.text = weather.description?.capitalized
+      updateWeatherImage(for: weather)
+    }
+  }
+
 }

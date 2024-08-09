@@ -6,12 +6,15 @@
 //
 
 import Foundation
+
 //MARK: - CreateMatchViewModelDelegate
+
 protocol CreateMatchViewModelDelegate: AnyObject {
     func didUpdateCreateButtonState(isEnabled: Bool)
 }
 
 //MARK: - CreateMatchViewModelProtocol
+
 protocol CreateMatchViewModelProtocol {
     var location: String? { get set }
     var hour: String? { get set }
@@ -26,6 +29,7 @@ protocol CreateMatchViewModelProtocol {
 }
 
 //MARK: - CreateMatchViewModel
+
 final class CreateMatchViewModel: CreateMatchViewModelProtocol {
         weak var delegate: CreateMatchViewModelDelegate?
         var location: String? {
