@@ -12,6 +12,7 @@ final class LandingViewController: BaseViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    navigationController?.navigationBar.isHidden = true
     print("This is landing page")
   }
   //MARK: - Actions
