@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
   // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         print("This is Home page")
     }
 

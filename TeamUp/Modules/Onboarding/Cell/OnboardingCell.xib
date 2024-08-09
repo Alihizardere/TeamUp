@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="OnboardingCell" customModule="TeamUp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="681"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="681"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-6h-0JL">
+                        <rect key="frame" x="16" y="492.66666666666669" width="382" height="172.33333333333331"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Step Into the Crypto World" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP6-XY-EzR">
+                                <rect key="frame" x="32" y="0.0" width="318.33333333333331" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to the world of crypto! Start managing your digital assets with our app and enjoy the taste of financial freedom." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQB-DJ-e21">
+                                <rect key="frame" x="7.6666666666666572" y="54.999999999999936" width="367" height="117.33333333333331"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnd-pc-JOO" customClass="LottieAnimationView" customModule="Lottie">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="476.66666666666669"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="eKk-6h-0JL" firstAttribute="top" secondItem="Qnd-pc-JOO" secondAttribute="bottom" constant="16" id="5KK-FS-SMK"/>
+                <constraint firstAttribute="bottom" secondItem="eKk-6h-0JL" secondAttribute="bottom" constant="16" id="CG0-Ua-d29"/>
+                <constraint firstItem="Qnd-pc-JOO" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="Egb-1H-9Xc"/>
+                <constraint firstAttribute="trailing" secondItem="Qnd-pc-JOO" secondAttribute="trailing" id="GsS-z9-e5b"/>
+                <constraint firstAttribute="trailing" secondItem="eKk-6h-0JL" secondAttribute="trailing" constant="16" id="RbS-mw-gK8"/>
+                <constraint firstItem="eKk-6h-0JL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="VMT-j1-dzb"/>
+                <constraint firstItem="Qnd-pc-JOO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fdc-GZ-0Y7"/>
+                <constraint firstItem="Qnd-pc-JOO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gQq-Om-Ttp"/>
+            </constraints>
+            <connections>
+                <outlet property="animationView" destination="Qnd-pc-JOO" id="QbF-Tz-dV0"/>
+                <outlet property="slideDescription" destination="TQB-DJ-e21" id="gnf-KY-R41"/>
+                <outlet property="slideTitle" destination="xP6-XY-EzR" id="OcQ-It-tlr"/>
+            </connections>
+            <point key="canvasLocation" x="68.702290076335871" y="-2.4647887323943665"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
