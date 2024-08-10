@@ -61,7 +61,7 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
       guard let self else { return }
-      guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
+      guard let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key) else { return }
 
       UIAlertController.showAlert(
         on: self,

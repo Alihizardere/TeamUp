@@ -45,7 +45,7 @@ final class PlayerDetailViewController: BaseViewController {
           let surname = playerSurname.text, !surname.isEmpty,
           let position = playerPosition.text, !position.isEmpty,
           let overall = playerOverall.text, !overall.isEmpty,
-          let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
+          let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key) else { return }
 
     if let image = profileImage.image, let imageData = image.jpegData(compressionQuality: 0.5) {
       if let player = selectedPlayer {

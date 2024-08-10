@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D0C691F2C674535008D73AE /* CreateMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C691E2C674535008D73AE /* CreateMatchTests.swift */; };
-		3D0C69212C674590008D73AE /* MockCreateMatchViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C69202C674590008D73AE /* MockCreateMatchViewModelDelegate.swift */; };
+		3D0C69232C6771C6008D73AE /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C69222C6771C6008D73AE /* UserDefaults.swift */; };
 		3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */; };
 		3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */; };
 		3D51AB8F2C61687E00E1950B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51AB8E2C61687E00E1950B /* UIView.swift */; };
@@ -109,8 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3D0C691E2C674535008D73AE /* CreateMatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMatchTests.swift; sourceTree = "<group>"; };
-		3D0C69202C674590008D73AE /* MockCreateMatchViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateMatchViewModelDelegate.swift; sourceTree = "<group>"; };
+		3D0C69222C6771C6008D73AE /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		3D17580F2C5E756600E5BAE4 /* LoadingShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShowable.swift; sourceTree = "<group>"; };
 		3D2A4A392C6260DC004BD4F5 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -208,15 +206,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D0C691D2C67451A008D73AE /* CreateMatch */ = {
-			isa = PBXGroup;
-			children = (
-				3D0C691E2C674535008D73AE /* CreateMatchTests.swift */,
-				3D0C69202C674590008D73AE /* MockCreateMatchViewModelDelegate.swift */,
-			);
-			name = CreateMatch;
-			sourceTree = "<group>";
-		};
 		3D17580E2C5E754B00E5BAE4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +219,7 @@
 			children = (
 				3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */,
 				3D51AB8E2C61687E00E1950B /* UIView.swift */,
+				3D0C69222C6771C6008D73AE /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -473,7 +463,6 @@
 		45DCF4F52C6667510014AE2F /* TeamUpTests */ = {
 			isa = PBXGroup;
 			children = (
-				3D0C691D2C67451A008D73AE /* CreateMatch */,
 				45DCF5042C6684C90014AE2F /* PlayerDetail */,
 				45DCF4FD2C66676A0014AE2F /* PlayerList */,
 				45DCF4F62C6667510014AE2F /* TeamUpTests.swift */,
@@ -667,6 +656,7 @@
 				3DDF17672C59059A00F2BF80 /* Player.swift in Sources */,
 				3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */,
 				4517B47C2C64D0D8005C90D6 /* SetPlayersViewModel.swift in Sources */,
+				3D0C69232C6771C6008D73AE /* UserDefaults.swift in Sources */,
 				458E31242C5A28640039B64F /* MatchDetailViewController.swift in Sources */,
 				45979D402C5E30B000F3263E /* EmptyView.swift in Sources */,
 				3DFC17D22C66AA9600917726 /* OnboardingViewController.swift in Sources */,
@@ -683,9 +673,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DCF4FF2C66693F0014AE2F /* PlayerListTests.swift in Sources */,
-				3D0C691F2C674535008D73AE /* CreateMatchTests.swift in Sources */,
 				45DCF4F72C6667510014AE2F /* TeamUpTests.swift in Sources */,
-				3D0C69212C674590008D73AE /* MockCreateMatchViewModelDelegate.swift in Sources */,
 				45DCF5032C666CCC0014AE2F /* MockPlayerListViewModelDelegate.swift in Sources */,
 				45DCF5082C6685590014AE2F /* MockPlayerDetailViewModelDelegate.swift in Sources */,
 				45DCF5012C666CB10014AE2F /* MockFirebaseService.swift in Sources */,

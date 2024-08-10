@@ -85,16 +85,14 @@ extension PlayerDetailViewModel: PlayerDetailViewModelProtocol {
     }
     
     func updatePickerData() {
-        guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
-        
+      if let sportType = UserDefaults.standard.sportType(forKey: Constants.SportType.key) {
         switch sportType {
-        case "football":
-            positions = Constants.footballPositions
-        case "volleyball":
-            positions = Constants.volleyballPositions
-        default:
-            positions = []
+        case .football:
+          positions = Constants.footballPositions
+        case .volleyball:
+          positions = Constants.volleyballPositions
         }
+      }
         delegate?.reloadPickerView()
     }
 }

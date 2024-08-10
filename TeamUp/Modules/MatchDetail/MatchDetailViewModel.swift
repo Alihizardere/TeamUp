@@ -11,62 +11,62 @@ import CoreLocation
 // MARK: - MatchDEtailViewModelDelegate
 
 protocol MatchDetailViewModelDelegate: AnyObject {
-  func configurePlayerData(players: [Player])
-  func setupUI()
-  func configureWeatherResponse(weatherResponse: WeatherResponse)
+    func configurePlayerData(players: [Player])
+    func setupUI()
+    func configureWeatherResponse(weatherResponse: WeatherResponse)
 }
 
 protocol MatchDetailViewModelProtocol {
-  var delegate: MatchDetailViewModelDelegate? { get set }
-  func viewDidLoad()
-  func loadPlayers()
-  func getWeather(city: String)
+    var delegate: MatchDetailViewModelDelegate? { get set }
+    func viewDidLoad()
+    func loadPlayers()
+    func getWeather(city: String)
 
 }
 
 // MARK: - MatchDetailViewModel
 
 final class MatchDetailViewModel {
-  weak var delegate: MatchDetailViewModelDelegate?
-  fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
-  private var players = [Player]()
-  
-  private func fetchPlayers() {
-      guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
-      firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
-          guard let self else { return }
-          DispatchQueue.main.async {
-              self.players = players
-              self.delegate?.configurePlayerData(players:  players)
-          }
-      }
-  }
+    weak var delegate: MatchDetailViewModelDelegate?
+    fileprivate var firebaseService: FirebaseServiceProtocol = FirebaseService()
+    private var players = [Player]()
 
-  private func fetchWeather(city: String) {
-    WeatherLogic.shared.fetchWeatherCityName(city: city) { [weak self] result in
-      switch result {
-      case .success(let weatherResponse):
-        DispatchQueue.main.async {
-          self?.delegate?.configureWeatherResponse(weatherResponse: weatherResponse)
+    private func fetchPlayers() {
+        guard let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key) else { return }
+        firebaseService.fetchPlayers(sportType: sportType) { [weak self] players in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.players = players
+                self.delegate?.configurePlayerData(players:  players)
+            }
         }
-      case .failure(let error):
-        print("Failed to fetch weather data: \(error)")
-      }
     }
-  }
+
+    private func fetchWeather(city: String) {
+        WeatherLogic.shared.fetchWeatherCityName(city: city) { [weak self] result in
+            switch result {
+            case .success(let weatherResponse):
+                DispatchQueue.main.async {
+                    self?.delegate?.configureWeatherResponse(weatherResponse: weatherResponse)
+                }
+            case .failure(let error):
+                print("Failed to fetch weather data: \(error)")
+            }
+        }
+    }
 }
 
 extension MatchDetailViewModel: MatchDetailViewModelProtocol {
 
-  func viewDidLoad() {
-    self.delegate?.setupUI()
-  }
+    func viewDidLoad() {
+        self.delegate?.setupUI()
+    }
+    
+    func loadPlayers() {
+        fetchPlayers()
+    }
 
-  func loadPlayers() {
-    fetchPlayers()
-  }
-
-  func getWeather(city: String) {
-    fetchWeather(city: city)
-  }
+    func getWeather(city: String) {
+        fetchWeather(city: city)
+    }
 }

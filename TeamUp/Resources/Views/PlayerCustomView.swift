@@ -9,80 +9,83 @@ import UIKit
 
 final class PlayerCustomView: UIView {
 
-  // MARK: - Properties
-  private let imageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.contentMode = .scaleAspectFit
-    imageView.clipsToBounds = true
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    return imageView
-  }()
+    // MARK: - PROPERTIES
 
-  private let overallScoreLabel: UILabel = {
-    let label = UILabel()
-    label.textAlignment = .center
-    label.textColor = .white
-    label.font = UIFont.boldSystemFont(ofSize: 14)
-    label.backgroundColor = .black
-    label.layer.cornerRadius = 10
-    label.layer.masksToBounds = true
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
-  private let label: UILabel = {
-    let label = UILabel()
-    label.textAlignment = .center
-    label.textColor = .white
-    label.font = UIFont.systemFont(ofSize: 16)
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+    private let overallScoreLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.backgroundColor = .black
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
-  private let stackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.axis = .vertical
-    stackView.distribution = .fill
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    return stackView
-  }()
+    private let label: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
-  // MARK: - Init
-  init(name: String, imageName: String, overallScore: String) {
-    super.init(frame: .zero)
-    setupView(name: name, imageName: imageName, overallScore: overallScore)
-  }
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    // MARK: - INIT
 
-  // MARK: - Private Functions
-  private func setupView(name: String, imageName: String, overallScore: String) {
-    self.backgroundColor = .clear
-    self.translatesAutoresizingMaskIntoConstraints = false
+    init(name: String, imageName: String, overallScore: String) {
+        super.init(frame: .zero)
+        setupView(name: name, imageName: imageName, overallScore: overallScore)
+    }
 
-    imageView.image = UIImage(named: imageName)
-    label.text = name
-    overallScoreLabel.text = overallScore
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-    imageView.addSubview(overallScoreLabel)
-    stackView.addArrangedSubview(imageView)
-    stackView.addArrangedSubview(label)
-    self.addSubview(stackView)
+    // MARK: - PRIVATE FUNCTIONS
 
-    NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: self.topAnchor),
-      stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-      stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+    private func setupView(name: String, imageName: String, overallScore: String) {
+        self.backgroundColor = .clear
+        self.translatesAutoresizingMaskIntoConstraints = false
 
-      imageView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.7),
+        imageView.image = UIImage(named: imageName)
+        label.text = name
+        overallScoreLabel.text = overallScore
 
-      overallScoreLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 2),
-      overallScoreLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -2),
-      overallScoreLabel.widthAnchor.constraint(equalToConstant: 20),
-      overallScoreLabel.heightAnchor.constraint(equalToConstant: 20)
-    ])
-  }
+        imageView.addSubview(overallScoreLabel)
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(label)
+        self.addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
+            imageView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.7),
+
+            overallScoreLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 2),
+            overallScoreLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -2),
+            overallScoreLabel.widthAnchor.constraint(equalToConstant: 20),
+            overallScoreLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+    }
 }

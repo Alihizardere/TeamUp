@@ -5,8 +5,6 @@
 //  Created by alihizardere on 30.07.2024.
 //
 
-import UIKit
-
 struct Player {
     let id: String?
     let name: String?

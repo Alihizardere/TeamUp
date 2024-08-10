@@ -9,20 +9,26 @@ import UIKit
 
 final class LandingViewController: BaseViewController {
 
-  // MARK: - Lifecycle
+  // MARK: -  LIFE CYCLE
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationController?.navigationBar.isHidden = true
     print("This is landing page")
   }
-  //MARK: - Actions
+
+  override func viewWillAppear(_ animated: Bool) {
+    navigationController?.navigationBar.isHidden = true
+  }
+
+  //MARK: - ACTIONS
+
   @IBAction func footballButtonTapped(_ sender: UIButton) {
-    UserDefaults.standard.set("football", forKey: "sportType")
+    UserDefaults.standard.set(Constants.SportType.football, forKey: Constants.SportType.key)
     navigateToHome()
   }
 
   @IBAction func volleyballButtonClicked(_ sender: UIButton) {
-    UserDefaults.standard.set("volleyball", forKey: "sportType")
+    UserDefaults.standard.set(Constants.SportType.volleyball, forKey: Constants.SportType.key)
     navigateToHome()
   }
 
