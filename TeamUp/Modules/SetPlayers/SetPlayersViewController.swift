@@ -157,10 +157,9 @@ final class SetPlayersViewController: BaseViewController {
             guard let columnStackView = view as? UIStackView else { continue }
             for subview in columnStackView.arrangedSubviews {
                 if let playerStackView = subview as? UIStackView {
-
-                    let playerLabel = playerStackView.arrangedSubviews.last as? UILabel
-                    let positionLabel = playerStackView.arrangedSubviews.last as? UILabel
-                    let overallLabel = playerStackView.arrangedSubviews.last as? UILabel
+                    let playerLabel = playerStackView.arrangedSubviews[3] as? UILabel // Player name
+                    let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel // Position
+                    let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel // Overall
 
                     let playerName = playerLabel?.text
                     let position = positionLabel?.text
@@ -208,7 +207,7 @@ final class SetPlayersViewController: BaseViewController {
     }
 
     @IBAction func goToNextPage(_ sender: UIButton) {
-        if !areAllPositionsFilled() {
+       if !areAllPositionsFilled() {
             UIAlertController.showAlert(
                 on: self,
                 title:  "Incomplete Team" ,
@@ -217,14 +216,15 @@ final class SetPlayersViewController: BaseViewController {
                 primaryButtonStyle: .default
             )
         } else {
-            let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
-            let team1Players = getPlayersFromStackView(team1StackView)
-            let team2Players = getPlayersFromStackView(team2StackView)
-            matchDetailVC.team1Players = team1Players
-            matchDetailVC.team2Players = team2Players
+       let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+       let team1Players = getPlayersFromStackView(team1StackView)
+       let team2Players = getPlayersFromStackView(team2StackView)
+       matchDetailVC.team1Players = team1Players
+       matchDetailVC.team2Players = team2Players
 
-            navigationController?.pushViewController(matchDetailVC, animated: true)
+       navigationController?.pushViewController(matchDetailVC, animated: true)
         }
+       
     }
 }
 
@@ -274,7 +274,9 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         guard let destinationView = interaction.view as? UIImageView else { return }
         let playerStackView = destinationView.superview as? UIStackView
-        let playerLabel = playerStackView?.arrangedSubviews.last as? UILabel
+        let playerLabel = playerStackView?.arrangedSubviews[3] as? UILabel // Player name
+        let positionLabel = playerStackView?.arrangedSubviews[1] as? UILabel // Position
+        let overallLabel = playerStackView?.arrangedSubviews[2] as? UILabel // Overall
 
         session.loadObjects(ofClass: UIImage.self) { items in
             guard let images = items as? [UIImage], let image = images.first else { return }
@@ -289,13 +291,18 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
                     if let removedPlayer = self.viewModel.removePlayer(at: indexPath.row) {
                         self.collectionView.deleteItems(at: [indexPath])
                         self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
-                        playerLabel?.text =  removedPlayer.name ?? ""
 
+                        // Set the player's information
+                        playerLabel?.text = "\(removedPlayer.name ?? "")"
+                        positionLabel?.text = removedPlayer.position
+                        overallLabel?.text = "\(removedPlayer.overall ?? 0)"
                     }
                 }
             }
         }
     }
+
+
 }
 
 //MARK: - SetPlayersViewModelDelegate
