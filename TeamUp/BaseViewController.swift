@@ -9,8 +9,18 @@ import UIKit
 
 class BaseViewController: UIViewController, LoadingShowable {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    func showAlertNoInternetConnection() {
+        UIAlertController.showAlert(
+            on: self,
+            title: "No Internet Connection",
+            message: "Please check your internet connection.",
+            primaryButtonTitle: "OK",
+            primaryButtonStyle: .default
+        )
+    }
 }
 

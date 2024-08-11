@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-6h-0JL">
-                        <rect key="frame" x="16" y="492.66666666666669" width="382" height="172.33333333333331"/>
+                        <rect key="frame" x="16" y="465.33333333333331" width="382" height="199.66666666666669"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Step Into the Crypto World" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP6-XY-EzR">
-                                <rect key="frame" x="32" y="0.0" width="318.33333333333331" height="55"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <rect key="frame" x="49" y="0.0" width="284.33333333333331" height="59"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to the world of crypto! Start managing your digital assets with our app and enjoy the taste of financial freedom." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQB-DJ-e21">
-                                <rect key="frame" x="7.6666666666666572" y="54.999999999999936" width="367" height="117.33333333333331"/>
+                                <rect key="frame" x="7.6666666666666572" y="59.000000000000043" width="367" height="140.66666666666663"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -36,7 +36,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnd-pc-JOO" customClass="LottieAnimationView" customModule="Lottie">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="476.66666666666669"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="449.33333333333337"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </subviews>
@@ -45,7 +45,7 @@
             <constraints>
                 <constraint firstItem="eKk-6h-0JL" firstAttribute="top" secondItem="Qnd-pc-JOO" secondAttribute="bottom" constant="16" id="5KK-FS-SMK"/>
                 <constraint firstAttribute="bottom" secondItem="eKk-6h-0JL" secondAttribute="bottom" constant="16" id="CG0-Ua-d29"/>
-                <constraint firstItem="Qnd-pc-JOO" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="Egb-1H-9Xc"/>
+                <constraint firstItem="Qnd-pc-JOO" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.66" id="Egb-1H-9Xc"/>
                 <constraint firstAttribute="trailing" secondItem="Qnd-pc-JOO" secondAttribute="trailing" id="GsS-z9-e5b"/>
                 <constraint firstAttribute="trailing" secondItem="eKk-6h-0JL" secondAttribute="trailing" constant="16" id="RbS-mw-gK8"/>
                 <constraint firstItem="eKk-6h-0JL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="VMT-j1-dzb"/>

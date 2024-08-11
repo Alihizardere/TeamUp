@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zvC-BI-toB">
-                    <rect key="frame" x="0.0" y="59" width="393" height="659.33333333333337"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="635.33333333333337"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vQH-A8-o4g">
                         <size key="itemSize" width="414" height="681"/>
@@ -38,12 +38,12 @@
                     </connections>
                 </collectionView>
                 <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="kW4-Ca-owK">
-                    <rect key="frame" x="138.66666666666666" y="742.33333333333337" width="115.66666666666666" height="25.666666666666629"/>
+                    <rect key="frame" x="138.66666666666666" y="710.33333333333337" width="115.66666666666666" height="25.666666666666629"/>
                     <color key="pageIndicatorTintColor" systemColor="systemGray5Color"/>
                     <color key="currentPageIndicatorTintColor" systemColor="systemRedColor"/>
                 </pageControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDK-e3-Wwc">
-                    <rect key="frame" x="121.66666666666669" y="784" width="150" height="50"/>
+                    <rect key="frame" x="121.66666666666669" y="752" width="150" height="50"/>
                     <color key="backgroundColor" systemColor="systemRedColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="1pT-qu-nlL"/>
@@ -67,10 +67,10 @@
             <constraints>
                 <constraint firstItem="zvC-BI-toB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="0Ea-if-Pxq"/>
                 <constraint firstItem="zvC-BI-toB" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6cw-hb-v0p"/>
-                <constraint firstItem="kW4-Ca-owK" firstAttribute="top" secondItem="zvC-BI-toB" secondAttribute="bottom" constant="24" id="FXL-fl-OnU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VDK-e3-Wwc" secondAttribute="bottom" constant="16" id="8Uh-op-061"/>
+                <constraint firstItem="kW4-Ca-owK" firstAttribute="top" secondItem="zvC-BI-toB" secondAttribute="bottom" constant="16" id="J7D-Nb-gx7"/>
                 <constraint firstItem="kW4-Ca-owK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="O1c-G6-xTS"/>
-                <constraint firstItem="VDK-e3-Wwc" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="16" id="fJy-m8-lb9"/>
-                <constraint firstItem="VDK-e3-Wwc" firstAttribute="top" secondItem="kW4-Ca-owK" secondAttribute="bottom" constant="16" id="jTZ-mQ-Jdi"/>
+                <constraint firstItem="VDK-e3-Wwc" firstAttribute="top" secondItem="kW4-Ca-owK" secondAttribute="bottom" constant="16" id="c3N-Oa-fUv"/>
                 <constraint firstItem="VDK-e3-Wwc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nuF-Ja-Zi8"/>
                 <constraint firstItem="zvC-BI-toB" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="pZM-qC-dH1"/>
             </constraints>

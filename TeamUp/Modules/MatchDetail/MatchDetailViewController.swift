@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 final class MatchDetailViewController: BaseViewController {
-    
+
     //MARK: - OUTLETS
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var hourLabel: UILabel!
@@ -30,7 +30,7 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var sportsFieldImage: UIImageView!
     @IBOutlet private weak var firstTeamView: UIView!
     @IBOutlet private weak var secondTeamView: UIView!
-    
+
     //MARK: - PROPERTIES
     private let defaults = UserDefaults.standard
     private var panGestureRecognizers: [UIPanGestureRecognizer] = []
@@ -39,19 +39,19 @@ final class MatchDetailViewController: BaseViewController {
     private var viewModel: MatchDetailViewModelProtocol! {
         didSet { viewModel.delegate = self}
     }
-    
+
     //MARK: - LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MatchDetailViewModel()
         viewModel.viewDidLoad()
-        
+
         setupDraggableViews(for: team1Players, in: firstTeamView)
         setupDraggableViews(for: team2Players, in: secondTeamView)
     }
-    
+
     //MARK: - PRIVATE FUNCTIONS
-    
+
     private func loadUserDefaults() {
         hourLabel.text = defaults.string(forKey: "hour") ?? "N/A"
         dateLabel.text = defaults.string(forKey: "matchDate") ?? "N/A"
@@ -59,7 +59,7 @@ final class MatchDetailViewController: BaseViewController {
         hostNameLabel.text = defaults.string(forKey: "hostName") ?? "N/A"
         locationLabel.text = defaults.string(forKey: "city") ?? "N/A"
     }
-    
+
     private func updateWeatherImage(for weather: Weather) {
         switch weather.main?.lowercased() {
         case "rain":
@@ -74,7 +74,7 @@ final class MatchDetailViewController: BaseViewController {
             weatherImage.image = UIImage(systemName: "questionmark.circle")
         }
     }
-    
+
     private func setupSportsFieldImage() {
         if let sportType = UserDefaults.standard.sportType(forKey: Constants.SportType.key) {
             switch sportType {
@@ -85,36 +85,35 @@ final class MatchDetailViewController: BaseViewController {
             }
         }
     }
-    
+
     private func setupCornerRadius(for views: [UIView], radius: CGFloat) {
         views.forEach { view in
             view.layer.cornerRadius = radius
             view.layer.masksToBounds = true
         }
     }
-    
+
     private func setupShowAllPlayersTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showAllPlayersTapped))
         showAllPlayersLabel.isUserInteractionEnabled = true
         showAllPlayersLabel.addGestureRecognizer(tapGesture)
     }
-    
+
     private func setupDraggableViews(for team: [Player], in teamView: UIView) {
         var teamDraggableViews: [PlayerCustomView] = []
-        
+
         team.forEach { player in
-            // Önce aynı tag ile bir objenin zaten olup olmadığını kontrol edelim
+            
             if let existingView = teamView.subviews.first(where: { $0.tag == player.id.hashValue }) {
-                // Eğer obje zaten varsa, yeniden yaratmayalım, sadece ekleyelim
                 teamDraggableViews.append(existingView as! PlayerCustomView)
             } else {
-                // Eğer obje yoksa, yeni bir tane yaratıp ekleyelim
+
                 let view = PlayerCustomView(
                     name: player.name ?? "Unknown",
                     imageName: "kit5",
                     overallScore: String(player.overall ?? 70)
                 )
-                view.tag = player.id.hashValue // Her objeye benzersiz bir tag atıyoruz
+                view.tag = player.id.hashValue
                 teamDraggableViews.append(view)
                 let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
                 view.addGestureRecognizer(panGestureRecognizer)
@@ -125,16 +124,10 @@ final class MatchDetailViewController: BaseViewController {
         layoutDraggableViews(teamDraggableViews, in: teamView, for: team)
     }
 
-
-
-
-
-    
-    
     private func layoutDraggableViews(_ draggableViews: [PlayerCustomView], in teamView: UIView, for team: [Player]) {
         let viewSize: CGFloat = 80
         let spacing: CGFloat = 30
-        
+
         var remainingPlayers = draggableViews
         if let goalkeeperIndex = team.firstIndex(where: { $0.position == "Goalkeeper" }) {
             let goalkeeperView = draggableViews[goalkeeperIndex]
@@ -143,7 +136,7 @@ final class MatchDetailViewController: BaseViewController {
         }
         layoutRemainingPlayers(remainingPlayers, size: viewSize, spacing: spacing, in: teamView)
     }
-    
+
     private func layoutGoalkeeper(_ view: UIView, size: CGFloat, in teamView: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -157,14 +150,14 @@ final class MatchDetailViewController: BaseViewController {
     private func layoutRemainingPlayers(_ views: [UIView], size: CGFloat, spacing: CGFloat, in teamView: UIView) {
         let rows = 3
         let columns = (views.count + rows - 1) / rows
-        
+
         for (index, view) in views.enumerated() {
             let row = index / columns
             let column = index % columns
-            
+
             let xOffset = CGFloat(column) * (size + spacing) - CGFloat(columns - 1) * (size + spacing) / 2
             let yOffset = CGFloat(row) * (size + spacing) - CGFloat(rows - 1) * (size + spacing) / 2
-            
+
             NSLayoutConstraint.activate([
                 view.widthAnchor.constraint(equalToConstant: size),
                 view.heightAnchor.constraint(equalToConstant: size),
@@ -173,7 +166,7 @@ final class MatchDetailViewController: BaseViewController {
             ])
         }
     }
-    
+
     private func changeTeam() {
         if teamSegmentedControl.selectedSegmentIndex == 0 {
             firstTeamView.isHidden = false
@@ -183,11 +176,11 @@ final class MatchDetailViewController: BaseViewController {
             secondTeamView.isHidden = false
         }
     }
-    
+
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
         guard let draggedView = gesture.view, let superview = draggedView.superview else { return }
         let translation = gesture.translation(in: view)
-        
+
         if gesture.state == .began || gesture.state == .changed {
             let newCenter = CGPoint(x: draggedView.center.x + translation.x, y: draggedView.center.y + translation.y)
             let minX = draggedView.bounds.width / 2
@@ -195,22 +188,19 @@ final class MatchDetailViewController: BaseViewController {
             let minY = draggedView.bounds.height / 2
             let maxY = superview.bounds.height - minY
 
-            // Objenin sınırları dışına çıkmasını engelleyin
             draggedView.center = CGPoint(
                 x: min(max(newCenter.x, minX), maxX),
                 y: min(max(newCenter.y, minY), maxY)
             )
-            
-            // Çeviriyi sıfırla
+
             gesture.setTranslation(.zero, in: view)
-            
+
         } else if gesture.state == .ended {
-            // Sürükleme tamamlandığında, objenin son konumunu belirleyin
+
             let existingConstraints = draggedView.constraints.filter({ $0.identifier == "centerX" || $0.identifier == "centerY" })
             NSLayoutConstraint.deactivate(existingConstraints)
             draggedView.removeConstraints(existingConstraints)
 
-            // Yeni yerleşim için kısıtlamalar ekleyin
             let centerXConstraint = draggedView.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: draggedView.center.x)
             centerXConstraint.identifier = "centerX"
             let centerYConstraint = draggedView.centerYAnchor.constraint(equalTo: superview.topAnchor, constant: draggedView.center.y)
@@ -222,12 +212,12 @@ final class MatchDetailViewController: BaseViewController {
 
 
 
-    
+
     @objc private func showAllPlayersTapped() {
         let playerListVC = PlayerListViewController(nibName: "PlayerListViewController", bundle: nil)
         navigationController?.pushViewController(playerListVC, animated: true)
     }
-    
+
     @IBAction func teamSegmentedControlTapped(_ sender: UISegmentedControl) {
         changeTeam()
     }
@@ -236,7 +226,7 @@ final class MatchDetailViewController: BaseViewController {
 // MARK: - MatchDetailViewModelDelegate
 
 extension MatchDetailViewController: MatchDetailViewModelDelegate {
-    
+
     func setupUI() {
         viewModel.loadPlayers()
         loadUserDefaults()
@@ -248,13 +238,13 @@ extension MatchDetailViewController: MatchDetailViewModelDelegate {
             viewModel.getWeather(city: city)
         }
     }
-    
+
     func configurePlayerData(players: [Player]) {
         numberOfPlayersLabel.text = String(players.count)
         setupDraggableViews(for: team1Players, in: firstTeamView)
         setupDraggableViews(for: team2Players, in: secondTeamView)
     }
-    
+
     func configureWeatherResponse(weatherResponse: WeatherResponse) {
         if let tempInFahrenheit = weatherResponse.main?.temp {
             let tempInCelsius = tempInFahrenheit - 273.15
@@ -268,5 +258,5 @@ extension MatchDetailViewController: MatchDetailViewModelDelegate {
             updateWeatherImage(for: weather)
         }
     }
-    
+
 }

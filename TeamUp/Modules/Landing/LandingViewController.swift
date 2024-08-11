@@ -9,32 +9,45 @@ import UIKit
 
 final class LandingViewController: BaseViewController {
 
-  // MARK: -  LIFE CYCLE
+    // MARK: -  LIFE CYCLE
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    print("This is landing page")
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("This is landing page")
+        if !Reachability.isConnectedToNetwork() {
+            showAlertNoInternetConnection()
+        }
 
-  override func viewWillAppear(_ animated: Bool) {
-    navigationController?.navigationBar.isHidden = true
-  }
+    }
 
-  //MARK: - ACTIONS
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
 
-  @IBAction func footballButtonTapped(_ sender: UIButton) {
-    UserDefaults.standard.set(Constants.SportType.football, forKey: Constants.SportType.key)
-    navigateToHome()
-  }
+    //MARK: - ACTIONS
 
-  @IBAction func volleyballButtonClicked(_ sender: UIButton) {
-    UserDefaults.standard.set(Constants.SportType.volleyball, forKey: Constants.SportType.key)
-    navigateToHome()
-  }
+    @IBAction func footballButtonTapped(_ sender: UIButton) {
+        handleSportSelection(.football)
+    }
 
-  //MARK: -  Private Functions
-  private func navigateToHome() {
-    let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-    navigationController?.pushViewController(homeVC, animated: true)
-  }
+    @IBAction func volleyballButtonClicked(_ sender: UIButton) {
+        handleSportSelection(.volleyball)
+    }
+    //MARK: -  PRIVATE FUNCTIONS
+
+    private func checkInternetConnection() {
+        if !Reachability.isConnectedToNetwork() {
+            showAlertNoInternetConnection()
+        }
+    }
+
+    private func handleSportSelection(_ sportType: Constants.SportType) {
+        if Reachability.isConnectedToNetwork() {
+            UserDefaults.standard.set(sportType, forKey: Constants.SportType.key)
+            let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+            navigationController?.pushViewController(homeVC, animated: true)
+        } else {
+            showAlertNoInternetConnection()
+        }
+    }
 }

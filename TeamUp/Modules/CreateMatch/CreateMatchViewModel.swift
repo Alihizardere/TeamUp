@@ -113,7 +113,7 @@ final class CreateMatchViewModel: CreateMatchViewModelProtocol {
         }
 
         func load() {
-          WeatherLogic.shared.fetchCities { result in
+          ServiceLogic.shared.fetchCities { result in
             switch result {
             case .success(let cityResponse):
               cityResponse.data?.forEach({ item in
@@ -128,7 +128,7 @@ final class CreateMatchViewModel: CreateMatchViewModelProtocol {
         }
 
        func fetchDistricts(for cityID: Int) {
-          WeatherLogic.shared.fetchDistricts(id: cityID) { result in
+          ServiceLogic.shared.fetchDistricts(id: cityID) { result in
               switch result {
               case .success(let districtResponse):
                   if let districtsData = districtResponse.data?.districts {

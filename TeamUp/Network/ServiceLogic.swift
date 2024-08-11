@@ -5,25 +5,22 @@
 //  Created by alihizardere on 31.07.2024.
 //
 
-import Foundation
-
-protocol WeatherLogicProtocol {
-  func fetchWeatherCityName(city: String, completion: @escaping (Result<WeatherResponse, Error>) -> Void)
+protocol ServiceLogicProtocol {
+  func fetchWeather(city: String, completion: @escaping (Result<WeatherResponse, Error>) -> Void)
   func fetchCities(completion: @escaping (Result<CityResponse,Error>) -> Void)
   func fetchDistricts(id: Int, completion: @escaping (Result<DistrictResponse,Error>) -> Void)
-
 }
 
-final class WeatherLogic: WeatherLogicProtocol {
+final class ServiceLogic: ServiceLogicProtocol {
 
-  static let shared: WeatherLogic = {
-    let instance = WeatherLogic()
+  static let shared: ServiceLogic = {
+    let instance = ServiceLogic()
     return instance
   }()
 
   private init() {}
 
-  func fetchWeatherCityName(city: String, completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
+  func fetchWeather(city: String, completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
     Webservice.shared.request(
       request: Router.getWeatherCityName(city: city),
       decodeType: WeatherResponse.self,
@@ -46,5 +43,4 @@ final class WeatherLogic: WeatherLogicProtocol {
       completionHandler: completion
     )
   }
-
 }
