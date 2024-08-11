@@ -11,19 +11,19 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - OUTLETS
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var nextLabel: UIButton!
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var nextLabel: UIButton!
+    @IBOutlet private weak var pageControl: UIPageControl!
 
     // MARK: - PROPERTIES
 
-    var slides = [OnboardingSlide]()
-    var currentPage = 0 {
+    private var slides = [OnboardingSlide]()
+    private var currentPage = 0 {
         didSet{
             pageControl.currentPage = currentPage
             if currentPage == slides.count - 1 {
                 nextLabel.setTitle("LET'S GET STARTED", for: .normal)
-            }else{
+            } else {
                 nextLabel.setTitle("NEXT", for: .normal)
             }
         }
@@ -44,7 +44,7 @@ final class OnboardingViewController: UIViewController {
 
     @IBAction func nextButton(_ sender: UIButton) {
         if currentPage == slides.count - 1 {
-            let landingVC = LandingViewController(nibName: "LandingViewController", bundle: nil)
+            let landingVC: LandingViewController = UIViewController.instantiate(from: .landing)
             navigationController?.pushViewController(landingVC, animated: true)
         } else {
             currentPage += 1

@@ -33,6 +33,7 @@
 		3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF17702C593F1E00F2BF80 /* PlayerCell.xib */; };
 		3DDF17752C59430100F2BF80 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3DDF17742C59430100F2BF80 /* Kingfisher */; };
 		3DF02A7C2C686C3900EC10B1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF02A7B2C686C3900EC10B1 /* Reachability.swift */; };
+		3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */; };
 		3DFC17D22C66AA9600917726 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC17D02C66AA9600917726 /* OnboardingViewController.swift */; };
 		3DFC17D32C66AA9600917726 /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFC17D12C66AA9600917726 /* OnboardingViewController.xib */; };
 		3DFC17D72C66AB8B00917726 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC17D52C66AB8B00917726 /* OnboardingCell.swift */; };
@@ -133,6 +134,7 @@
 		3DDF176F2C593F1E00F2BF80 /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		3DDF17702C593F1E00F2BF80 /* PlayerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerCell.xib; sourceTree = "<group>"; };
 		3DF02A7B2C686C3900EC10B1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		3DFC17D02C66AA9600917726 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		3DFC17D12C66AA9600917726 /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
 		3DFC17D52C66AB8B00917726 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */,
 				3D51AB8E2C61687E00E1950B /* UIView.swift */,
 				3D0C69222C6771C6008D73AE /* UserDefaults.swift */,
+				3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */,
 				3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */,
 				3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */,
+				3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */,
 				45B1216B2C617E87003AC229 /* SetPlayersViewController.swift in Sources */,
 				3DF02A7C2C686C3900EC10B1 /* Reachability.swift in Sources */,
 				3DFC17DA2C66AC0500917726 /* OnboardingSlide.swift in Sources */,

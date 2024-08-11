@@ -219,8 +219,54 @@
                                                 <constraint firstItem="Vxk-9c-bqx" firstAttribute="leading" secondItem="g1b-km-rZD" secondAttribute="leading" constant="8" id="qhU-3n-LzT"/>
                                             </constraints>
                                         </view>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-FL-cfI">
+                                            <rect key="frame" x="0.0" y="264" width="393" height="51"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="whu-Bd-iNP"/>
+                                            </constraints>
+                                            <segments>
+                                                <segment title="Team 1"/>
+                                                <segment title="Team 2"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="teamSegmentedControlTapped:" destination="-1" eventType="valueChanged" id="une-H5-amE"/>
+                                            </connections>
+                                        </segmentedControl>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGp-FH-gPG">
+                                            <rect key="frame" x="0.0" y="318" width="393" height="500"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footballField" translatesAutoresizingMaskIntoConstraints="NO" id="dRO-bN-faV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="n8a-ca-2h6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byM-O3-w2t">
+                                                            <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-4j-SLS">
+                                                            <rect key="frame" x="0.0" y="250" width="393" height="250"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                            <constraints>
+                                                <constraint firstItem="dRO-bN-faV" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="DgD-cE-Ote"/>
+                                                <constraint firstAttribute="trailing" secondItem="n8a-ca-2h6" secondAttribute="trailing" id="Ssy-gp-kls"/>
+                                                <constraint firstAttribute="bottom" secondItem="n8a-ca-2h6" secondAttribute="bottom" id="UcG-OD-cvQ"/>
+                                                <constraint firstAttribute="height" constant="500" id="Vsh-1N-6LA"/>
+                                                <constraint firstAttribute="trailing" secondItem="dRO-bN-faV" secondAttribute="trailing" id="giP-sZ-wrh"/>
+                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="l8g-bE-Slg"/>
+                                                <constraint firstAttribute="bottom" secondItem="dRO-bN-faV" secondAttribute="bottom" id="loh-Ai-5uD"/>
+                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="vVE-5K-YzW"/>
+                                                <constraint firstItem="dRO-bN-faV" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="vsU-cX-yLi"/>
+                                            </constraints>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yco-Pa-kiX">
-                                            <rect key="frame" x="0.0" y="264" width="393" height="200"/>
+                                            <rect key="frame" x="0.0" y="822" width="393" height="200"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEm-xB-dlz">
                                                     <rect key="frame" x="8" y="7.9999999999999982" width="169" height="31.333333333333329"/>
@@ -229,7 +275,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSg-VB-Ztz">
-                                                    <rect key="frame" x="8" y="47.333333333333314" width="377" height="144.66666666666666"/>
+                                                    <rect key="frame" x="8" y="47.333333333333371" width="377" height="144.66666666666666"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpQ-LG-9EM">
                                                             <rect key="frame" x="0.0" y="0.0" width="186" height="144.66666666666666"/>
@@ -255,7 +301,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show all players " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAl-0e-D6k">
-                                                                    <rect key="frame" x="67.666666666666686" y="119.66666666666669" width="110.33333333333331" height="17"/>
+                                                                    <rect key="frame" x="67.666666666666686" y="119.66666666666663" width="110.33333333333331" height="17"/>
                                                                     <accessibility key="accessibilityConfiguration">
                                                                         <accessibilityTraits key="traits" button="YES" staticText="YES"/>
                                                                     </accessibility>
@@ -305,7 +351,7 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTn-7F-cUt">
-                                                                            <rect key="frame" x="0.0" y="25.666666666666686" width="182" height="15"/>
+                                                                            <rect key="frame" x="0.0" y="25.666666666666629" width="182" height="15"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="host iban" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-A1-uR7">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="167" height="15"/>
@@ -349,52 +395,6 @@
                                                 <constraint firstItem="YSg-VB-Ztz" firstAttribute="leading" secondItem="Yco-Pa-kiX" secondAttribute="leading" constant="8" id="f0D-Ao-foq"/>
                                                 <constraint firstItem="YSg-VB-Ztz" firstAttribute="top" secondItem="KEm-xB-dlz" secondAttribute="bottom" constant="8" id="fhE-U5-Y6r"/>
                                                 <constraint firstAttribute="trailing" secondItem="YSg-VB-Ztz" secondAttribute="trailing" constant="8" id="iRu-5t-U88"/>
-                                            </constraints>
-                                        </view>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-FL-cfI">
-                                            <rect key="frame" x="0.0" y="468" width="393" height="51"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="whu-Bd-iNP"/>
-                                            </constraints>
-                                            <segments>
-                                                <segment title="Team 1"/>
-                                                <segment title="Team 2"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="teamSegmentedControlTapped:" destination="-1" eventType="valueChanged" id="une-H5-amE"/>
-                                            </connections>
-                                        </segmentedControl>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGp-FH-gPG">
-                                            <rect key="frame" x="0.0" y="522" width="393" height="500"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footballField" translatesAutoresizingMaskIntoConstraints="NO" id="dRO-bN-faV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
-                                                </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="n8a-ca-2h6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byM-O3-w2t">
-                                                            <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-4j-SLS">
-                                                            <rect key="frame" x="0.0" y="250" width="393" height="250"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </view>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
-                                            <constraints>
-                                                <constraint firstItem="dRO-bN-faV" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="DgD-cE-Ote"/>
-                                                <constraint firstAttribute="trailing" secondItem="n8a-ca-2h6" secondAttribute="trailing" id="Ssy-gp-kls"/>
-                                                <constraint firstAttribute="bottom" secondItem="n8a-ca-2h6" secondAttribute="bottom" id="UcG-OD-cvQ"/>
-                                                <constraint firstAttribute="height" constant="500" id="Vsh-1N-6LA"/>
-                                                <constraint firstAttribute="trailing" secondItem="dRO-bN-faV" secondAttribute="trailing" id="giP-sZ-wrh"/>
-                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="l8g-bE-Slg"/>
-                                                <constraint firstAttribute="bottom" secondItem="dRO-bN-faV" secondAttribute="bottom" id="loh-Ai-5uD"/>
-                                                <constraint firstItem="n8a-ca-2h6" firstAttribute="leading" secondItem="jGp-FH-gPG" secondAttribute="leading" id="vVE-5K-YzW"/>
-                                                <constraint firstItem="dRO-bN-faV" firstAttribute="top" secondItem="jGp-FH-gPG" secondAttribute="top" id="vsU-cX-yLi"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neq-Zv-BcM">
@@ -452,22 +452,22 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

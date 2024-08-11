@@ -11,6 +11,7 @@ import Lottie
 final class OnboardingCell: UICollectionViewCell {
 
     // MARK: - OUTLETS
+    
     @IBOutlet weak var animationView: LottieAnimationView!
     @IBOutlet weak var slideTitle: UILabel!
     @IBOutlet weak var slideDescription: UILabel!

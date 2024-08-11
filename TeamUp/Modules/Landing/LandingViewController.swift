@@ -17,7 +17,6 @@ final class LandingViewController: BaseViewController {
         if !Reachability.isConnectedToNetwork() {
             showAlertNoInternetConnection()
         }
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +43,7 @@ final class LandingViewController: BaseViewController {
     private func handleSportSelection(_ sportType: Constants.SportType) {
         if Reachability.isConnectedToNetwork() {
             UserDefaults.standard.set(sportType, forKey: Constants.SportType.key)
-            let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+            let homeVC: HomeViewController = UIViewController.instantiate(from: .home)
             navigationController?.pushViewController(homeVC, animated: true)
         } else {
             showAlertNoInternetConnection()

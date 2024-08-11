@@ -210,11 +210,8 @@ final class MatchDetailViewController: BaseViewController {
         }
     }
 
-
-
-
     @objc private func showAllPlayersTapped() {
-        let playerListVC = PlayerListViewController(nibName: "PlayerListViewController", bundle: nil)
+        let playerListVC: PlayerListViewController = UIViewController.instantiate(from: .playerList )
         navigationController?.pushViewController(playerListVC, animated: true)
     }
 
