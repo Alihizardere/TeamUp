@@ -178,10 +178,8 @@ extension PlayerDetailViewController: PlayerDetailViewModelDelegate {
     func setupUI() {
         playerPosition.inputView = pickerView
         playerOverall.inputView = pickerView
-
         pickerView.delegate = self
         pickerView.dataSource = self
-
         viewModel.updatePickerData()
     }
 

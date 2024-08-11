@@ -45,7 +45,7 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PlayerCell.identifier, for: indexPath) as? PlayerCell else { return UITableViewCell() }
         if let player = viewModel.player(index: indexPath) {
-            cell.configure(with: player)
+            cell.configure(with: player, index: indexPath)
         }
         return cell
     }
