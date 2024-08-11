@@ -9,9 +9,10 @@ import UIKit
 import CoreLocation
 
 final class CreateMatchViewController: UIViewController {
-
+    
+    
     //MARK: - OUTLETS
-
+    
     @IBOutlet private weak var cityTextField: UITextField!
     @IBOutlet private weak var districtTextField: UITextField!
     @IBOutlet private weak var hourTextField: UITextField!
@@ -20,17 +21,17 @@ final class CreateMatchViewController: UIViewController {
     @IBOutlet private weak var gameTypeTextField: UITextField!
     @IBOutlet private weak var hostNameTextField: UITextField!
     @IBOutlet private weak var createMatchButton: UIButton!
-
+    
     // MARK: - PROPERTIES
-
+    
     private let pickerView = UIPickerView()
     private let datePicker = UIDatePicker()
     private let ibanMaxLength = 26
     private var activeTextField: UITextField?
     private var viewModel: CreateMatchViewModelProtocol = CreateMatchViewModel()
-
+    
     // MARK: - LIFE CYCLE
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.load()
@@ -40,7 +41,7 @@ final class CreateMatchViewController: UIViewController {
     }
     
     // MARK: - PRIVATE FUNCTIONS
-
+    
     private func configureUI() {
         setupPickerView()
         setupDatePicker()
@@ -122,7 +123,7 @@ final class CreateMatchViewController: UIViewController {
             defaults.set(textField.text, forKey: key)
         }
     }
-
+    
     private func updateCreateButtonState() {
         createMatchButton.isEnabled = viewModel.createButtonIsEnabled
     }
@@ -152,12 +153,12 @@ final class CreateMatchViewController: UIViewController {
             setTeamsVC.gameType = viewModel.gameType
             navigationController?.pushViewController(setTeamsVC, animated: true)
         } else {
-          UIAlertController.showAlert(
-            on: self,
-            title: "Eksik Bilgi",
-            message: "Lütfen tüm alanları doldurun",
-            primaryButtonTitle: "Tamam"
-          )
+            UIAlertController.showAlert(
+                on: self,
+                title: "Eksik Bilgi",
+                message: "Lütfen tüm alanları doldurun",
+                primaryButtonTitle: "Tamam"
+            )
         }
     }
 }
@@ -172,9 +173,9 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch activeTextField {
         case cityTextField:
-          return viewModel.cities.count
+            return viewModel.cities.count
         case districtTextField:
-          return viewModel.districts.count
+            return viewModel.districts.count
         case hourTextField:
             return Constants.hours.count
         case gameTypeTextField:
@@ -187,9 +188,9 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch activeTextField {
         case cityTextField:
-          return viewModel.cities[row]
+            return viewModel.cities[row]
         case districtTextField:
-          return viewModel.districts[row]
+            return viewModel.districts[row]
         case hourTextField:
             return Constants.hours[row]
         case gameTypeTextField:
@@ -206,7 +207,7 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             cityTextField.text = viewModel.cities[row]
             viewModel.setField(field: .city, value: selectedCityName)
             if let selectedCityID = viewModel.cities.first(where: { $0.value == selectedCityName})?.key {
-              viewModel.fetchDistricts(for: selectedCityID)
+                viewModel.fetchDistricts(for: selectedCityID)
             }
         case districtTextField:
             let selectedDistrict = viewModel.districts[row]
@@ -240,14 +241,23 @@ extension CreateMatchViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == hostIbanTextField {
+        switch textField {
+        case hostIbanTextField:
             let characterSet = CharacterSet(charactersIn: "0123456789")
             let typedCharacterSet = CharacterSet(charactersIn: string)
             let isNumeric = characterSet.isSuperset(of: typedCharacterSet)
             let newLength = (textField.text?.count ?? 0) + string.count - range.length
             return isNumeric && newLength <= ibanMaxLength
+            
+        case cityTextField, districtTextField,gameTypeTextField,matchDateTextField,hourTextField:
+            return false
+        case hostNameTextField:
+            let allowedCharacters = CharacterSet.letters.union(CharacterSet.whitespaces)
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        default:
+            return true
         }
-        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -278,3 +288,4 @@ extension CreateMatchViewController: CreateMatchViewModelDelegate {
         createMatchButton.isEnabled = isEnabled
     }
 }
+
