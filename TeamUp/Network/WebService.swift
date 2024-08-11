@@ -10,30 +10,36 @@ import Alamofire
 
 final class Webservice {
 
-  static let shared: Webservice = {
-    let instance = Webservice()
-    return instance
-  }()
+    static let shared: Webservice = {
+        let instance = Webservice()
+        return instance
+    }()
 
-  private init() {}
+    private init() {}
 
-  func request<T:Decodable> (
-    request: URLRequestConvertible,
-    decodeType type: T.Type,
-    completionHandler: @escaping (Result<T, Error>) -> Void
-  ){
-    AF.request(request).responseData { response in
-      switch response.result {
-      case .success(let data):
-        do {
-          let decodedData = try JSONDecoder().decode(T.self, from: data)
-          completionHandler(.success(decodedData))
-        } catch {
-          print("JSON DECODE ERROR")
+    func request<T:Decodable> (
+        request: URLRequestConvertible,
+        decodeType type: T.Type,
+        completionHandler: @escaping (Result<T, Error>) -> Void
+    ){
+
+        if !Reachability.isConnectedToNetwork() {
+            print("No internet connection")
+            return
         }
-      case .failure(let error):
-        completionHandler(.failure(error.localizedDescription as! Error))
-      }
+
+        AF.request(request).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(T.self, from: data)
+                    completionHandler(.success(decodedData))
+                } catch {
+                    print("JSON DECODE ERROR")
+                }
+            case .failure(let error):
+                completionHandler(.failure(error.localizedDescription as! Error))
+            }
+        }
     }
-  }
 }

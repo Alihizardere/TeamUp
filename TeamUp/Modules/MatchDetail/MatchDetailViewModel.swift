@@ -43,7 +43,7 @@ final class MatchDetailViewModel {
     }
 
     private func fetchWeather(city: String) {
-        WeatherLogic.shared.fetchWeatherCityName(city: city) { [weak self] result in
+        ServiceLogic.shared.fetchWeather(city: city) { [weak self] result in
             switch result {
             case .success(let weatherResponse):
                 DispatchQueue.main.async {
