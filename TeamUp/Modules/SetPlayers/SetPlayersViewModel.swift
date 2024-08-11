@@ -27,6 +27,7 @@ protocol SetPlayersViewModelProtocol {
     func player(at indexPath: IndexPath) -> Player?
     func removePlayer(at index: Int) -> Player?
     func undoLastPlayerAddition()
+    func restoreAllPlayers()
 }
 
 // MARK: - SetPlayersViewModel
@@ -89,4 +90,13 @@ extension SetPlayersViewModel: SetPlayersViewModelProtocol {
         addedPlayersHistory.append((player: removedPlayer, index: index))
         return removedPlayer
     }
+    
+    func restoreAllPlayers() {
+        for history in addedPlayersHistory.reversed() {
+            players.insert(history.player, at: history.index)
+        }
+        addedPlayersHistory.removeAll()
+        delegate?.reloadData()
+    }
+
 }

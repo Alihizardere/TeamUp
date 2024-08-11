@@ -58,14 +58,6 @@
                         <constraint firstAttribute="height" constant="350" id="PPt-bc-uAN"/>
                     </constraints>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hk-c5-tWj">
-                    <rect key="frame" x="32" y="460" width="329" height="34.333333333333314"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    <connections>
-                        <action selector="btnTakeItBack:" destination="-1" eventType="touchUpInside" id="8UK-ao-Pdt"/>
-                    </connections>
-                </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jqj-Fl-KQa">
                     <rect key="frame" x="8" y="502.33333333333326" width="377" height="341.66666666666674"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -93,22 +85,45 @@
                         <action selector="goToNextPage:" destination="-1" eventType="touchUpInside" id="fp1-Fg-sbk"/>
                     </connections>
                 </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="97" translatesAutoresizingMaskIntoConstraints="NO" id="VAV-c7-WA4">
+                    <rect key="frame" x="8" y="460" width="377" height="34.333333333333314"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-vs-EUb">
+                            <rect key="frame" x="0.0" y="0.0" width="140" height="34.333333333333336"/>
+                            <color key="backgroundColor" red="0.69438244049999998" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Clear all"/>
+                            <connections>
+                                <action selector="btnClearAll:" destination="-1" eventType="touchUpInside" id="t1p-Rl-VVN"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hk-c5-tWj">
+                            <rect key="frame" x="237" y="0.0" width="140" height="34.333333333333336"/>
+                            <color key="backgroundColor" red="1" green="0.3411764706" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Undo"/>
+                            <connections>
+                                <action selector="btnTakeItBack:" destination="-1" eventType="touchUpInside" id="QfY-cl-Zya"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="9hk-c5-tWj" firstAttribute="top" secondItem="JrU-C6-ts2" secondAttribute="bottom" constant="16" id="5v6-OV-8MX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VAV-c7-WA4" secondAttribute="trailing" constant="8" id="3B8-Ny-I1r"/>
                 <constraint firstItem="JrU-C6-ts2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="AeQ-ML-fwJ"/>
                 <constraint firstItem="R4y-Mg-9g1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="STO-x3-cTN"/>
+                <constraint firstItem="VAV-c7-WA4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="U4s-L5-UVX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JrU-C6-ts2" secondAttribute="trailing" id="X0x-4J-YEg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="R4y-Mg-9g1" secondAttribute="trailing" constant="16" id="b5Z-cr-Ew8"/>
                 <constraint firstItem="jqj-Fl-KQa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="dU4-QH-zPt"/>
-                <constraint firstItem="9hk-c5-tWj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="dnW-J1-ctI"/>
                 <constraint firstAttribute="trailing" secondItem="jqj-Fl-KQa" secondAttribute="trailing" constant="8" id="eoS-Fy-lih"/>
-                <constraint firstItem="jqj-Fl-KQa" firstAttribute="top" secondItem="9hk-c5-tWj" secondAttribute="bottom" constant="8" id="pq5-5a-gDN"/>
+                <constraint firstItem="jqj-Fl-KQa" firstAttribute="top" secondItem="VAV-c7-WA4" secondAttribute="bottom" constant="8" id="itU-Kq-991"/>
                 <constraint firstAttribute="bottom" secondItem="jqj-Fl-KQa" secondAttribute="bottom" constant="8" id="r0K-AY-d6n"/>
                 <constraint firstItem="JrU-C6-ts2" firstAttribute="top" secondItem="R4y-Mg-9g1" secondAttribute="bottom" id="ueV-A5-Epz"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9hk-c5-tWj" secondAttribute="trailing" constant="32" id="yx1-5f-IV8"/>
+                <constraint firstItem="VAV-c7-WA4" firstAttribute="top" secondItem="JrU-C6-ts2" secondAttribute="bottom" constant="16" id="vpG-Wc-wX7"/>
             </constraints>
             <point key="canvasLocation" x="-28.244274809160306" y="-11.267605633802818"/>
         </view>
