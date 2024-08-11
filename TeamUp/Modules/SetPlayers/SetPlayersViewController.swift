@@ -7,6 +7,7 @@
 import UIKit
 
 final class SetPlayersViewController: BaseViewController {
+
     
     //MARK: - OUTLETS
     @IBOutlet weak var team1StackView: UIStackView!
@@ -20,7 +21,7 @@ final class SetPlayersViewController: BaseViewController {
         didSet { viewModel.delegate = self }
     }
     var gameType: String?
-    
+
     //MARK: -  LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,15 +239,13 @@ final class SetPlayersViewController: BaseViewController {
                 primaryButtonStyle: .default
             )
         } else {
-            let matchDetailVC = MatchDetailViewController(nibName: "MatchDetailViewController", bundle: nil)
+            let matchDetailVC: MatchDetailViewController = UIViewController.instantiate(from: .matchDetail)
             let team1Players = getPlayersFromStackView(team1StackView)
             let team2Players = getPlayersFromStackView(team2StackView)
             matchDetailVC.team1Players = team1Players
             matchDetailVC.team2Players = team2Players
-            
             navigationController?.pushViewController(matchDetailVC, animated: true)
         }
-        
     }
 }
 
@@ -296,10 +295,10 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         guard let destinationView = interaction.view as? UIImageView else { return }
         let playerStackView = destinationView.superview as? UIStackView
-        let playerLabel = playerStackView?.arrangedSubviews[3] as? UILabel // Player name
-        let positionLabel = playerStackView?.arrangedSubviews[1] as? UILabel // Position
-        let overallLabel = playerStackView?.arrangedSubviews[2] as? UILabel // Overall
-        
+        let playerLabel = playerStackView?.arrangedSubviews[3] as? UILabel
+        let positionLabel = playerStackView?.arrangedSubviews[1] as? UILabel
+        let overallLabel = playerStackView?.arrangedSubviews[2] as? UILabel
+
         session.loadObjects(ofClass: UIImage.self) { items in
             guard let images = items as? [UIImage], let image = images.first else { return }
             
@@ -313,8 +312,7 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
                     if let removedPlayer = self.viewModel.removePlayer(at: indexPath.row) {
                         self.collectionView.deleteItems(at: [indexPath])
                         self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
-                        
-                        // Set the player's information
+
                         playerLabel?.text = "\(removedPlayer.name ?? "")"
                         positionLabel?.text = removedPlayer.position
                         overallLabel?.text = "\(removedPlayer.overall ?? 0)"
@@ -323,8 +321,6 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
             }
         }
     }
-    
-    
 }
 
 //MARK: - SetPlayersViewModelDelegate
