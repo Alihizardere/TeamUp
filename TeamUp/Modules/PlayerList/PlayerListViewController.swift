@@ -89,6 +89,7 @@ extension PlayerListViewController: PlayerListViewModelDelegate {
         )
         guard let sportType = UserDefaults.standard.string(forKey: "sportType") else { return }
         viewModel.load(sportType: sportType)
+        navigationController?.navigationBar.isHidden = false
     }
 
     func reloadData() {
