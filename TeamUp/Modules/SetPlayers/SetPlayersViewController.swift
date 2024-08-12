@@ -4,34 +4,51 @@
 //
 //  Created by Doğukan Temizyürek on 6.08.2024.
 //
+
 import UIKit
 
 final class SetPlayersViewController: BaseViewController {
-
     
     //MARK: - OUTLETS
-    @IBOutlet weak var team1StackView: UIStackView!
-    @IBOutlet weak var team2StackView: UIStackView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet private weak var team1StackView: UIStackView!
+    @IBOutlet private weak var team2StackView: UIStackView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var team1View: UIView!
+    @IBOutlet private weak var team2View: UIView!
+    @IBOutlet private weak var goToNextPageButton: UIButton!
+    @IBOutlet private weak var clearAllButton: UIButton!
+    @IBOutlet private weak var mixButton: UIButton!
+    @IBOutlet private weak var undoButton: UIButton!
     
     //MARK: - PROPERTIES
+    
     private var initialImage: UIImage?
     private var addedPlayersHistory: [(player: Player, imageView: UIImageView)] = []
     private var viewModel: SetPlayersViewModelProtocol! {
         didSet { viewModel.delegate = self }
     }
     var gameType: String?
-
+    
     //MARK: -  LIFE CYCLE
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackViews()
         setDragAndDropSettings()
+        setupCornerRadius()
         viewModel = SetPlayersViewModel()
+        goToNextPageButton.isHidden = true
         viewModel.viewDidLoad()
     }
     
     //MARK: - PRIVATE FUNCTIONS
+    
+    private func setupCornerRadius() {
+        setupButtonCornerRadius(for: [goToNextPageButton], radius: 25)
+        team1View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
+        team2View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
+    }
     
     private func setupStackViews() {
         if let gameType = gameType, let playerCount = Int(gameType) {
@@ -57,6 +74,13 @@ final class SetPlayersViewController: BaseViewController {
         setupDragAndDropForStackView(team2StackView)
         collectionView.dragInteractionEnabled = true
         collectionView.dragDelegate = self
+    }
+    
+    private func setupButtonCornerRadius(for button: [UIButton], radius: CGFloat) {
+        button.forEach { button in
+            button.layer.cornerRadius = radius
+            button.layer.masksToBounds = true
+        }
     }
     
     private func processStackView(_ stackView: UIStackView, action: (UIImageView, UILabel) -> Void) {
@@ -87,7 +111,7 @@ final class SetPlayersViewController: BaseViewController {
         imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        imageView.image = UIImage(named: "kit1")
+        imageView.image = UIImage(named: "empty")
         
         let playerLabel = UILabel()
         playerLabel.textAlignment = .center
@@ -104,7 +128,7 @@ final class SetPlayersViewController: BaseViewController {
         overallLabel.adjustsFontSizeToFitWidth = true
         overallLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let playerStackView = UIStackView(arrangedSubviews: [imageView,  positionLabel, overallLabel, playerLabel])
+        let playerStackView = UIStackView(arrangedSubviews: [imageView, positionLabel, overallLabel, playerLabel])
         playerStackView.axis = .vertical
         playerStackView.spacing = 5
         playerStackView.alignment = .center
@@ -175,7 +199,7 @@ final class SetPlayersViewController: BaseViewController {
         return players
     }
     
-    private func areAllPositionsFilled() -> Bool {
+    private func areAllPositionsFilled() {
         var allFilled = true
         for stackView in [team1StackView, team2StackView] {
             processStackView(stackView!) { _, playerLabel in
@@ -184,12 +208,13 @@ final class SetPlayersViewController: BaseViewController {
                 }
             }
         }
-        return allFilled
+        
+        goToNextPageButton.isHidden = !allFilled
     }
     
     private func resetStackViewImages(_ stackView: UIStackView) {
         processStackView(stackView) { imageView, playerLabel in
-            imageView.image = UIImage(named: "kit1")
+            imageView.image = UIImage(named: "empty")
             playerLabel.text = ""
         }
     }
@@ -215,7 +240,7 @@ final class SetPlayersViewController: BaseViewController {
             guard playerIndex < players.count else { return }
             let player = players[playerIndex]
             
-            imageView.image = UIImage(named: "kit5") // Resmi ayarla
+            imageView.image = UIImage(named: "teamUp") // Set the image
             playerLabel.text = player.name
             
             if let playerStackView = imageView.superview as? UIStackView {
@@ -228,25 +253,31 @@ final class SetPlayersViewController: BaseViewController {
             addedPlayersHistory.append((player: player, imageView: imageView))
             playerIndex += 1
         }
+        
+        areAllPositionsFilled() // Check if all positions are filled after updating the stack view
     }
-
+    
+    private func btnNextPageActions() {
+        let matchDetailVC: MatchDetailViewController = UIViewController.instantiate(from: .matchDetail)
+        let team1Players = getPlayersFromStackView(team1StackView)
+        let team2Players = getPlayersFromStackView(team2StackView)
+        matchDetailVC.team1Players = team1Players
+        matchDetailVC.team2Players = team2Players
+        navigationController?.pushViewController(matchDetailVC, animated: true)
+    }
+    
     //MARK: - ACTIONS
     
     @IBAction func btnTakeItBack(_ sender: UIButton) {
         guard let lastAdded = addedPlayersHistory.popLast() else { return }
-        
-        // Resmi default resim ile değiştir
         if let initialImage = initialImage {
             lastAdded.imageView.image = initialImage
         } else {
-            lastAdded.imageView.image = UIImage(named: "kit1") // Varsayılan resim
+            lastAdded.imageView.image = UIImage(named: "empty")
         }
-        
         if let playerStackView = lastAdded.imageView.superview as? UIStackView {
-            // Oyuncu bilgilerini temizle
             let playerLabel = playerStackView.arrangedSubviews.last as? UILabel
             playerLabel?.text = ""
-            
             let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel
             let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel
             positionLabel?.text = ""
@@ -254,52 +285,64 @@ final class SetPlayersViewController: BaseViewController {
         }
         
         viewModel.undoLastPlayerAddition()
+        areAllPositionsFilled() // Check after taking back a player
     }
-
+    
     
     @IBAction func btnClearAll(_ sender: UIButton) {
         resetStackViewImages(team1StackView)
         resetStackViewImages(team2StackView)
         viewModel.restoreAllPlayers()
+        areAllPositionsFilled() // Check after clearing all players
     }
     
     @IBAction func btnMixPlayers(_ sender: Any) {
-        // Oyuncuları karıştır ve genel değerlerine göre sırala
-        var shuffledPlayers = viewModel.players.shuffled()
-        shuffledPlayers.sort { $0.overall ?? 0 > $1.overall ?? 0 }
+        var goalkeepers: [Player] = []
+        var otherPlayers: [Player] = []
+        for player in viewModel.players {
+            if player.position == "Goalkeeper" {
+                goalkeepers.append(player)
+            } else {
+                otherPlayers.append(player)
+            }
+        }
+        goalkeepers.shuffle()
+        otherPlayers.shuffle()
+        guard goalkeepers.count >= 2 else {
+            UIAlertController.showAlert(
+                on: self,
+                title: "Insufficient Goalkeepers",
+                message: "There are not enough goalkeepers to form two teams. Please add goalkeeper in player list",
+                primaryButtonTitle: "OK",
+                primaryButtonStyle: .default, primaryButtonHandler:  {
+                    let playerDetailVC: PlayerDetailViewController = UIViewController.instantiate(from: .playerDetail)
+                    self.navigationController?.pushViewController(playerDetailVC, animated: true)
+                })
+            return
+        }
         
+        let team1Goalkeeper = goalkeepers.popLast()!
+        let team2Goalkeeper = goalkeepers.popLast()!
+        var team1Players: [Player] = [team1Goalkeeper]
+        var team2Players: [Player] = [team2Goalkeeper]
+        
+        while !otherPlayers.isEmpty {
+            if let player = otherPlayers.popLast() {
+                if team1Players.count <= team2Players.count {
+                    team1Players.append(player)
+                } else {
+                    team2Players.append(player)
+                }
+            }
+        }
         resetStackViewImages(team1StackView)
         resetStackViewImages(team2StackView)
-        
-        let halfCount = shuffledPlayers.count / 2
-        let team1Players = Array(shuffledPlayers.prefix(halfCount))
-        let team2Players = Array(shuffledPlayers.suffix(from: halfCount))
-        
-        // Takım 1 ve Takım 2'ye oyuncuları ekleyip addedPlayersHistory'e yaz
         updateStackViewAndAddToHistory(team1StackView, with: team1Players)
         updateStackViewAndAddToHistory(team2StackView, with: team2Players)
     }
-
-    
-    
     
     @IBAction func goToNextPage(_ sender: UIButton) {
-        if !areAllPositionsFilled() {
-            UIAlertController.showAlert(
-                on: self,
-                title:  "Incomplete Team" ,
-                message: "Please fill all player positions before proceeding.",
-                primaryButtonTitle: "OK",
-                primaryButtonStyle: .default
-            )
-        } else {
-            let matchDetailVC: MatchDetailViewController = UIViewController.instantiate(from: .matchDetail)
-            let team1Players = getPlayersFromStackView(team1StackView)
-            let team2Players = getPlayersFromStackView(team2StackView)
-            matchDetailVC.team1Players = team1Players
-            matchDetailVC.team2Players = team2Players
-            navigationController?.pushViewController(matchDetailVC, animated: true)
-        }
+        btnNextPageActions()
     }
 }
 
@@ -324,7 +367,7 @@ extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDa
 extension SetPlayersViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let player = viewModel.players[indexPath.row]
-        if let image = UIImage(named: "kit5") {
+        if let image = UIImage(named: "teamUp") {
             let itemProvider = NSItemProvider(object: image)
             let dragItem = UIDragItem(itemProvider: itemProvider)
             dragItem.localObject = player
@@ -352,7 +395,7 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
         let playerLabel = playerStackView?.arrangedSubviews[3] as? UILabel
         let positionLabel = playerStackView?.arrangedSubviews[1] as? UILabel
         let overallLabel = playerStackView?.arrangedSubviews[2] as? UILabel
-
+        
         session.loadObjects(ofClass: UIImage.self) { items in
             guard let images = items as? [UIImage], let image = images.first else { return }
             
@@ -366,12 +409,13 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
                     if let removedPlayer = self.viewModel.removePlayer(at: indexPath.row) {
                         self.collectionView.deleteItems(at: [indexPath])
                         self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
-
+                        
                         playerLabel?.text = "\(removedPlayer.name ?? "")"
                         positionLabel?.text = removedPlayer.position
                         overallLabel?.text = "\(removedPlayer.overall ?? 0)"
                     }
                 }
+                self.areAllPositionsFilled() // Check after player drop
             }
         }
     }
@@ -421,4 +465,3 @@ extension SetPlayersViewController: SetPlayersViewModelDelegate {
         )
     }
 }
-
