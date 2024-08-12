@@ -6,12 +6,16 @@
 //
 
 import UIKit
-import CoreLocation
 
 final class MatchDetailViewController: BaseViewController {
 
     //MARK: - OUTLETS
+
+    @IBOutlet private weak var firstTeamNameLabel: UILabel!
+    @IBOutlet private weak var secondTeamNameLabel: UILabel!
     @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var disctrictLabel: UILabel!
+    @IBOutlet private weak var eventAreaLabel: UILabel!
     @IBOutlet private weak var hourLabel: UILabel!
     @IBOutlet private weak var temperatureLabel: UILabel!
     @IBOutlet private weak var temperatureDescriptionLabel: UILabel!
@@ -32,6 +36,10 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var sportsFieldImage: UIImageView!
     @IBOutlet private weak var firstTeamView: UIView!
     @IBOutlet private weak var secondTeamView: UIView!
+    @IBOutlet private weak var nextMatcInfoView: UIView!
+    @IBOutlet private weak var weatherInfoView: UIView!
+    @IBOutlet private weak var playersInfoView: UIView!
+    @IBOutlet private weak var hostInfoView: UIView!
 
     //MARK: - PROPERTIES
 
@@ -57,12 +65,23 @@ final class MatchDetailViewController: BaseViewController {
 
     //MARK: - PRIVATE FUNCTIONS
 
+    private func addShadowToView(){
+        nextMatchView.addShadow()
+        weatherView.addShadow()
+        playersView.addShadow()
+        hostView.addShadow()
+    }
+
     private func loadUserDefaults() {
+        locationLabel.text = defaults.string(forKey: "city") ?? "N/A"
+        disctrictLabel.text = defaults.string(forKey: "district") ?? "N/A"
+        eventAreaLabel.text = defaults.string(forKey: "eventArea") ?? "N/A"
         hourLabel.text = defaults.string(forKey: "hour") ?? "N/A"
+        firstTeamNameLabel.text = defaults.string(forKey: "firstTeamName") ?? "N/A"
+        secondTeamNameLabel.text = defaults.string(forKey: "secondTeamName") ?? "N/A"
         dateLabel.text = defaults.string(forKey: "matchDate") ?? "N/A"
         hostIbanLabel.text = (("TR\(defaults.string(forKey: "hostIban") ?? "N/A")"))
         hostNameLabel.text = defaults.string(forKey: "hostName") ?? "N/A"
-        locationLabel.text = defaults.string(forKey: "city") ?? "N/A"
     }
 
     private func updateWeatherImage(for weather: Weather) {
@@ -223,9 +242,28 @@ final class MatchDetailViewController: BaseViewController {
     @IBAction func teamSegmentedControlTapped(_ sender: UISegmentedControl) {
         changeTeam()
     }
+
     @IBAction func backToHomeButtonTapped(_ sender: UIButton) {
         let landingVC: LandingViewController = UIViewController.instantiate(from: .landing)
         navigationController?.pushViewController(landingVC, animated: true)
+    }
+
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        let matchDate = defaults.string(forKey: "matchDate") ?? "N/A"
+        let matchHour = defaults.string(forKey: "hour") ?? "N/A"
+        let matchLocation = defaults.string(forKey: "city") ?? "N/A"
+        let matchDistrict = defaults.string(forKey: "district") ?? "N/A"
+        let matchArea = defaults.string(forKey: "eventArea") ?? "N/A"
+
+        let matchInfo = """
+            Match Date: \(matchDate)
+            Match Hour: \(matchHour)
+            Location: \(matchLocation)
+            District: \(matchDistrict)
+            Area: \(matchArea)
+            """
+        let activityViewController = UIActivityViewController(activityItems: [matchInfo], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 }
 
@@ -234,10 +272,10 @@ final class MatchDetailViewController: BaseViewController {
 extension MatchDetailViewController: MatchDetailViewModelDelegate {
 
     func setupUI() {
-
         viewModel.loadPlayers()
         setupDraggableViews(for: team1Players, in: firstTeamView)
         setupDraggableViews(for: team2Players, in: secondTeamView)
+        addShadowToView()
         loadUserDefaults()
         setupSportsFieldImage()
         setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
