@@ -13,13 +13,16 @@ final class CreateMatchViewController: UIViewController {
     
     //MARK: - OUTLETS
     
-    @IBOutlet private weak var cityTextField: UITextField!
-    @IBOutlet private weak var districtTextField: UITextField!
-    @IBOutlet private weak var hourTextField: UITextField!
-    @IBOutlet private weak var matchDateTextField: UITextField!
-    @IBOutlet private weak var hostIbanTextField: UITextField!
-    @IBOutlet private weak var gameTypeTextField: UITextField!
-    @IBOutlet private weak var hostNameTextField: UITextField!
+    @IBOutlet private weak var cityTextField: CustomTextField!
+    @IBOutlet private weak var districtTextField: CustomTextField!
+    @IBOutlet private weak var hourTextField: CustomTextField!
+    @IBOutlet private weak var matchDateTextField: CustomTextField!
+    @IBOutlet private weak var eventAreaTextField: CustomTextField!
+    @IBOutlet private weak var firstTeamNameTextField: CustomTextField!
+    @IBOutlet private weak var secondTeamNameTextField: CustomTextField!
+    @IBOutlet private weak var hostIbanTextField: CustomTextField!
+    @IBOutlet private weak var gameTypeTextField: CustomTextField!
+    @IBOutlet private weak var hostNameTextField: CustomTextField!
     @IBOutlet private weak var createMatchButton: UIButton!
     
     // MARK: - PROPERTIES
@@ -45,6 +48,7 @@ final class CreateMatchViewController: UIViewController {
     private func configureUI() {
         setupPickerView()
         setupDatePicker()
+        setupTimePicker()
         setupTextFields()
         updateCreateButtonState()
     }
@@ -67,11 +71,9 @@ final class CreateMatchViewController: UIViewController {
         pickerView.dataSource = self
         cityTextField.inputView = pickerView
         districtTextField.inputView = pickerView
-        hourTextField.inputView = pickerView
         gameTypeTextField.inputView = pickerView
         cityTextField.inputAccessoryView = createToolbar()
         districtTextField.inputAccessoryView = createToolbar()
-        hourTextField.inputAccessoryView = createToolbar()
         gameTypeTextField.inputAccessoryView = createToolbar()
     }
     
@@ -83,7 +85,17 @@ final class CreateMatchViewController: UIViewController {
         matchDateTextField.inputView = datePicker
         matchDateTextField.inputAccessoryView = createToolbar()
     }
-    
+
+    private func setupTimePicker() {
+        let timePicker = UIDatePicker()
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
+        timePicker.minuteInterval = 30
+        timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
+        hourTextField.inputView = timePicker
+        hourTextField.inputAccessoryView = createToolbar()
+    }
+
     private func setupTextFields() {
         hostIbanTextField.rightView = createPasteButton()
         hostIbanTextField.rightViewMode = .always
@@ -111,6 +123,9 @@ final class CreateMatchViewController: UIViewController {
         let textFields: [String: UITextField] = [
             "city": cityTextField,
             "district": districtTextField,
+            "eventArea": eventAreaTextField,
+            "firstTeamName": firstTeamNameTextField,
+            "secondTeamName": secondTeamNameTextField,
             "hour": hourTextField,
             "matchDate": matchDateTextField,
             "hostName": hostNameTextField,
@@ -134,7 +149,14 @@ final class CreateMatchViewController: UIViewController {
         matchDateTextField.text = formatter.string(from: datePicker.date)
         viewModel.setField(field: .matchDate, value: matchDateTextField.text)
     }
-    
+
+    @objc private func timeChanged(_ sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        hourTextField.text = formatter.string(from: sender.date)
+        viewModel.setField(field: .hour, value: hourTextField.text)
+    }
+
     @objc private func doneButtonTapped() {
         view.endEditing(true)
     }
@@ -146,6 +168,8 @@ final class CreateMatchViewController: UIViewController {
         }
     }
     
+    // MARK: - ACTIONS
+
     @IBAction func createMatchButtonTapped(_ sender: UIButton) {
         if viewModel.validateFields() {
             saveToUserDefaults()
@@ -176,8 +200,6 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             return viewModel.cities.count
         case districtTextField:
             return viewModel.districts.count
-        case hourTextField:
-            return Constants.hours.count
         case gameTypeTextField:
             return Constants.gameType.count
         default:
@@ -191,8 +213,6 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             return viewModel.cities[row]
         case districtTextField:
             return viewModel.districts[row]
-        case hourTextField:
-            return Constants.hours[row]
         case gameTypeTextField:
             return Constants.gameType[row]
         default:
@@ -213,10 +233,6 @@ extension CreateMatchViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             let selectedDistrict = viewModel.districts[row]
             districtTextField.text = selectedDistrict
             viewModel.setField(field: .district, value: selectedDistrict)
-        case hourTextField:
-            let selectedHour = Constants.hours[row]
-            hourTextField.text = selectedHour
-            viewModel.setField(field: .hour, value: selectedHour)
         case gameTypeTextField:
             let selectedGameType = Constants.gameType[row]
             gameTypeTextField.text = selectedGameType
@@ -234,7 +250,7 @@ extension CreateMatchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
         pickerView.reloadAllComponents()
-        
+        pickerView.selectRow(0, inComponent: 0, animated: false)
         if textField == hostIbanTextField {
             textField.text = String(repeating: " ", count: 1)
         }
@@ -251,7 +267,7 @@ extension CreateMatchViewController: UITextFieldDelegate {
             
         case cityTextField, districtTextField,gameTypeTextField,matchDateTextField,hourTextField:
             return false
-        case hostNameTextField:
+        case hostNameTextField, eventAreaTextField, firstTeamNameTextField, secondTeamNameTextField:
             let allowedCharacters = CharacterSet.letters.union(CharacterSet.whitespaces)
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)

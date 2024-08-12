@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         let backButtonAppearance = UIBarButtonItem.appearance()
         backButtonAppearance.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: 0), for: .default)
-        UINavigationBar.appearance().tintColor = .red
+        UINavigationBar.appearance().tintColor = .main
         return true
     }
 

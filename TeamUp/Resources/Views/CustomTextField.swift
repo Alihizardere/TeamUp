@@ -10,7 +10,7 @@ import UIKit
 class CustomTextField: UITextField {
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.borderColor = UIColor.first.cgColor
+        self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1.0
         self.layer.cornerRadius = 5.0
     }
