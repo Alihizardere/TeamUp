@@ -208,25 +208,79 @@ final class SetPlayersViewController: BaseViewController {
         addedPlayersHistory.removeAll()
     }
     
+    private func updateStackViewAndAddToHistory(_ stackView: UIStackView, with players: [Player]) {
+        var playerIndex = 0
+        
+        processStackView(stackView) { imageView, playerLabel in
+            guard playerIndex < players.count else { return }
+            let player = players[playerIndex]
+            
+            imageView.image = UIImage(named: "kit5") // Resmi ayarla
+            playerLabel.text = player.name
+            
+            if let playerStackView = imageView.superview as? UIStackView {
+                let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel
+                let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel
+                positionLabel?.text = player.position
+                overallLabel?.text = "\(player.overall ?? 0)"
+            }
+            
+            addedPlayersHistory.append((player: player, imageView: imageView))
+            playerIndex += 1
+        }
+    }
+
     //MARK: - ACTIONS
     
     @IBAction func btnTakeItBack(_ sender: UIButton) {
         guard let lastAdded = addedPlayersHistory.popLast() else { return }
-        lastAdded.imageView.image = initialImage
+        
+        // Resmi default resim ile değiştir
+        if let initialImage = initialImage {
+            lastAdded.imageView.image = initialImage
+        } else {
+            lastAdded.imageView.image = UIImage(named: "kit1") // Varsayılan resim
+        }
         
         if let playerStackView = lastAdded.imageView.superview as? UIStackView {
+            // Oyuncu bilgilerini temizle
             let playerLabel = playerStackView.arrangedSubviews.last as? UILabel
             playerLabel?.text = ""
+            
+            let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel
+            let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel
+            positionLabel?.text = ""
+            overallLabel?.text = ""
         }
         
         viewModel.undoLastPlayerAddition()
     }
+
     
     @IBAction func btnClearAll(_ sender: UIButton) {
         resetStackViewImages(team1StackView)
         resetStackViewImages(team2StackView)
         viewModel.restoreAllPlayers()
     }
+    
+    @IBAction func btnMixPlayers(_ sender: Any) {
+        // Oyuncuları karıştır ve genel değerlerine göre sırala
+        var shuffledPlayers = viewModel.players.shuffled()
+        shuffledPlayers.sort { $0.overall ?? 0 > $1.overall ?? 0 }
+        
+        resetStackViewImages(team1StackView)
+        resetStackViewImages(team2StackView)
+        
+        let halfCount = shuffledPlayers.count / 2
+        let team1Players = Array(shuffledPlayers.prefix(halfCount))
+        let team2Players = Array(shuffledPlayers.suffix(from: halfCount))
+        
+        // Takım 1 ve Takım 2'ye oyuncuları ekleyip addedPlayersHistory'e yaz
+        updateStackViewAndAddToHistory(team1StackView, with: team1Players)
+        updateStackViewAndAddToHistory(team2StackView, with: team2Players)
+    }
+
+    
     
     
     @IBAction func goToNextPage(_ sender: UIButton) {
