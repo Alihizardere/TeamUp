@@ -24,7 +24,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="62j-Eg-b4I">
                                 <rect key="frame" x="4" y="4" width="160" height="191"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kit5" translatesAutoresizingMaskIntoConstraints="NO" id="VpW-o1-ycn">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trainingKit" translatesAutoresizingMaskIntoConstraints="NO" id="VpW-o1-ycn">
                                         <rect key="frame" x="40" y="0.0" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="6JO-bs-OpP"/>
@@ -78,7 +78,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="kit5" width="205" height="246"/>
+        <image name="trainingKit" width="1024" height="1024"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

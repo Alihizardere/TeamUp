@@ -93,10 +93,14 @@ extension SetPlayersViewModel: SetPlayersViewModelProtocol {
     }
     
     func removePlayers(_ players: [Player]) {
-        let playerIds = Set(players.map { $0.id })
-        self.players.removeAll { playerIds.contains($0.id) }
+        for player in players {
+            if let index = self.players.firstIndex(where: { $0.id == player.id }) {
+                addedPlayersHistory.append((player: player, index: index))
+                self.players.remove(at: index)
+            }
+        }
+        delegate?.reloadData()
     }
-    
     
     func restoreAllPlayers() {
         for history in addedPlayersHistory.reversed() {
@@ -105,5 +109,4 @@ extension SetPlayersViewModel: SetPlayersViewModelProtocol {
         addedPlayersHistory.removeAll()
         delegate?.reloadData()
     }
-    
 }
