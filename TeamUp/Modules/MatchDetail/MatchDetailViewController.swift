@@ -20,6 +20,8 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var weatherImage: UIImageView!
     @IBOutlet private weak var numberOfPlayersLabel: UILabel!
     @IBOutlet private weak var showAllPlayersLabel: UILabel!
+    @IBOutlet private weak var backToHomeButton: UIButton!
+    @IBOutlet private weak var shareButton: UIButton!
     @IBOutlet private weak var hostIbanLabel: UILabel!
     @IBOutlet private weak var hostNameLabel: UILabel!
     @IBOutlet private weak var weatherView: UIView!
@@ -32,6 +34,7 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var secondTeamView: UIView!
 
     //MARK: - PROPERTIES
+
     private let defaults = UserDefaults.standard
     private var panGestureRecognizers: [UIPanGestureRecognizer] = []
     var team1Players: [Player] = []
@@ -41,13 +44,15 @@ final class MatchDetailViewController: BaseViewController {
     }
 
     //MARK: - LIFE CYCLE
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MatchDetailViewModel()
         viewModel.viewDidLoad()
+    }
 
-        setupDraggableViews(for: team1Players, in: firstTeamView)
-        setupDraggableViews(for: team2Players, in: secondTeamView)
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
 
     //MARK: - PRIVATE FUNCTIONS
@@ -103,7 +108,7 @@ final class MatchDetailViewController: BaseViewController {
         var teamDraggableViews: [PlayerCustomView] = []
 
         team.forEach { player in
-            
+
             if let existingView = teamView.subviews.first(where: { $0.tag == player.id.hashValue }) {
                 teamDraggableViews.append(existingView as! PlayerCustomView)
             } else {
@@ -218,6 +223,10 @@ final class MatchDetailViewController: BaseViewController {
     @IBAction func teamSegmentedControlTapped(_ sender: UISegmentedControl) {
         changeTeam()
     }
+    @IBAction func backToHomeButtonTapped(_ sender: UIButton) {
+        let landingVC: LandingViewController = UIViewController.instantiate(from: .landing)
+        navigationController?.pushViewController(landingVC, animated: true)
+    }
 }
 
 // MARK: - MatchDetailViewModelDelegate
@@ -225,12 +234,17 @@ final class MatchDetailViewController: BaseViewController {
 extension MatchDetailViewController: MatchDetailViewModelDelegate {
 
     func setupUI() {
+
         viewModel.loadPlayers()
+        setupDraggableViews(for: team1Players, in: firstTeamView)
+        setupDraggableViews(for: team2Players, in: secondTeamView)
         loadUserDefaults()
         setupSportsFieldImage()
         setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
         setupShowAllPlayersTapGesture()
         changeTeam()
+        shareButton.setTitle("", for: .normal)
+        backToHomeButton.setTitle("", for: .normal)
         if let city = defaults.string(forKey: "city") {
             viewModel.getWeather(city: city)
         }
@@ -255,5 +269,4 @@ extension MatchDetailViewController: MatchDetailViewModelDelegate {
             updateWeatherImage(for: weather)
         }
     }
-
 }
