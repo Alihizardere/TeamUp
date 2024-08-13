@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,11 +17,12 @@
                 <outlet property="districtTextField" destination="ibm-Ix-PpU" id="5nq-L6-I50"/>
                 <outlet property="eventAreaTextField" destination="oaL-j4-1IP" id="EIE-Eo-rdz"/>
                 <outlet property="firstTeamNameTextField" destination="4ia-QT-6na" id="dot-yR-fiN"/>
-                <outlet property="gameTypeTextField" destination="NEB-7H-Dc5" id="Dik-ma-Joe"/>
+                <outlet property="gameTypeTextField" destination="3qW-Bq-9Si" id="PDI-Ue-tA9"/>
                 <outlet property="hostIbanTextField" destination="d2Q-iP-Wxe" id="ybr-Ni-SHe"/>
                 <outlet property="hostNameTextField" destination="iBh-q9-llJ" id="tBV-5n-bJb"/>
                 <outlet property="hourTextField" destination="OSv-L8-CAc" id="VVJ-51-Zh4"/>
                 <outlet property="matchDateTextField" destination="MDv-0X-O7V" id="7FI-Fe-D0R"/>
+                <outlet property="matchPriceTextField" destination="NB4-eL-ZQt" id="eNr-oy-QlO"/>
                 <outlet property="secondTeamNameTextField" destination="6zN-fj-FPB" id="972-lP-jYi"/>
                 <outlet property="view" destination="e6u-oC-Cxl" id="gmH-ZF-Tt9"/>
             </connections>
@@ -142,25 +143,6 @@
                         </textField>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="jzI-8M-TT8">
-                    <rect key="frame" x="16" y="418.33333333333331" width="361" height="58.333333333333314"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4U-D7-bHt">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Game type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NEB-7H-Dc5" customClass="CustomTextField" customModule="TeamUp" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="24.333333333333371" width="361" height="34"/>
-                            <color key="tintColor" systemColor="tintColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="Jce-uh-Dsj"/>
-                            </connections>
-                        </textField>
-                    </subviews>
-                </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host Iban" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnY-aW-n7b">
                     <rect key="frame" x="16" y="567" width="75" height="20.333333333333371"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
@@ -254,7 +236,7 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xE3-hx-gFL">
                                     <rect key="frame" x="0.0" y="0.0" width="177.33333333333334" height="20.333333333333332"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textColor" systemColor="systemGray6Color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Team 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6zN-fj-FPB" customClass="CustomTextField" customModule="TeamUp" customModuleProvider="target">
@@ -270,9 +252,52 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RFT-cc-0rJ">
+                    <rect key="frame" x="16" y="418.33333333333331" width="361" height="58.333333333333314"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mSL-P4-c0y">
+                            <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="58.333333333333336"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-AP-pw2">
+                                    <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="20.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Game Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3qW-Bq-9Si" customClass="CustomTextField" customModule="TeamUp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="24.333333333333371" width="174.66666666666666" height="34"/>
+                                    <color key="tintColor" systemColor="tintColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="0ky-2i-iF3"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="GpK-Be-ZFo">
+                            <rect key="frame" x="186.66666666666663" y="0.0" width="174.33333333333337" height="58.333333333333336"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Match Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSy-4I-mat">
+                                    <rect key="frame" x="0.0" y="0.0" width="174.33333333333334" height="20.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NB4-eL-ZQt" customClass="CustomTextField" customModule="TeamUp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="24.333333333333371" width="174.33333333333334" height="34"/>
+                                    <color key="tintColor" systemColor="tintColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="PLc-5Q-aCp"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="xqJ-AI-lUb"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" systemColor="systemGray6Color"/>
             <constraints>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="i1F-S1-Qke" secondAttribute="trailing" constant="16" id="2Qo-X0-Qec"/>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="XSL-bN-Yvg" secondAttribute="trailing" constant="16" id="2rt-wu-ZAB"/>
@@ -284,25 +309,25 @@
                 <constraint firstItem="1uW-RC-Hlb" firstAttribute="top" secondItem="xqJ-AI-lUb" secondAttribute="top" constant="16" id="CRP-1c-HKU"/>
                 <constraint firstItem="2Pm-j1-hP9" firstAttribute="top" secondItem="1uW-RC-Hlb" secondAttribute="bottom" constant="16" id="Elz-h1-vev"/>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="2Pm-j1-hP9" secondAttribute="trailing" constant="16" id="Fje-3h-q5Y"/>
-                <constraint firstItem="jzI-8M-TT8" firstAttribute="top" secondItem="XSL-bN-Yvg" secondAttribute="bottom" constant="16" id="N3Z-a8-suJ"/>
+                <constraint firstItem="Qyi-NX-miW" firstAttribute="top" secondItem="RFT-cc-0rJ" secondAttribute="bottom" constant="16" id="NP6-PK-X7E"/>
                 <constraint firstItem="i1F-S1-Qke" firstAttribute="top" secondItem="2Pm-j1-hP9" secondAttribute="bottom" constant="16" id="Ndw-i9-irt"/>
                 <constraint firstItem="n3M-lC-rih" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="OBe-A4-Pbg"/>
                 <constraint firstItem="d2Q-iP-Wxe" firstAttribute="centerY" secondItem="LDJ-34-pn2" secondAttribute="centerY" id="Orz-pP-37S"/>
                 <constraint firstItem="1uW-RC-Hlb" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="UXk-t3-gNe"/>
                 <constraint firstItem="XSL-bN-Yvg" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="Ucx-IP-qq1"/>
-                <constraint firstItem="Qyi-NX-miW" firstAttribute="top" secondItem="jzI-8M-TT8" secondAttribute="bottom" constant="16" id="Wif-vE-5Oe"/>
                 <constraint firstItem="fnY-aW-n7b" firstAttribute="top" secondItem="Qyi-NX-miW" secondAttribute="bottom" constant="16" id="YoK-b9-BYW"/>
                 <constraint firstItem="d2Q-iP-Wxe" firstAttribute="leading" secondItem="LDJ-34-pn2" secondAttribute="trailing" constant="-2" id="ZYu-RS-DG3"/>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="d2Q-iP-Wxe" secondAttribute="trailing" constant="16" id="awS-Pz-ag6"/>
                 <constraint firstItem="LDJ-34-pn2" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="bJ7-FO-Qqk"/>
+                <constraint firstItem="RFT-cc-0rJ" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="hhJ-LN-Vf5"/>
                 <constraint firstItem="XSL-bN-Yvg" firstAttribute="top" secondItem="GOM-bF-Kr3" secondAttribute="bottom" constant="16" id="iOq-Ho-vNg"/>
                 <constraint firstItem="Qyi-NX-miW" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="iWY-DK-WFk"/>
                 <constraint firstItem="2Pm-j1-hP9" firstAttribute="leading" secondItem="e6u-oC-Cxl" secondAttribute="leading" constant="16" id="kiP-NG-Vbe"/>
                 <constraint firstItem="d2Q-iP-Wxe" firstAttribute="top" secondItem="fnY-aW-n7b" secondAttribute="bottom" constant="10.666666666666686" id="lle-Jr-kbT"/>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="bottom" secondItem="n3M-lC-rih" secondAttribute="bottom" constant="16" id="m1b-GP-9Xy"/>
-                <constraint firstItem="jzI-8M-TT8" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="qze-iZ-TPr"/>
+                <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="RFT-cc-0rJ" secondAttribute="trailing" constant="16" id="quW-U6-1De"/>
                 <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="GOM-bF-Kr3" secondAttribute="trailing" constant="16" id="sfK-ML-RTt"/>
-                <constraint firstItem="xqJ-AI-lUb" firstAttribute="trailing" secondItem="jzI-8M-TT8" secondAttribute="trailing" constant="16" id="tiP-PH-fHh"/>
+                <constraint firstItem="RFT-cc-0rJ" firstAttribute="top" secondItem="XSL-bN-Yvg" secondAttribute="bottom" constant="16" id="tn6-gJ-myf"/>
                 <constraint firstItem="i1F-S1-Qke" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="u8r-tq-4xu"/>
                 <constraint firstItem="fnY-aW-n7b" firstAttribute="leading" secondItem="xqJ-AI-lUb" secondAttribute="leading" constant="16" id="xMX-7o-9sg"/>
             </constraints>
@@ -313,11 +338,11 @@
         <namedColor name="mainColor">
             <color red="0.20000001788139343" green="0.40000003576278687" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

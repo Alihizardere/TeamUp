@@ -17,9 +17,7 @@
                 <outlet property="goToNextPageButton" destination="wi4-pP-E52" id="c0F-3y-0ue"/>
                 <outlet property="mixButton" destination="qpg-ta-E55" id="hX9-gn-vc1"/>
                 <outlet property="team1StackView" destination="AY2-Vs-acD" id="wZW-yl-XX4"/>
-                <outlet property="team1View" destination="9Vc-Bh-btY" id="tsB-oK-Ekw"/>
                 <outlet property="team2StackView" destination="Mzw-Zg-jfq" id="Fnt-dd-h1d"/>
-                <outlet property="team2View" destination="fR4-Zh-ufv" id="iqH-CM-xfq"/>
                 <outlet property="undoButton" destination="9hk-c5-tWj" id="OeH-ft-LgN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -134,29 +132,17 @@
                         <constraint firstAttribute="height" constant="70" id="ME3-bf-kHD"/>
                     </constraints>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="JrU-C6-ts2">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="JrU-C6-ts2">
                     <rect key="frame" x="8" y="145" width="377" height="400"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vc-Bh-btY">
-                            <rect key="frame" x="0.0" y="0.0" width="178.33333333333334" height="400"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AY2-Vs-acD">
-                                    <rect key="frame" x="8" y="8" width="170" height="384"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </stackView>
-                            </subviews>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fR4-Zh-ufv">
-                            <rect key="frame" x="199.33333333333337" y="0.0" width="177.66666666666663" height="400"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-Zg-jfq">
-                                    <rect key="frame" x="8" y="8" width="170" height="384"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </stackView>
-                            </subviews>
-                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AY2-Vs-acD">
+                            <rect key="frame" x="0.0" y="0.0" width="178" height="400"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-Zg-jfq">
+                            <rect key="frame" x="199" y="0.0" width="178" height="400"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </stackView>
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wi4-pP-E52">

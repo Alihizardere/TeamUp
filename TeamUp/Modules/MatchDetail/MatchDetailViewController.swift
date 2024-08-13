@@ -9,7 +9,7 @@ import UIKit
 
 final class MatchDetailViewController: BaseViewController {
 
-    //MARK: - OUTLETS
+    // MARK: - OUTLETS
 
     @IBOutlet private weak var firstTeamNameLabel: UILabel!
     @IBOutlet private weak var secondTeamNameLabel: UILabel!
@@ -28,6 +28,7 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var shareButton: UIButton!
     @IBOutlet private weak var hostIbanLabel: UILabel!
     @IBOutlet private weak var hostNameLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel!
     @IBOutlet private weak var weatherView: UIView!
     @IBOutlet private weak var nextMatchView: UIView!
     @IBOutlet private weak var hostView: UIView!
@@ -36,22 +37,19 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var sportsFieldImage: UIImageView!
     @IBOutlet private weak var firstTeamView: UIView!
     @IBOutlet private weak var secondTeamView: UIView!
-    @IBOutlet private weak var nextMatcInfoView: UIView!
-    @IBOutlet private weak var weatherInfoView: UIView!
-    @IBOutlet private weak var playersInfoView: UIView!
-    @IBOutlet private weak var hostInfoView: UIView!
+    
 
-    //MARK: - PROPERTIES
+    // MARK: - PROPERTIES
 
     private let defaults = UserDefaults.standard
     private var panGestureRecognizers: [UIPanGestureRecognizer] = []
     var team1Players: [Player] = []
     var team2Players: [Player] = []
     private var viewModel: MatchDetailViewModelProtocol! {
-        didSet { viewModel.delegate = self}
+        didSet { viewModel.delegate = self }
     }
 
-    //MARK: - LIFE CYCLE
+    // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,13 +61,10 @@ final class MatchDetailViewController: BaseViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
-    //MARK: - PRIVATE FUNCTIONS
+    // MARK: - PRIVATE FUNCTIONS
 
-    private func addShadowToView(){
-        nextMatchView.addShadow()
-        weatherView.addShadow()
-        playersView.addShadow()
-        hostView.addShadow()
+    private func addShadowToView() {
+        [nextMatchView, weatherView, playersView, hostView].forEach { $0.addShadow() }
     }
 
     private func loadUserDefaults() {
@@ -80,11 +75,16 @@ final class MatchDetailViewController: BaseViewController {
         firstTeamNameLabel.text = defaults.string(forKey: "firstTeamName") ?? "N/A"
         secondTeamNameLabel.text = defaults.string(forKey: "secondTeamName") ?? "N/A"
         dateLabel.text = defaults.string(forKey: "matchDate") ?? "N/A"
-        hostIbanLabel.text = (("TR\(defaults.string(forKey: "hostIban") ?? "N/A")"))
+        hostIbanLabel.text = "TR\(defaults.string(forKey: "hostIban") ?? "N/A")"
         hostNameLabel.text = defaults.string(forKey: "hostName") ?? "N/A"
+        if let pricePerPlayer = viewModel.calculatePricePerPlayer() {
+            priceLabel.text = "\(pricePerPlayer)₺"
+        } else {
+            priceLabel.text = "N/A"
+        }
     }
 
-    private func updateWeatherImage(for weather: Weather) {
+    private func updateWeatherImage(for weather: Weather) { // Switch yapısı viewModel'a taşınabilir
         switch weather.main?.lowercased() {
         case "rain":
             weatherImage.image = UIImage(systemName: "cloud.rain")
@@ -124,26 +124,22 @@ final class MatchDetailViewController: BaseViewController {
     }
 
     private func setupDraggableViews(for team: [Player], in teamView: UIView) {
+        teamView.subviews.forEach { $0.removeFromSuperview() }
+
         var teamDraggableViews: [PlayerCustomView] = []
 
         team.forEach { player in
-
-            if let existingView = teamView.subviews.first(where: { $0.tag == player.id.hashValue }) {
-                teamDraggableViews.append(existingView as! PlayerCustomView)
-            } else {
-
-                let view = PlayerCustomView(
-                    name: player.name ?? "Unknown",
-                    imageName: "kit5",
-                    overallScore: String(player.overall ?? 70)
-                )
-                view.tag = player.id.hashValue
-                teamDraggableViews.append(view)
-                let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-                view.addGestureRecognizer(panGestureRecognizer)
-                view.isUserInteractionEnabled = true
-                teamView.addSubview(view)
-            }
+            let view = PlayerCustomView(
+                name: player.name ?? "Unknown",
+                imageName: "teamUp",
+                overallScore: String(player.overall ?? 70)
+            )
+            view.tag = player.id.hashValue
+            teamDraggableViews.append(view)
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+            view.addGestureRecognizer(panGestureRecognizer)
+            view.isUserInteractionEnabled = true
+            teamView.addSubview(view)
         }
         layoutDraggableViews(teamDraggableViews, in: teamView, for: team)
     }
@@ -186,19 +182,14 @@ final class MatchDetailViewController: BaseViewController {
                 view.widthAnchor.constraint(equalToConstant: size),
                 view.heightAnchor.constraint(equalToConstant: size),
                 view.centerXAnchor.constraint(equalTo: teamView.centerXAnchor, constant: xOffset),
-                view.centerYAnchor.constraint(equalTo: teamView.centerYAnchor, constant: -yOffset * 1.1 )
+                view.centerYAnchor.constraint(equalTo: teamView.centerYAnchor, constant: -yOffset * 1.1)
             ])
         }
     }
 
     private func changeTeam() {
-        if teamSegmentedControl.selectedSegmentIndex == 0 {
-            firstTeamView.isHidden = false
-            secondTeamView.isHidden = true
-        } else {
-            firstTeamView.isHidden = true
-            secondTeamView.isHidden = false
-        }
+        firstTeamView.isHidden = teamSegmentedControl.selectedSegmentIndex != 0
+        secondTeamView.isHidden = teamSegmentedControl.selectedSegmentIndex == 0
     }
 
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
@@ -223,7 +214,6 @@ final class MatchDetailViewController: BaseViewController {
 
             let existingConstraints = draggedView.constraints.filter({ $0.identifier == "centerX" || $0.identifier == "centerY" })
             NSLayoutConstraint.deactivate(existingConstraints)
-            draggedView.removeConstraints(existingConstraints)
 
             let centerXConstraint = draggedView.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: draggedView.center.x)
             centerXConstraint.identifier = "centerX"
@@ -235,7 +225,7 @@ final class MatchDetailViewController: BaseViewController {
     }
 
     @objc private func showAllPlayersTapped() {
-        let playerListVC: PlayerListViewController = UIViewController.instantiate(from: .playerList )
+        let playerListVC: PlayerListViewController = UIViewController.instantiate(from: .playerList)
         navigationController?.pushViewController(playerListVC, animated: true)
     }
 
@@ -254,6 +244,7 @@ final class MatchDetailViewController: BaseViewController {
         let matchLocation = defaults.string(forKey: "city") ?? "N/A"
         let matchDistrict = defaults.string(forKey: "district") ?? "N/A"
         let matchArea = defaults.string(forKey: "eventArea") ?? "N/A"
+        let hostIban = defaults.string(forKey: "hostIban") ?? "N/A"
 
         let matchInfo = """
             Match Date: \(matchDate)
@@ -261,6 +252,7 @@ final class MatchDetailViewController: BaseViewController {
             Location: \(matchLocation)
             District: \(matchDistrict)
             Area: \(matchArea)
+            HostIban: \(hostIban)
             """
         let activityViewController = UIActivityViewController(activityItems: [matchInfo], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
@@ -278,20 +270,20 @@ extension MatchDetailViewController: MatchDetailViewModelDelegate {
         addShadowToView()
         loadUserDefaults()
         setupSportsFieldImage()
-        setupCornerRadius(for: [weatherView, nextMatchView,hostView,playersView], radius: 10)
+        setupCornerRadius(for: [weatherView, nextMatchView, hostView, playersView], radius: 10)
         setupShowAllPlayersTapGesture()
         changeTeam()
         shareButton.setTitle("", for: .normal)
         backToHomeButton.setTitle("", for: .normal)
         if let city = defaults.string(forKey: "city") {
-            viewModel.getWeather(city: city)
+            viewModel.getWeather(for: city)
         }
     }
 
     func configurePlayerData(players: [Player]) {
         numberOfPlayersLabel.text = String(players.count)
-        setupDraggableViews(for: team1Players, in: firstTeamView)
-        setupDraggableViews(for: team2Players, in: secondTeamView)
+        setupDraggableViews(for: players, in: firstTeamView)
+        setupDraggableViews(for: players, in: secondTeamView)
     }
 
     func configureWeatherResponse(weatherResponse: WeatherResponse) {

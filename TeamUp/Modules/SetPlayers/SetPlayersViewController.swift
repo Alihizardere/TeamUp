@@ -25,6 +25,7 @@ final class SetPlayersViewController: BaseViewController {
     
     private var initialImage: UIImage?
     private var addedPlayersHistory: [(player: Player, imageView: UIImageView)] = []
+    let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key)
     private var viewModel: SetPlayersViewModelProtocol! {
         didSet { viewModel.delegate = self }
     }
@@ -46,8 +47,8 @@ final class SetPlayersViewController: BaseViewController {
     
     private func setupCornerRadius() {
         setupButtonCornerRadius(for: [goToNextPageButton], radius: 25)
-        team1View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
-        team2View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
+        //        team1View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
+        //        team2View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
     }
     
     private func setupStackViews() {
@@ -99,7 +100,7 @@ final class SetPlayersViewController: BaseViewController {
     private func createColumnStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 0
         stackView.distribution = .fillEqually
         return stackView
     }
@@ -117,20 +118,23 @@ final class SetPlayersViewController: BaseViewController {
         playerLabel.textAlignment = .center
         playerLabel.textColor = .black
         playerLabel.numberOfLines = 1
+        
         playerLabel.adjustsFontSizeToFitWidth = true
         playerLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let positionLabel = UILabel()
         positionLabel.adjustsFontSizeToFitWidth = true
         positionLabel.translatesAutoresizingMaskIntoConstraints = false
+        positionLabel.isHidden = true
         
         let overallLabel = UILabel()
         overallLabel.adjustsFontSizeToFitWidth = true
         overallLabel.translatesAutoresizingMaskIntoConstraints = false
+        overallLabel.isHidden = true
         
         let playerStackView = UIStackView(arrangedSubviews: [imageView, positionLabel, overallLabel, playerLabel])
         playerStackView.axis = .vertical
-        playerStackView.spacing = 5
+        playerStackView.spacing = -25
         playerStackView.alignment = .center
         playerStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -208,7 +212,6 @@ final class SetPlayersViewController: BaseViewController {
                 }
             }
         }
-        
         goToNextPageButton.isHidden = !allFilled
     }
     
@@ -240,7 +243,7 @@ final class SetPlayersViewController: BaseViewController {
             guard playerIndex < players.count else { return }
             let player = players[playerIndex]
             
-            imageView.image = UIImage(named: "teamUp") // Set the image
+            imageView.image = UIImage(named: "teamUp")
             playerLabel.text = player.name
             
             if let playerStackView = imageView.superview as? UIStackView {
@@ -266,9 +269,76 @@ final class SetPlayersViewController: BaseViewController {
         navigationController?.pushViewController(matchDetailVC, animated: true)
     }
     
+    private func mixFootballPlayers() {
+        var goalkeepers: [Player] = []
+        var otherPlayers: [Player] = []
+        
+        // Separate goalkeepers and other players
+        for player in viewModel.players {
+            if player.position == "Goalkeeper" {
+                goalkeepers.append(player)
+            } else {
+                otherPlayers.append(player)
+            }
+        }
+        goalkeepers.shuffle()
+        otherPlayers.shuffle()
+        guard goalkeepers.count >= 2 else {
+            showInsufficientGoalkeepersAlert()
+            return
+        }
+        let team1Goalkeeper = goalkeepers.popLast()!
+        let team2Goalkeeper = goalkeepers.popLast()!
+        var team1Players: [Player] = [team1Goalkeeper]
+        var team2Players: [Player] = [team2Goalkeeper]
+        distributePlayers(&otherPlayers, team1Players: &team1Players, team2Players: &team2Players)
+        updateUIForTeams(team1Players, team2Players)
+    }
+    
+    private func mixVolleyballPlayers() {
+        var allPlayers = viewModel.players
+        allPlayers.shuffle()
+        var team1Players: [Player] = []
+        var team2Players: [Player] = []
+        distributePlayers(&allPlayers, team1Players: &team1Players, team2Players: &team2Players)
+        updateUIForTeams(team1Players, team2Players)
+    }
+    
+    private func distributePlayers(_ players: inout [Player], team1Players: inout [Player], team2Players: inout [Player]) {
+        while !players.isEmpty {
+            if let player = players.popLast() {
+                if team1Players.count <= team2Players.count {
+                    team1Players.append(player)
+                } else {
+                    team2Players.append(player)
+                }
+            }
+        }
+    }
+    
+    private func updateUIForTeams(_ team1Players: [Player], _ team2Players: [Player]) {
+        resetStackViewImages(team1StackView)
+        resetStackViewImages(team2StackView)
+        updateStackViewAndAddToHistory(team1StackView, with: team1Players)
+        updateStackViewAndAddToHistory(team2StackView, with: team2Players)
+    }
+    
+    private func showInsufficientGoalkeepersAlert() {
+        UIAlertController.showAlert(
+            on: self,
+            title: "Insufficient Goalkeepers",
+            message: "There are not enough goalkeepers to form two teams. Please add goalkeeper in player list",
+            primaryButtonTitle: "OK",
+            primaryButtonStyle: .default,
+            primaryButtonHandler: {
+                let playerDetailVC: PlayerDetailViewController = UIViewController.instantiate(from: .playerDetail)
+                self.navigationController?.pushViewController(playerDetailVC, animated: true)
+            })
+    }
+    
     //MARK: - ACTIONS
     
-    @IBAction func btnTakeItBack(_ sender: UIButton) {
+    @IBAction private func btnTakeItBack(_ sender: UIButton) {
         guard let lastAdded = addedPlayersHistory.popLast() else { return }
         if let initialImage = initialImage {
             lastAdded.imageView.image = initialImage
@@ -297,48 +367,14 @@ final class SetPlayersViewController: BaseViewController {
     }
     
     @IBAction func btnMixPlayers(_ sender: Any) {
-        var goalkeepers: [Player] = []
-        var otherPlayers: [Player] = []
-        for player in viewModel.players {
-            if player.position == "Goalkeeper" {
-                goalkeepers.append(player)
-            } else {
-                otherPlayers.append(player)
+        if let currentSportType = SportType(rawValue: sportType ?? "") {
+            switch currentSportType {
+            case .football:
+                mixFootballPlayers()
+            case .volleyball:
+                mixVolleyballPlayers()
             }
         }
-        goalkeepers.shuffle()
-        otherPlayers.shuffle()
-        guard goalkeepers.count >= 2 else {
-            UIAlertController.showAlert(
-                on: self,
-                title: "Insufficient Goalkeepers",
-                message: "There are not enough goalkeepers to form two teams. Please add goalkeeper in player list",
-                primaryButtonTitle: "OK",
-                primaryButtonStyle: .default, primaryButtonHandler:  {
-                    let playerDetailVC: PlayerDetailViewController = UIViewController.instantiate(from: .playerDetail)
-                    self.navigationController?.pushViewController(playerDetailVC, animated: true)
-                })
-            return
-        }
-        
-        let team1Goalkeeper = goalkeepers.popLast()!
-        let team2Goalkeeper = goalkeepers.popLast()!
-        var team1Players: [Player] = [team1Goalkeeper]
-        var team2Players: [Player] = [team2Goalkeeper]
-        
-        while !otherPlayers.isEmpty {
-            if let player = otherPlayers.popLast() {
-                if team1Players.count <= team2Players.count {
-                    team1Players.append(player)
-                } else {
-                    team2Players.append(player)
-                }
-            }
-        }
-        resetStackViewImages(team1StackView)
-        resetStackViewImages(team2StackView)
-        updateStackViewAndAddToHistory(team1StackView, with: team1Players)
-        updateStackViewAndAddToHistory(team2StackView, with: team2Players)
     }
     
     @IBAction func goToNextPage(_ sender: UIButton) {
@@ -348,7 +384,7 @@ final class SetPlayersViewController: BaseViewController {
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems
     }
@@ -359,6 +395,10 @@ extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.configure(with: player)
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 40, bottom: 4, right: 40)
     }
 }
 
@@ -415,7 +455,7 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
                         overallLabel?.text = "\(removedPlayer.overall ?? 0)"
                     }
                 }
-                self.areAllPositionsFilled() // Check after player drop
+                self.areAllPositionsFilled()
             }
         }
     }
