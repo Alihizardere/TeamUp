@@ -14,7 +14,6 @@
 		3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */; };
 		3D81557E2C636E6C00DEEC27 /* PlayerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */; };
 		3D8476D72C66B77E000E45AA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3D8476D62C66B77E000E45AA /* Lottie */; };
-		3D8476DC2C66B964000E45AA /* Animation1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D8476D92C66B964000E45AA /* Animation1.json */; };
 		3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */; };
 		3DA860C42C65E0C400598551 /* MatchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA860C32C65E0C400598551 /* MatchDetailViewModel.swift */; };
 		3DA860C62C66266400598551 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA860C52C66266400598551 /* CityResponse.swift */; };
@@ -23,12 +22,14 @@
 		3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */; };
 		3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D332C5A385D000ECAE0 /* Router.swift */; };
 		3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D362C5A38E1000ECAE0 /* Constants.swift */; };
-		3DCFB96D2C6B81A1008CD581 /* Animation3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB96B2C6B81A1008CD581 /* Animation3.json */; };
+		3DCFB96D2C6B81A1008CD581 /* Animation1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB96B2C6B81A1008CD581 /* Animation1.json */; };
 		3DCFB96E2C6B81A1008CD581 /* Animation2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB96C2C6B81A1008CD581 /* Animation2.json */; };
+		3DCFB97A2C6B9E61008CD581 /* LandingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFB9792C6B9E61008CD581 /* LandingViewModel.swift */; };
+		3DCFB9822C6BA95B008CD581 /* Animation3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB97E2C6BA95B008CD581 /* Animation3.json */; };
 		3DDD064B2C6AF62F00983617 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */; };
 		3DDD064F2C6B0C1F00983617 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064E2C6B0C1F00983617 /* UIImageView.swift */; };
 		3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3DDD06522C6B0FE800983617 /* fanGif.gif */; };
-		3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseManager.swift */; };
+		3DDF17642C59053400F2BF80 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseService.swift */; };
 		3DDF17672C59059A00F2BF80 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17662C59059A00F2BF80 /* Player.swift */; };
 		3DDF176B2C591B3900F2BF80 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */; };
 		3DDF176C2C591B3900F2BF80 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17692C591B3900F2BF80 /* PlayerDetailViewController.swift */; };
@@ -122,7 +123,6 @@
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCustomView.swift; sourceTree = "<group>"; };
 		3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewModel.swift; sourceTree = "<group>"; };
-		3D8476D92C66B964000E45AA /* Animation1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation1.json; sourceTree = "<group>"; };
 		3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		3DA860C32C65E0C400598551 /* MatchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailViewModel.swift; sourceTree = "<group>"; };
 		3DA860C52C66266400598551 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
@@ -131,12 +131,14 @@
 		3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		3DB61D332C5A385D000ECAE0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3DB61D362C5A38E1000ECAE0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3DCFB96B2C6B81A1008CD581 /* Animation3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation3.json; sourceTree = "<group>"; };
+		3DCFB96B2C6B81A1008CD581 /* Animation1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation1.json; sourceTree = "<group>"; };
 		3DCFB96C2C6B81A1008CD581 /* Animation2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation2.json; sourceTree = "<group>"; };
+		3DCFB9792C6B9E61008CD581 /* LandingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewModel.swift; sourceTree = "<group>"; };
+		3DCFB97E2C6BA95B008CD581 /* Animation3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation3.json; sourceTree = "<group>"; };
 		3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		3DDD064E2C6B0C1F00983617 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		3DDD06522C6B0FE800983617 /* fanGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fanGif.gif; sourceTree = "<group>"; };
-		3DDF17632C59053400F2BF80 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		3DDF17632C59053400F2BF80 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		3DDF17662C59059A00F2BF80 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DDF17692C591B3900F2BF80 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewController.swift; sourceTree = "<group>"; };
 		3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailViewController.xib; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		3DB61D292C5A3751000ECAE0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3DDF17632C59053400F2BF80 /* FirebaseService.swift */,
 				3DB61D2A2C5A376C000ECAE0 /* ServiceLogic.swift */,
 				3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */,
 				3DB61D332C5A385D000ECAE0 /* Router.swift */,
@@ -267,14 +270,6 @@
 				3DFF94CB2C57CE5F001DD9D5 /* BaseViewController.swift */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		3DDF17622C5904DB00F2BF80 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				3DDF17632C59053400F2BF80 /* FirebaseManager.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		3DDF17652C59057400F2BF80 /* Model */ = {
@@ -359,7 +354,6 @@
 				3DB61D352C5A38C9000ECAE0 /* Constants */,
 				3DB61D292C5A3751000ECAE0 /* Network */,
 				3DDF17652C59057400F2BF80 /* Model */,
-				3DDF17622C5904DB00F2BF80 /* Helpers */,
 				45C772CA2C57EF0900C952C8 /* Modules */,
 				3DFF95002C57D352001DD9D5 /* App */,
 				3DFF95012C57D371001DD9D5 /* Resources */,
@@ -384,9 +378,9 @@
 				45979D3C2C5E2FFD00F3263E /* Views */,
 				3DA5BE5B2C5BC22C0048C3AB /* Extensions */,
 				3D17580E2C5E754B00E5BAE4 /* Utils */,
-				3D8476D92C66B964000E45AA /* Animation1.json */,
+				3DCFB96B2C6B81A1008CD581 /* Animation1.json */,
 				3DCFB96C2C6B81A1008CD581 /* Animation2.json */,
-				3DCFB96B2C6B81A1008CD581 /* Animation3.json */,
+				3DCFB97E2C6BA95B008CD581 /* Animation3.json */,
 				3DDD06522C6B0FE800983617 /* fanGif.gif */,
 				3DFF94D22C57CE60001DD9D5 /* LaunchScreen.storyboard */,
 				3DFF94D02C57CE60001DD9D5 /* Assets.xcassets */,
@@ -478,6 +472,7 @@
 				A5FBAD792C6B4C9100BF74F4 /* Cell */,
 				45C772CD2C57EF3400C952C8 /* LandingViewController.swift */,
 				45C772CE2C57EF3400C952C8 /* LandingViewController.xib */,
+				3DCFB9792C6B9E61008CD581 /* LandingViewModel.swift */,
 			);
 			path = Landing;
 			sourceTree = "<group>";
@@ -638,7 +633,7 @@
 			files = (
 				3DFC17D82C66AB8B00917726 /* OnboardingCell.xib in Resources */,
 				3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */,
-				3DCFB96D2C6B81A1008CD581 /* Animation3.json in Resources */,
+				3DCFB96D2C6B81A1008CD581 /* Animation1.json in Resources */,
 				3DFF94D12C57CE60001DD9D5 /* Assets.xcassets in Resources */,
 				45B1216C2C617E87003AC229 /* SetPlayersViewController.xib in Resources */,
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
@@ -646,13 +641,13 @@
 				3DCFB96E2C6B81A1008CD581 /* Animation2.json in Resources */,
 				3DFC17D32C66AA9600917726 /* OnboardingViewController.xib in Resources */,
 				3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */,
-				3D8476DC2C66B964000E45AA /* Animation1.json in Resources */,
 				45B121712C617EEC003AC229 /* PlayerCollectionViewCell.xib in Resources */,
 				A5FBAD802C6B704F00BF74F4 /* SportsCell.xib in Resources */,
 				45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */,
 				3DFF95242C58079B001DD9D5 /* CreateMatchViewController.xib in Resources */,
 				3DFF95292C5807C8001DD9D5 /* PlayerListViewController.xib in Resources */,
 				3DDF176B2C591B3900F2BF80 /* PlayerDetailViewController.xib in Resources */,
+				3DCFB9822C6BA95B008CD581 /* Animation3.json in Resources */,
 				3DFF95202C57D736001DD9D5 /* GoogleService-Info.plist in Resources */,
 				458E31232C5A28640039B64F /* MatchDetailViewController.xib in Resources */,
 			);
@@ -683,7 +678,7 @@
 				3DFF95252C58079B001DD9D5 /* CreateMatchViewController.swift in Sources */,
 				3DFF952A2C5807C8001DD9D5 /* PlayerListViewController.swift in Sources */,
 				3D1758102C5E756600E5BAE4 /* LoadingShowable.swift in Sources */,
-				3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */,
+				3DDF17642C59053400F2BF80 /* FirebaseService.swift in Sources */,
 				3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */,
 				3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */,
 				45B1216B2C617E87003AC229 /* SetPlayersViewController.swift in Sources */,
@@ -712,6 +707,7 @@
 				45979D3E2C5E300A00F3263E /* LoadingView.swift in Sources */,
 				45B121702C617EEC003AC229 /* PlayerCollectionViewCell.swift in Sources */,
 				3DFF94CA2C57CE5F001DD9D5 /* SceneDelegate.swift in Sources */,
+				3DCFB97A2C6B9E61008CD581 /* LandingViewModel.swift in Sources */,
 				3DFC17D72C66AB8B00917726 /* OnboardingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
