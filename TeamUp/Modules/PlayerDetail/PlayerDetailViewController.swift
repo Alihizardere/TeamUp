@@ -180,6 +180,8 @@ extension PlayerDetailViewController: PlayerDetailViewModelDelegate {
         playerOverall.inputView = pickerView
         pickerView.delegate = self
         pickerView.dataSource = self
+        profileImage.layer.borderColor = UIColor.darkGray.cgColor
+        profileImage.layer.borderWidth = 1
         viewModel.updatePickerData()
     }
 

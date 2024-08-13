@@ -14,9 +14,7 @@
 		3D65F6FE2C61B2A1008506F7 /* PlayerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */; };
 		3D81557E2C636E6C00DEEC27 /* PlayerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */; };
 		3D8476D72C66B77E000E45AA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3D8476D62C66B77E000E45AA /* Lottie */; };
-		3D8476DB2C66B964000E45AA /* Animation2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D8476D82C66B964000E45AA /* Animation2.json */; };
 		3D8476DC2C66B964000E45AA /* Animation1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D8476D92C66B964000E45AA /* Animation1.json */; };
-		3D8476DD2C66B964000E45AA /* Animation3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D8476DA2C66B964000E45AA /* Animation3.json */; };
 		3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */; };
 		3DA860C42C65E0C400598551 /* MatchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA860C32C65E0C400598551 /* MatchDetailViewModel.swift */; };
 		3DA860C62C66266400598551 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA860C52C66266400598551 /* CityResponse.swift */; };
@@ -25,6 +23,8 @@
 		3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */; };
 		3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D332C5A385D000ECAE0 /* Router.swift */; };
 		3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D362C5A38E1000ECAE0 /* Constants.swift */; };
+		3DCFB96D2C6B81A1008CD581 /* Animation3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB96B2C6B81A1008CD581 /* Animation3.json */; };
+		3DCFB96E2C6B81A1008CD581 /* Animation2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFB96C2C6B81A1008CD581 /* Animation2.json */; };
 		3DDD064B2C6AF62F00983617 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */; };
 		3DDD064F2C6B0C1F00983617 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064E2C6B0C1F00983617 /* UIImageView.swift */; };
 		3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3DDD06522C6B0FE800983617 /* fanGif.gif */; };
@@ -35,7 +35,7 @@
 		3DDF17712C593F1E00F2BF80 /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF176F2C593F1E00F2BF80 /* PlayerCell.swift */; };
 		3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF17702C593F1E00F2BF80 /* PlayerCell.xib */; };
 		3DDF17752C59430100F2BF80 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3DDF17742C59430100F2BF80 /* Kingfisher */; };
-		3DE44F792C693BB900572DB1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE44F782C693BB900572DB1 /* CustomTextField.swift */; };
+		3DE44F792C693BB900572DB1 /* CustomElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE44F782C693BB900572DB1 /* CustomElements.swift */; };
 		3DF02A7C2C686C3900EC10B1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF02A7B2C686C3900EC10B1 /* Reachability.swift */; };
 		3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */; };
 		3DFC17D22C66AA9600917726 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC17D02C66AA9600917726 /* OnboardingViewController.swift */; };
@@ -122,9 +122,7 @@
 		3D51AB8E2C61687E00E1950B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCustomView.swift; sourceTree = "<group>"; };
 		3D81557D2C636E6C00DEEC27 /* PlayerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewModel.swift; sourceTree = "<group>"; };
-		3D8476D82C66B964000E45AA /* Animation2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation2.json; sourceTree = "<group>"; };
 		3D8476D92C66B964000E45AA /* Animation1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation1.json; sourceTree = "<group>"; };
-		3D8476DA2C66B964000E45AA /* Animation3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation3.json; sourceTree = "<group>"; };
 		3DA5BE5C2C5BC2450048C3AB /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		3DA860C32C65E0C400598551 /* MatchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailViewModel.swift; sourceTree = "<group>"; };
 		3DA860C52C66266400598551 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
@@ -133,6 +131,8 @@
 		3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		3DB61D332C5A385D000ECAE0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3DB61D362C5A38E1000ECAE0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3DCFB96B2C6B81A1008CD581 /* Animation3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation3.json; sourceTree = "<group>"; };
+		3DCFB96C2C6B81A1008CD581 /* Animation2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation2.json; sourceTree = "<group>"; };
 		3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		3DDD064E2C6B0C1F00983617 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		3DDD06522C6B0FE800983617 /* fanGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fanGif.gif; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailViewController.xib; sourceTree = "<group>"; };
 		3DDF176F2C593F1E00F2BF80 /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		3DDF17702C593F1E00F2BF80 /* PlayerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerCell.xib; sourceTree = "<group>"; };
-		3DE44F782C693BB900572DB1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		3DE44F782C693BB900572DB1 /* CustomElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomElements.swift; sourceTree = "<group>"; };
 		3DF02A7B2C686C3900EC10B1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		3DFC17D02C66AA9600917726 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -385,8 +385,8 @@
 				3DA5BE5B2C5BC22C0048C3AB /* Extensions */,
 				3D17580E2C5E754B00E5BAE4 /* Utils */,
 				3D8476D92C66B964000E45AA /* Animation1.json */,
-				3D8476D82C66B964000E45AA /* Animation2.json */,
-				3D8476DA2C66B964000E45AA /* Animation3.json */,
+				3DCFB96C2C6B81A1008CD581 /* Animation2.json */,
+				3DCFB96B2C6B81A1008CD581 /* Animation3.json */,
 				3DDD06522C6B0FE800983617 /* fanGif.gif */,
 				3DFF94D22C57CE60001DD9D5 /* LaunchScreen.storyboard */,
 				3DFF94D02C57CE60001DD9D5 /* Assets.xcassets */,
@@ -431,7 +431,7 @@
 				45979D3D2C5E300A00F3263E /* LoadingView.swift */,
 				45979D3F2C5E30B000F3263E /* EmptyView.swift */,
 				3D65F6FD2C61B2A1008506F7 /* PlayerCustomView.swift */,
-				3DE44F782C693BB900572DB1 /* CustomTextField.swift */,
+				3DE44F782C693BB900572DB1 /* CustomElements.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -637,13 +637,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFC17D82C66AB8B00917726 /* OnboardingCell.xib in Resources */,
-				3D8476DB2C66B964000E45AA /* Animation2.json in Resources */,
 				3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */,
+				3DCFB96D2C6B81A1008CD581 /* Animation3.json in Resources */,
 				3DFF94D12C57CE60001DD9D5 /* Assets.xcassets in Resources */,
 				45B1216C2C617E87003AC229 /* SetPlayersViewController.xib in Resources */,
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
-				3D8476DD2C66B964000E45AA /* Animation3.json in Resources */,
 				45C772D42C57EF4600C952C8 /* HomeViewController.xib in Resources */,
+				3DCFB96E2C6B81A1008CD581 /* Animation2.json in Resources */,
 				3DFC17D32C66AA9600917726 /* OnboardingViewController.xib in Resources */,
 				3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */,
 				3D8476DC2C66B964000E45AA /* Animation1.json in Resources */,
@@ -699,7 +699,7 @@
 				3DDF17712C593F1E00F2BF80 /* PlayerCell.swift in Sources */,
 				3DFF94C82C57CE5F001DD9D5 /* AppDelegate.swift in Sources */,
 				3DA860C62C66266400598551 /* CityResponse.swift in Sources */,
-				3DE44F792C693BB900572DB1 /* CustomTextField.swift in Sources */,
+				3DE44F792C693BB900572DB1 /* CustomElements.swift in Sources */,
 				45C772CF2C57EF3400C952C8 /* LandingViewController.swift in Sources */,
 				3DDF17672C59059A00F2BF80 /* Player.swift in Sources */,
 				3D2A4A3A2C6260DC004BD4F5 /* PlayerListViewModel.swift in Sources */,

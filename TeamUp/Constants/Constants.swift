@@ -17,8 +17,7 @@ struct Constants {
     
     static let footballPositions = ["Goalkeeper", "Defenders", "Centre-back", "Right-back", "Left-back", " Midfielder", "Forwards", "Winger"]
     static let volleyballPositions = ["Setter", "Outside Hitter", "Middle Blocker", "Libero", "Opposite Hitter"]
-    static let scores = ["60","70", "75", "80", "85", "90", "95", "99"]
-    static let hours = ["19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00"]
+    static let scores = ["70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"]
     static let gameType = ["6x6","7x7","8x8","9x9","10x10"]
     
     enum SportType: String {
