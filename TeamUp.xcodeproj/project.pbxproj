@@ -26,6 +26,8 @@
 		3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D332C5A385D000ECAE0 /* Router.swift */; };
 		3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D362C5A38E1000ECAE0 /* Constants.swift */; };
 		3DDD064B2C6AF62F00983617 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */; };
+		3DDD064F2C6B0C1F00983617 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064E2C6B0C1F00983617 /* UIImageView.swift */; };
+		3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3DDD06522C6B0FE800983617 /* fanGif.gif */; };
 		3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseManager.swift */; };
 		3DDF17672C59059A00F2BF80 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17662C59059A00F2BF80 /* Player.swift */; };
 		3DDF176B2C591B3900F2BF80 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */; };
@@ -130,6 +132,8 @@
 		3DB61D332C5A385D000ECAE0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3DB61D362C5A38E1000ECAE0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		3DDD064E2C6B0C1F00983617 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		3DDD06522C6B0FE800983617 /* fanGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fanGif.gif; sourceTree = "<group>"; };
 		3DDF17632C59053400F2BF80 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		3DDF17662C59059A00F2BF80 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DDF17692C591B3900F2BF80 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				3D51AB8E2C61687E00E1950B /* UIView.swift */,
 				3D0C69222C6771C6008D73AE /* UserDefaults.swift */,
 				3DF02A7D2C68CFB300EC10B1 /* UIViewController.swift */,
+				3DDD064E2C6B0C1F00983617 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -250,6 +255,14 @@
 				3DB61D362C5A38E1000ECAE0 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		3DCFB9562C6B45AF008CD581 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3DFF94CB2C57CE5F001DD9D5 /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		3DDF17622C5904DB00F2BF80 /* Helpers */ = {
@@ -346,7 +359,6 @@
 				45C772CA2C57EF0900C952C8 /* Modules */,
 				3DFF95002C57D352001DD9D5 /* App */,
 				3DFF95012C57D371001DD9D5 /* Resources */,
-				3DFF94CB2C57CE5F001DD9D5 /* BaseViewController.swift */,
 				3DFF94D52C57CE60001DD9D5 /* Info.plist */,
 				3DFF951F2C57D736001DD9D5 /* GoogleService-Info.plist */,
 			);
@@ -371,6 +383,7 @@
 				3D8476D92C66B964000E45AA /* Animation1.json */,
 				3D8476D82C66B964000E45AA /* Animation2.json */,
 				3D8476DA2C66B964000E45AA /* Animation3.json */,
+				3DDD06522C6B0FE800983617 /* fanGif.gif */,
 				3DFF94D22C57CE60001DD9D5 /* LaunchScreen.storyboard */,
 				3DFF94D02C57CE60001DD9D5 /* Assets.xcassets */,
 			);
@@ -442,14 +455,15 @@
 		45C772CA2C57EF0900C952C8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3DCFB9562C6B45AF008CD581 /* Base */,
 				3DFC17CD2C66A95800917726 /* Onboarding */,
-				45B121682C617E11003AC229 /* SetPlayers */,
-				458E31202C5A284B0039B64F /* MatchDetail */,
-				3DDF17682C591B0100F2BF80 /* PlayerDetail */,
-				3DFF95262C5807B2001DD9D5 /* PlayerList */,
-				3DFF95212C580773001DD9D5 /* CreateMatch */,
 				45C772CB2C57EF1100C952C8 /* Landing */,
 				45C772CC2C57EF1C00C952C8 /* Home */,
+				3DFF95262C5807B2001DD9D5 /* PlayerList */,
+				3DDF17682C591B0100F2BF80 /* PlayerDetail */,
+				3DFF95212C580773001DD9D5 /* CreateMatch */,
+				45B121682C617E11003AC229 /* SetPlayers */,
+				458E31202C5A284B0039B64F /* MatchDetail */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -610,6 +624,7 @@
 			files = (
 				3DFC17D82C66AB8B00917726 /* OnboardingCell.xib in Resources */,
 				3D8476DB2C66B964000E45AA /* Animation2.json in Resources */,
+				3DDD06532C6B0FE800983617 /* fanGif.gif in Resources */,
 				3DFF94D12C57CE60001DD9D5 /* Assets.xcassets in Resources */,
 				45B1216C2C617E87003AC229 /* SetPlayersViewController.xib in Resources */,
 				3DFF94D42C57CE60001DD9D5 /* Base in Resources */,
@@ -658,6 +673,7 @@
 				3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */,
 				45B1216B2C617E87003AC229 /* SetPlayersViewController.swift in Sources */,
 				3DF02A7C2C686C3900EC10B1 /* Reachability.swift in Sources */,
+				3DDD064F2C6B0C1F00983617 /* UIImageView.swift in Sources */,
 				3DFC17DA2C66AC0500917726 /* OnboardingSlide.swift in Sources */,
 				3DB528D62C5A66BD004DD7B6 /* WeatherResponse.swift in Sources */,
 				3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */,
