@@ -124,9 +124,6 @@ final class CreateMatchViewModel: CreateMatchViewModelProtocol {
             hostIban?.isEmpty == false,
             gameType?.isEmpty == false,
             hostName?.isEmpty == false,
-//            totalPrice?.isEmpty == false,
-//            firstTeamName?.isEmpty == false,
-//            secondTeamName?.isEmpty == false
         ].allSatisfy { $0 }
     }
     

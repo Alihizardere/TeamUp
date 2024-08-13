@@ -8,13 +8,18 @@
 import UIKit
 
 final class PlayerCollectionViewCell: UICollectionViewCell {
+
+    // MARK: - OUTLETS
+
+    @IBOutlet private weak var lblName: UILabel!
+    @IBOutlet private weak var lblSurname: UILabel!
+    @IBOutlet private weak var view: UIView!
+
+    // MARK: - PROPERTIES
     
     static let identifier = "PlayerCollectionViewCell"
-    @IBOutlet weak var lblName: UILabel!
-    
-    @IBOutlet weak var lblSurname: UILabel!
-    
-    @IBOutlet weak var view: UIView!
+
+    // MARK: - FUNCTIONS
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -26,5 +31,4 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
         lblName.text = player.name
         lblSurname.text = player.surname
     }
-
 }

@@ -9,8 +9,13 @@ import UIKit
 
 final class SportsCell: UICollectionViewCell {
 
+    // MARK: - OUTLETS
+
     @IBOutlet weak var sportImageView: UIImageView!
     @IBOutlet weak var view: UIView!
+
+    // MARK: -  PROPERTIES
+
     static let identifier = "SportsCell"
 
     override func awakeFromNib() {
@@ -19,5 +24,4 @@ final class SportsCell: UICollectionViewCell {
         sportImageView.layer.cornerRadius = 5
         sportImageView.layer.masksToBounds = true
     }
-
 }

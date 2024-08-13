@@ -21,15 +21,13 @@ final class PlayerDetailViewController: BaseViewController {
     private let pickerView = UIPickerView()
     private var activeTextField: UITextField?
     var selectedPlayer: Player?
-    private var viewModel: PlayerDetailViewModelProtocol! {
-        didSet { viewModel.delegate = self }
-    }
+    private var viewModel: PlayerDetailViewModelProtocol = PlayerDetailViewModel()
 
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = PlayerDetailViewModel()
+        viewModel.delegate = self
         viewModel.viewDidLoad()
     }
 

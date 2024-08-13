@@ -9,6 +9,7 @@ import XCTest
 @testable import TeamUp
 
 final class PlayerListViewModelTests: XCTestCase {
+    
     private var viewModel: PlayerListViewModel!
     private var mockFirebaseService: MockFirebaseService!
     private var mockDelegate: MockPlayerListViewModelDelegate!

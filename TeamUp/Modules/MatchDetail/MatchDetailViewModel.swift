@@ -8,16 +8,23 @@
 import Foundation
 
 // MARK: - MatchDEtailViewModelDelegate
+
 enum SportType: String {
-    case football = "football"
-    case volleyball = "volleyball"
-    
+    case football = "Football"
+    case volleyball = "Volleyball"
+    case basketball = "Basketball"
+    case tennis = "Tennis"
+
     var imageName: String {
         switch self {
         case .football:
             return "footballField"
         case .volleyball:
             return "volleyballCourt"
+        case .basketball:
+            return "basketballField"
+        case .tennis:
+            return "tennisCourt"
         }
     }
 }

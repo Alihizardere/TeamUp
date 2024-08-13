@@ -22,7 +22,6 @@ final class MatchDetailViewController: BaseViewController {
     @IBOutlet private weak var windLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var weatherImage: UIImageView!
-    @IBOutlet private weak var numberOfPlayersLabel: UILabel!
     @IBOutlet private weak var showAllPlayersLabel: UILabel!
     @IBOutlet private weak var backToHomeButton: UIButton!
     @IBOutlet private weak var shareButton: UIButton!
@@ -45,15 +44,13 @@ final class MatchDetailViewController: BaseViewController {
     private var panGestureRecognizers: [UIPanGestureRecognizer] = []
     var team1Players: [Player] = []
     var team2Players: [Player] = []
-    private var viewModel: MatchDetailViewModelProtocol! {
-        didSet { viewModel.delegate = self }
-    }
+    private var viewModel: MatchDetailViewModelProtocol = MatchDetailViewModel()
 
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = MatchDetailViewModel()
+        viewModel.delegate = self
         viewModel.viewDidLoad()
     }
 
@@ -105,7 +102,11 @@ final class MatchDetailViewController: BaseViewController {
             case .football:
                 sportsFieldImage.image = UIImage(named: "footballField")
             case .volleyball:
-                sportsFieldImage.image = UIImage(named: "volleyballCourt")
+                sportsFieldImage.image = UIImage(named: "volleyball")
+            case .basketball:
+                sportsFieldImage.image = UIImage(named: "basketballField")
+            case .tennis:
+                sportsFieldImage.image = UIImage(named: "tennisCourt")
             }
         }
     }
@@ -239,6 +240,7 @@ final class MatchDetailViewController: BaseViewController {
     }
 
     @IBAction func shareButtonTapped(_ sender: UIButton) {
+        let hostName = defaults.string(forKey: "hostName") ?? "N/A"
         let matchDate = defaults.string(forKey: "matchDate") ?? "N/A"
         let matchHour = defaults.string(forKey: "hour") ?? "N/A"
         let matchLocation = defaults.string(forKey: "city") ?? "N/A"
@@ -247,12 +249,13 @@ final class MatchDetailViewController: BaseViewController {
         let hostIban = defaults.string(forKey: "hostIban") ?? "N/A"
 
         let matchInfo = """
+            Host Name: \(hostName)
+            HostIban: \(hostIban)
             Match Date: \(matchDate)
             Match Hour: \(matchHour)
             Location: \(matchLocation)
             District: \(matchDistrict)
             Area: \(matchArea)
-            HostIban: \(hostIban)
             """
         let activityViewController = UIActivityViewController(activityItems: [matchInfo], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
@@ -281,7 +284,6 @@ extension MatchDetailViewController: MatchDetailViewModelDelegate {
     }
 
     func configurePlayerData(players: [Player]) {
-        numberOfPlayersLabel.text = String(players.count)
         setupDraggableViews(for: players, in: firstTeamView)
         setupDraggableViews(for: players, in: secondTeamView)
     }

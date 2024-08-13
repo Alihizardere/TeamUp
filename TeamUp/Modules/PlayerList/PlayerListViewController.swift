@@ -15,15 +15,13 @@ final class PlayerListViewController: BaseViewController {
 
     // MARK: - PROPERTIES
 
-    var viewModel: PlayerListViewModelProtocol! {
-        didSet { viewModel.delegate = self }
-    }
+    private var viewModel: PlayerListViewModelProtocol = PlayerListViewModel()
 
     // MARK: - LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = PlayerListViewModel()
+        viewModel.delegate = self
         viewModel.viewDidLoad()
     }
 

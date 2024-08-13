@@ -8,9 +8,9 @@
 import UIKit
 
 final class SetPlayersViewController: BaseViewController {
-    
+
     //MARK: - OUTLETS
-    
+
     @IBOutlet private weak var team1StackView: UIStackView!
     @IBOutlet private weak var team2StackView: UIStackView!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -20,9 +20,9 @@ final class SetPlayersViewController: BaseViewController {
     @IBOutlet private weak var clearAllButton: UIButton!
     @IBOutlet private weak var mixButton: UIButton!
     @IBOutlet private weak var undoButton: UIButton!
-    
+
     //MARK: - PROPERTIES
-    
+
     private var initialImage: UIImage?
     private var addedPlayersHistory: [(player: Player, imageView: UIImageView)] = []
     let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key)
@@ -30,9 +30,9 @@ final class SetPlayersViewController: BaseViewController {
         didSet { viewModel.delegate = self }
     }
     var gameType: String?
-    
+
     //MARK: -  LIFE CYCLE
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackViews()
@@ -42,15 +42,13 @@ final class SetPlayersViewController: BaseViewController {
         goToNextPageButton.isHidden = true
         viewModel.viewDidLoad()
     }
-    
+
     //MARK: - PRIVATE FUNCTIONS
-    
+
     private func setupCornerRadius() {
         setupButtonCornerRadius(for: [goToNextPageButton], radius: 25)
-        //        team1View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
-        //        team2View.addShadow(color: .systemGray6,opacity: 4, cornerRadius: 8,borderWidth: 1.5,borderColor: UIColor.systemGray6.cgColor)
     }
-    
+
     private func setupStackViews() {
         if let gameType = gameType, let playerCount = Int(gameType) {
             print(gameType)
@@ -61,7 +59,7 @@ final class SetPlayersViewController: BaseViewController {
             updateImageViews(team2StackView, count: 6)
         }
     }
-    
+
     private func setupDragAndDropForStackView(_ stackView: UIStackView) {
         processStackView(stackView) { imageView, _ in
             imageView.isUserInteractionEnabled = true
@@ -69,21 +67,21 @@ final class SetPlayersViewController: BaseViewController {
             imageView.addInteraction(dropInteraction)
         }
     }
-    
+
     private func setDragAndDropSettings() {
         setupDragAndDropForStackView(team1StackView)
         setupDragAndDropForStackView(team2StackView)
         collectionView.dragInteractionEnabled = true
         collectionView.dragDelegate = self
     }
-    
+
     private func setupButtonCornerRadius(for button: [UIButton], radius: CGFloat) {
         button.forEach { button in
             button.layer.cornerRadius = radius
             button.layer.masksToBounds = true
         }
     }
-    
+
     private func processStackView(_ stackView: UIStackView, action: (UIImageView, UILabel) -> Void) {
         for view in stackView.arrangedSubviews {
             guard let columnStackView = view as? UIStackView else { continue }
@@ -96,7 +94,7 @@ final class SetPlayersViewController: BaseViewController {
             }
         }
     }
-    
+
     private func createColumnStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -104,46 +102,46 @@ final class SetPlayersViewController: BaseViewController {
         stackView.distribution = .fillEqually
         return stackView
     }
-    
+
     private func createPlayerStackView() -> UIStackView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
+
         imageView.image = UIImage(named: "empty")
-        
+
         let playerLabel = UILabel()
         playerLabel.textAlignment = .center
         playerLabel.textColor = .black
         playerLabel.numberOfLines = 1
-        
+
         playerLabel.adjustsFontSizeToFitWidth = true
         playerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let positionLabel = UILabel()
         positionLabel.adjustsFontSizeToFitWidth = true
         positionLabel.translatesAutoresizingMaskIntoConstraints = false
         positionLabel.isHidden = true
-        
+
         let overallLabel = UILabel()
         overallLabel.adjustsFontSizeToFitWidth = true
         overallLabel.translatesAutoresizingMaskIntoConstraints = false
         overallLabel.isHidden = true
-        
+
         let playerStackView = UIStackView(arrangedSubviews: [imageView, positionLabel, overallLabel, playerLabel])
         playerStackView.axis = .vertical
         playerStackView.spacing = -25
         playerStackView.alignment = .center
         playerStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         playerLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         playerLabel.widthAnchor.constraint(equalTo: playerStackView.widthAnchor).isActive = true
-        
+
         return playerStackView
     }
-    
+
     private func updateImageViews(_ stackView: UIStackView, count: Int) {
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
@@ -151,20 +149,20 @@ final class SetPlayersViewController: BaseViewController {
         }
         let firstColumnStackView = createColumnStackView()
         let secondColumnStackView = createColumnStackView()
-        
+
         for index in 0..<count {
             let playerStackView = createPlayerStackView()
             let targetStackView = (index % 2 == 0) ? firstColumnStackView : secondColumnStackView
             targetStackView.addArrangedSubview(playerStackView)
         }
-        
+
         stackView.addArrangedSubview(firstColumnStackView)
         stackView.addArrangedSubview(secondColumnStackView)
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.distribution = .fillEqually
     }
-    
+
     private func indexPathFor(dragItem: UIDragItem) -> IndexPath? {
         guard let player = dragItem.localObject as? Player else { return nil }
         if let index = viewModel.players.firstIndex(where: { $0.id == player.id }) {
@@ -172,10 +170,10 @@ final class SetPlayersViewController: BaseViewController {
         }
         return nil
     }
-    
+
     private func getPlayersFromStackView(_ stackView: UIStackView) -> [Player] {
         var players: [Player] = []
-        
+
         for view in stackView.arrangedSubviews {
             guard let columnStackView = view as? UIStackView else { continue }
             for subview in columnStackView.arrangedSubviews {
@@ -183,11 +181,11 @@ final class SetPlayersViewController: BaseViewController {
                     let playerLabel = playerStackView.arrangedSubviews[3] as? UILabel
                     let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel
                     let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel
-                    
+
                     let playerName = playerLabel?.text
                     let position = positionLabel?.text
                     let overall = overallLabel?.text ?? "0"
-                    
+
                     let player = Player(
                         id: UUID().uuidString,
                         name: playerName,
@@ -202,7 +200,7 @@ final class SetPlayersViewController: BaseViewController {
         }
         return players
     }
-    
+
     private func areAllPositionsFilled() {
         var allFilled = true
         for stackView in [team1StackView, team2StackView] {
@@ -214,52 +212,52 @@ final class SetPlayersViewController: BaseViewController {
         }
         goToNextPageButton.isHidden = !allFilled
     }
-    
+
     private func resetStackViewImages(_ stackView: UIStackView) {
         processStackView(stackView) { imageView, playerLabel in
             imageView.image = UIImage(named: "empty")
             playerLabel.text = ""
         }
     }
-    
+
     private func clearStackViews() {
         team1StackView.arrangedSubviews.forEach { view in
             team1StackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
-        
+
         team2StackView.arrangedSubviews.forEach { view in
             team2StackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
-        
+
         addedPlayersHistory.removeAll()
     }
-    
+
     private func updateStackViewAndAddToHistory(_ stackView: UIStackView, with players: [Player]) {
         var playerIndex = 0
-        
+
         processStackView(stackView) { imageView, playerLabel in
             guard playerIndex < players.count else { return }
             let player = players[playerIndex]
-            
+
             imageView.image = UIImage(named: "teamUp")
             playerLabel.text = player.name
-            
+
             if let playerStackView = imageView.superview as? UIStackView {
                 let positionLabel = playerStackView.arrangedSubviews[1] as? UILabel
                 let overallLabel = playerStackView.arrangedSubviews[2] as? UILabel
                 positionLabel?.text = player.position
                 overallLabel?.text = "\(player.overall ?? 0)"
             }
-            
+
             addedPlayersHistory.append((player: player, imageView: imageView))
             playerIndex += 1
         }
-        
+
         areAllPositionsFilled() // Check if all positions are filled after updating the stack view
     }
-    
+
     private func btnNextPageActions() {
         let matchDetailVC: MatchDetailViewController = UIViewController.instantiate(from: .matchDetail)
         let team1Players = getPlayersFromStackView(team1StackView)
@@ -268,12 +266,11 @@ final class SetPlayersViewController: BaseViewController {
         matchDetailVC.team2Players = team2Players
         navigationController?.pushViewController(matchDetailVC, animated: true)
     }
-    
+
     private func mixFootballPlayers() {
         var goalkeepers: [Player] = []
         var otherPlayers: [Player] = []
-        
-        // Separate goalkeepers and other players
+
         for player in viewModel.players {
             if player.position == "Goalkeeper" {
                 goalkeepers.append(player)
@@ -287,15 +284,18 @@ final class SetPlayersViewController: BaseViewController {
             showInsufficientGoalkeepersAlert()
             return
         }
-        let team1Goalkeeper = goalkeepers.popLast()!
-        let team2Goalkeeper = goalkeepers.popLast()!
+        guard let team1Goalkeeper = goalkeepers.popLast(),
+              let team2Goalkeeper = goalkeepers.popLast() else {
+            showInsufficientGoalkeepersAlert()
+            return
+        }
         var team1Players: [Player] = [team1Goalkeeper]
         var team2Players: [Player] = [team2Goalkeeper]
         distributePlayers(&otherPlayers, team1Players: &team1Players, team2Players: &team2Players)
         updateUIForTeams(team1Players, team2Players)
     }
-    
-    private func mixVolleyballPlayers() {
+
+    private func mixOtherPlayers() {
         var allPlayers = viewModel.players
         allPlayers.shuffle()
         var team1Players: [Player] = []
@@ -303,7 +303,7 @@ final class SetPlayersViewController: BaseViewController {
         distributePlayers(&allPlayers, team1Players: &team1Players, team2Players: &team2Players)
         updateUIForTeams(team1Players, team2Players)
     }
-    
+
     private func distributePlayers(_ players: inout [Player], team1Players: inout [Player], team2Players: inout [Player]) {
         while !players.isEmpty {
             if let player = players.popLast() {
@@ -315,14 +315,14 @@ final class SetPlayersViewController: BaseViewController {
             }
         }
     }
-    
+
     private func updateUIForTeams(_ team1Players: [Player], _ team2Players: [Player]) {
         resetStackViewImages(team1StackView)
         resetStackViewImages(team2StackView)
         updateStackViewAndAddToHistory(team1StackView, with: team1Players)
         updateStackViewAndAddToHistory(team2StackView, with: team2Players)
     }
-    
+
     private func showInsufficientGoalkeepersAlert() {
         UIAlertController.showAlert(
             on: self,
@@ -335,9 +335,9 @@ final class SetPlayersViewController: BaseViewController {
                 self.navigationController?.pushViewController(playerDetailVC, animated: true)
             })
     }
-    
+
     //MARK: - ACTIONS
-    
+
     @IBAction private func btnTakeItBack(_ sender: UIButton) {
         guard let lastAdded = addedPlayersHistory.popLast() else { return }
         if let initialImage = initialImage {
@@ -353,30 +353,34 @@ final class SetPlayersViewController: BaseViewController {
             positionLabel?.text = ""
             overallLabel?.text = ""
         }
-        
+
         viewModel.undoLastPlayerAddition()
-        areAllPositionsFilled() // Check after taking back a player
+        areAllPositionsFilled()
     }
-    
-    
+
+
     @IBAction func btnClearAll(_ sender: UIButton) {
         resetStackViewImages(team1StackView)
         resetStackViewImages(team2StackView)
         viewModel.restoreAllPlayers()
-        areAllPositionsFilled() // Check after clearing all players
+        areAllPositionsFilled()
     }
-    
+
     @IBAction func btnMixPlayers(_ sender: Any) {
-        if let currentSportType = SportType(rawValue: sportType ?? "") {
+        if let currentSportType = SportType(rawValue: sportType?.capitalized ?? "") {
             switch currentSportType {
             case .football:
                 mixFootballPlayers()
             case .volleyball:
-                mixVolleyballPlayers()
+                mixOtherPlayers()
+            case .basketball:
+                mixOtherPlayers()
+            case .tennis:
+                mixOtherPlayers()
             }
         }
     }
-    
+
     @IBAction func goToNextPage(_ sender: UIButton) {
         btnNextPageActions()
     }
@@ -388,7 +392,7 @@ extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerCollectionViewCell.identifier, for: indexPath) as? PlayerCollectionViewCell else { return UICollectionViewCell() }
         if let player = viewModel.player(at: indexPath) {
@@ -396,7 +400,7 @@ extension SetPlayersViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 40, bottom: 4, right: 40)
     }
@@ -424,32 +428,32 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: UIImage.self)
     }
-    
+
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         return UIDropProposal(operation: .move)
     }
-    
+
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         guard let destinationView = interaction.view as? UIImageView else { return }
         let playerStackView = destinationView.superview as? UIStackView
         let playerLabel = playerStackView?.arrangedSubviews[3] as? UILabel
         let positionLabel = playerStackView?.arrangedSubviews[1] as? UILabel
         let overallLabel = playerStackView?.arrangedSubviews[2] as? UILabel
-        
+
         session.loadObjects(ofClass: UIImage.self) { items in
             guard let images = items as? [UIImage], let image = images.first else { return }
-            
+
             DispatchQueue.main.async {
                 if self.initialImage == nil {
                     self.initialImage = destinationView.image
                 }
                 destinationView.image = image
-                
+
                 if let dragItem = session.items.first, let indexPath = self.indexPathFor(dragItem: dragItem) {
                     if let removedPlayer = self.viewModel.removePlayer(at: indexPath.row) {
                         self.collectionView.deleteItems(at: [indexPath])
                         self.addedPlayersHistory.append((player: removedPlayer, imageView: destinationView))
-                        
+
                         playerLabel?.text = "\(removedPlayer.name ?? "")"
                         positionLabel?.text = removedPlayer.position
                         overallLabel?.text = "\(removedPlayer.overall ?? 0)"
@@ -464,19 +468,19 @@ extension SetPlayersViewController: UIDropInteractionDelegate {
 //MARK: - SetPlayersViewModelDelegate
 
 extension SetPlayersViewController: SetPlayersViewModelDelegate {
-    
+
     func setupUI() {
         collectionView.register(UINib(nibName: PlayerCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
         guard let sportType = UserDefaults.standard.string(forKey: Constants.SportType.key) else { return }
         viewModel.loadPlayers(for: sportType)
     }
-    
+
     func reloadData() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
-    
+
     func showEmptyView() {
         self.collectionView.setEmptyView(
             title: "No Players Yet",
@@ -484,19 +488,19 @@ extension SetPlayersViewController: SetPlayersViewModelDelegate {
             image: UIImage(named: "no-results")
         )
     }
-    
+
     func hideEmptyView() {
         self.collectionView.restore()
     }
-    
+
     func showLoadingView() {
         showLoading()
     }
-    
+
     func hideLoadingView() {
         hideLoading()
     }
-    
+
     func showErrorAlert() {
         UIAlertController.showAlert(
             on: self,

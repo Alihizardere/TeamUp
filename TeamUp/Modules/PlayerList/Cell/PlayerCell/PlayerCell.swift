@@ -8,17 +8,20 @@
 import UIKit
 import Kingfisher
 
-class PlayerCell: UITableViewCell {
-    
+final class PlayerCell: UITableViewCell {
+
+    // MARK: - OUTLETS
+
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var sideView: UIView!
+    @IBOutlet private weak var profileImage: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var surnameLabel: UILabel!
+    @IBOutlet private weak var positionLabel: UILabel!
+    @IBOutlet private weak var overallLabel: UILabel!
+
     // MARK: - PROPERTIES
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var sideView: UIView!
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var surnameLabel: UILabel!
-    @IBOutlet weak var positionLabel: UILabel!
-    @IBOutlet weak var overallLabel: UILabel!
     static let identifier = "PlayerCell"
     
     // MARK: -  FUNCTIONS
