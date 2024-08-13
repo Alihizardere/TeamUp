@@ -21,6 +21,13 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNb-eA-Hed">
                         <rect key="frame" x="4" y="4" width="168" height="199"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dad-Sm-OJi">
+                                <rect key="frame" x="24" y="127" width="120" height="40"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="FIC-T7-82G"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="62j-Eg-b4I">
                                 <rect key="frame" x="4" y="4" width="160" height="191"/>
                                 <subviews>
@@ -31,19 +38,17 @@
                                             <constraint firstAttribute="height" constant="80" id="nLL-IO-eTe"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4i1-1e-14L">
-                                        <rect key="frame" x="36.666666666666664" y="84" width="86.666666666666686" height="107"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4i1-1e-14L">
+                                        <rect key="frame" x="34.999999999999993" y="84" width="90.333333333333314" height="107"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3b-dq-reF">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="107"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="107"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPW-I3-FIq">
-                                                <rect key="frame" x="45.333333333333329" y="0.0" width="41.333333333333329" height="107"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="47.666666666666671" y="0.0" width="42.666666666666671" height="107"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -51,10 +56,13 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dad-Sm-OJi" secondAttribute="bottom" constant="32" id="6Vf-NC-GPD"/>
                             <constraint firstItem="62j-Eg-b4I" firstAttribute="leading" secondItem="UNb-eA-Hed" secondAttribute="leading" constant="4" id="ZRb-E8-5Cj"/>
+                            <constraint firstItem="dad-Sm-OJi" firstAttribute="leading" secondItem="UNb-eA-Hed" secondAttribute="leading" constant="24" id="fpb-QG-xg7"/>
                             <constraint firstAttribute="bottom" secondItem="62j-Eg-b4I" secondAttribute="bottom" constant="4" id="kHm-mh-OLj"/>
+                            <constraint firstAttribute="trailing" secondItem="dad-Sm-OJi" secondAttribute="trailing" constant="24" id="pyi-lK-7Lq"/>
                             <constraint firstItem="62j-Eg-b4I" firstAttribute="top" secondItem="UNb-eA-Hed" secondAttribute="top" constant="4" id="tiy-cE-fjg"/>
                             <constraint firstAttribute="trailing" secondItem="62j-Eg-b4I" secondAttribute="trailing" constant="4" id="y4r-72-13a"/>
                         </constraints>
@@ -73,14 +81,15 @@
             <connections>
                 <outlet property="lblName" destination="X3b-dq-reF" id="tOT-zI-6eA"/>
                 <outlet property="lblSurname" destination="mPW-I3-FIq" id="yX9-2a-RH4"/>
+                <outlet property="view" destination="dad-Sm-OJi" id="CKc-5O-fqK"/>
             </connections>
             <point key="canvasLocation" x="-1.5267175572519083" y="45.422535211267608"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="trainingKit" width="1024" height="1024"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

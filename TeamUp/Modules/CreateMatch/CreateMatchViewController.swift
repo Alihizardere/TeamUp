@@ -24,6 +24,7 @@ final class CreateMatchViewController: UIViewController {
     @IBOutlet private weak var gameTypeTextField: CustomTextField!
     @IBOutlet private weak var hostNameTextField: CustomTextField!
     @IBOutlet private weak var createMatchButton: UIButton!
+    @IBOutlet private weak var matchPriceTextField: CustomTextField!
     
     // MARK: - PROPERTIES
     
@@ -41,6 +42,7 @@ final class CreateMatchViewController: UIViewController {
         configureUI()
         setupViewModel()
         setupTapGesture()
+        updateCreateButtonAppearance(isEnabled: viewModel.createButtonIsEnabled)
     }
     
     // MARK: - PRIVATE FUNCTIONS
@@ -85,7 +87,7 @@ final class CreateMatchViewController: UIViewController {
         matchDateTextField.inputView = datePicker
         matchDateTextField.inputAccessoryView = createToolbar()
     }
-
+    
     private func setupTimePicker() {
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
@@ -95,7 +97,7 @@ final class CreateMatchViewController: UIViewController {
         hourTextField.inputView = timePicker
         hourTextField.inputAccessoryView = createToolbar()
     }
-
+    
     private func setupTextFields() {
         hostIbanTextField.rightView = createPasteButton()
         hostIbanTextField.rightViewMode = .always
@@ -130,7 +132,8 @@ final class CreateMatchViewController: UIViewController {
             "matchDate": matchDateTextField,
             "hostName": hostNameTextField,
             "hostIban": hostIbanTextField,
-            "gameType": gameTypeTextField
+            "gameType": gameTypeTextField,
+            "matchPrice": matchPriceTextField
         ]
         
         let defaults = UserDefaults.standard
@@ -139,8 +142,20 @@ final class CreateMatchViewController: UIViewController {
         }
     }
     
+    private func updateCreateButtonAppearance(isEnabled: Bool) {
+         if isEnabled {
+             createMatchButton.backgroundColor = .systemBlue
+             createMatchButton.tintColor = .white
+             createMatchButton.alpha = 1.0
+         } else {
+             createMatchButton.backgroundColor = .systemGray
+             createMatchButton.tintColor = .black
+         }
+     }
+ 
+    
     private func updateCreateButtonState() {
-        createMatchButton.isEnabled = viewModel.createButtonIsEnabled
+        createMatchButton.isUserInteractionEnabled = viewModel.createButtonIsEnabled
     }
     
     @objc private func dateChanged() {
@@ -149,14 +164,14 @@ final class CreateMatchViewController: UIViewController {
         matchDateTextField.text = formatter.string(from: datePicker.date)
         viewModel.setField(field: .matchDate, value: matchDateTextField.text)
     }
-
+    
     @objc private func timeChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         hourTextField.text = formatter.string(from: sender.date)
         viewModel.setField(field: .hour, value: hourTextField.text)
     }
-
+    
     @objc private func doneButtonTapped() {
         view.endEditing(true)
     }
@@ -169,7 +184,7 @@ final class CreateMatchViewController: UIViewController {
     }
     
     // MARK: - ACTIONS
-
+    
     @IBAction func createMatchButtonTapped(_ sender: UIButton) {
         if viewModel.validateFields() {
             saveToUserDefaults()
@@ -258,13 +273,12 @@ extension CreateMatchViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         switch textField {
-        case hostIbanTextField:
+        case hostIbanTextField, matchPriceTextField:
             let characterSet = CharacterSet(charactersIn: "0123456789")
             let typedCharacterSet = CharacterSet(charactersIn: string)
             let isNumeric = characterSet.isSuperset(of: typedCharacterSet)
             let newLength = (textField.text?.count ?? 0) + string.count - range.length
             return isNumeric && newLength <= ibanMaxLength
-            
         case cityTextField, districtTextField,gameTypeTextField,matchDateTextField,hourTextField:
             return false
         case hostNameTextField, eventAreaTextField, firstTeamNameTextField, secondTeamNameTextField:
@@ -301,7 +315,9 @@ extension CreateMatchViewController: UITextFieldDelegate {
 
 extension CreateMatchViewController: CreateMatchViewModelDelegate {
     func didUpdateCreateButtonState(isEnabled: Bool) {
-        createMatchButton.isEnabled = isEnabled
+        createMatchButton.isUserInteractionEnabled = isEnabled
+        updateCreateButtonAppearance(isEnabled: isEnabled)
     }
 }
+
 

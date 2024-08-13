@@ -14,6 +14,13 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var lblSurname: UILabel!
     
+    @IBOutlet weak var view: UIView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
+    }
     
     func configure(with player:Player) {
         lblName.text = player.name
