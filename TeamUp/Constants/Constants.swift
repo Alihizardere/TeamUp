@@ -14,15 +14,20 @@ struct Constants {
     static let citiesURL = "https://turkiyeapi.dev/api/v1/provinces"
     
     // MARK: - SPORTS
-    
+
+    static let sports = ["footballIcon", "volleyballIcon", "basketballIcon", "tennisIcon"]
     static let footballPositions = ["Goalkeeper", "Defenders", "Centre-back", "Right-back", "Left-back", " Midfielder", "Forwards", "Winger"]
     static let volleyballPositions = ["Setter", "Outside Hitter", "Middle Blocker", "Libero", "Opposite Hitter"]
+    static let basketballPositions = ["Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"]
+    static let tennisPositions = ["Server", "Receiver", "Baseline Player", "Net Player"]
     static let scores = ["70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"]
     static let gameType = ["6x6","7x7","8x8","9x9","10x10"]
     
     enum SportType: String {
         case football
         case volleyball
+        case basketball
+        case tennis
         
         static let key = "sportType"
     }

@@ -91,6 +91,10 @@ extension PlayerDetailViewModel: PlayerDetailViewModelProtocol {
           positions = Constants.footballPositions
         case .volleyball:
           positions = Constants.volleyballPositions
+        case .basketball:
+            positions = Constants.basketballPositions
+        case .tennis:
+            positions = Constants.tennisPositions
         }
       }
         delegate?.reloadPickerView()

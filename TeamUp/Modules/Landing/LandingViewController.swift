@@ -7,75 +7,77 @@
 
 import UIKit
 
-final class LandingViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    @IBOutlet weak var collectionView: UICollectionView!
+final class LandingViewController: BaseViewController {
 
-    let sports = ["footballIcon", "volleyballIcon", "basketballIcon", "tennisIcon"]
+    // MARK: - OUTLETS
 
-    
-    
+    @IBOutlet private weak var collectionView: UICollectionView!
+
+    // MARK: - PROPERTIES
+
+    private var viewModel: LandingViewModelProtocol! {
+        didSet { viewModel.delegate = self }
+    }
+
     // MARK: -  LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("This is landing page")
-        if !Reachability.isConnectedToNetwork() {
-            showAlertNoInternetConnection()
-        }
-        
-        collectionView.register(UINib(nibName: SportsCell.identifier, bundle: nil), forCellWithReuseIdentifier: SportsCell.identifier)
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: (collectionView.frame.width / 2) - 15, height: (collectionView.frame.width / 2) - 15)
-
-        collectionView.collectionViewLayout = layout
+        viewModel = LandingViewModel()
+        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
+}
 
-    //MARK: - ACTIONS
-    
+// MARK: - UICollectionViewDelegate && UICollectionViewDataSource
+
+extension LandingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sports.count
+        viewModel.sports.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SportsCell.identifier, for: indexPath) as! SportsCell
-        let sportName = sports[indexPath.item]
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: SportsCell.identifier,
+            for: indexPath
+        ) as? SportsCell else { return UICollectionViewCell() }
+        let sportName = viewModel.sports[indexPath.item]
         cell.sportImageView.image = UIImage(named: sportName)
-        
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected sport: \(sports[indexPath.item])")
-    }
-    
-    
-//    @IBAction func footballButtonTapped(_ sender: UIButton) {
-//        handleSportSelection(.football)
-//    }
-//
-//    @IBAction func volleyballButtonClicked(_ sender: UIButton) {
-//        handleSportSelection(.volleyball)
-//    }
-    
-    //MARK: -  PRIVATE FUNCTIONS
 
-    private func checkInternetConnection() {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectSport(at: indexPath.item)
+    }
+}
+
+// MARK: - LandingViewModelDelegate
+
+extension LandingViewController: LandingViewModelDelegate {
+    
+    func setupUI() {
         if !Reachability.isConnectedToNetwork() {
             showAlertNoInternetConnection()
         }
+
+        collectionView.register(
+            UINib(nibName: SportsCell.identifier, bundle: nil),
+            forCellWithReuseIdentifier: SportsCell.identifier
+        )
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(
+            width: (collectionView.frame.width / 2) - 15,
+            height: (collectionView.frame.height / 2) - 15
+        )
+        collectionView.collectionViewLayout = layout
     }
 
-    private func handleSportSelection(_ sportType: Constants.SportType) {
+    func handleSportSelection(sportType: Constants.SportType) {
         if Reachability.isConnectedToNetwork() {
             UserDefaults.standard.set(sportType, forKey: Constants.SportType.key)
             let homeVC: HomeViewController = UIViewController.instantiate(from: .home)
