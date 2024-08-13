@@ -88,6 +88,8 @@
 		45DCF5032C666CCC0014AE2F /* MockPlayerListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DCF5022C666CCC0014AE2F /* MockPlayerListViewModelDelegate.swift */; };
 		45DCF5062C66853D0014AE2F /* PlayerDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DCF5052C66853D0014AE2F /* PlayerDetailTests.swift */; };
 		45DCF5082C6685590014AE2F /* MockPlayerDetailViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DCF5072C6685590014AE2F /* MockPlayerDetailViewModelDelegate.swift */; };
+		A5FBAD802C6B704F00BF74F4 /* SportsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5FBAD7F2C6B704F00BF74F4 /* SportsCell.xib */; };
+		A5FBAD812C6B704F00BF74F4 /* SportsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FBAD7E2C6B704F00BF74F4 /* SportsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +183,8 @@
 		45DCF5022C666CCC0014AE2F /* MockPlayerListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerListViewModelDelegate.swift; sourceTree = "<group>"; };
 		45DCF5052C66853D0014AE2F /* PlayerDetailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailTests.swift; sourceTree = "<group>"; };
 		45DCF5072C6685590014AE2F /* MockPlayerDetailViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerDetailViewModelDelegate.swift; sourceTree = "<group>"; };
+		A5FBAD7E2C6B704F00BF74F4 /* SportsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCell.swift; sourceTree = "<group>"; };
+		A5FBAD7F2C6B704F00BF74F4 /* SportsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportsCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +475,7 @@
 		45C772CB2C57EF1100C952C8 /* Landing */ = {
 			isa = PBXGroup;
 			children = (
+				A5FBAD792C6B4C9100BF74F4 /* Cell */,
 				45C772CD2C57EF3400C952C8 /* LandingViewController.swift */,
 				45C772CE2C57EF3400C952C8 /* LandingViewController.xib */,
 			);
@@ -513,6 +518,15 @@
 				45DCF5072C6685590014AE2F /* MockPlayerDetailViewModelDelegate.swift */,
 			);
 			name = PlayerDetail;
+			sourceTree = "<group>";
+		};
+		A5FBAD792C6B4C9100BF74F4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A5FBAD7E2C6B704F00BF74F4 /* SportsCell.swift */,
+				A5FBAD7F2C6B704F00BF74F4 /* SportsCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -634,6 +648,7 @@
 				3DDF17722C593F1E00F2BF80 /* PlayerCell.xib in Resources */,
 				3D8476DC2C66B964000E45AA /* Animation1.json in Resources */,
 				45B121712C617EEC003AC229 /* PlayerCollectionViewCell.xib in Resources */,
+				A5FBAD802C6B704F00BF74F4 /* SportsCell.xib in Resources */,
 				45C772D02C57EF3400C952C8 /* LandingViewController.xib in Resources */,
 				3DFF95242C58079B001DD9D5 /* CreateMatchViewController.xib in Resources */,
 				3DFF95292C5807C8001DD9D5 /* PlayerListViewController.xib in Resources */,
@@ -672,6 +687,7 @@
 				3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */,
 				3DF02A7E2C68CFB300EC10B1 /* UIViewController.swift in Sources */,
 				45B1216B2C617E87003AC229 /* SetPlayersViewController.swift in Sources */,
+				A5FBAD812C6B704F00BF74F4 /* SportsCell.swift in Sources */,
 				3DF02A7C2C686C3900EC10B1 /* Reachability.swift in Sources */,
 				3DDD064F2C6B0C1F00983617 /* UIImageView.swift in Sources */,
 				3DFC17DA2C66AC0500917726 /* OnboardingSlide.swift in Sources */,

@@ -5,11 +5,13 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LandingViewController" customModule="TeamUp" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="gX8-hF-alW" id="vWR-H2-dEo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,38 +20,33 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62P-GO-9WY">
-                    <rect key="frame" x="8" y="299" width="377" height="35"/>
-                    <color key="backgroundColor" red="1" green="0.3411764706" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="tintColor" red="0.94901353119999998" green="0.94901353119999998" blue="0.94901353119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Futbol "/>
-                    <connections>
-                        <action selector="footballButtonTapped:" destination="-1" eventType="touchUpInside" id="UFJ-4t-my0"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ex-8K-CJW">
-                    <rect key="frame" x="8" y="366" width="377" height="35"/>
-                    <color key="backgroundColor" red="1" green="0.3411764706" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="tintColor" red="0.98479825258255005" green="0.99354439973831177" blue="0.98504239320755005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Voleybol"/>
-                    <connections>
-                        <action selector="volleyballButtonClicked:" destination="-1" eventType="touchUpInside" id="XTA-aa-5wt"/>
-                    </connections>
-                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gX8-hF-alW">
+                    <rect key="frame" x="71.666666666666686" y="301" width="250" height="250"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="rPg-mK-L9L"/>
+                        <constraint firstAttribute="height" constant="250" id="vu9-Am-rj6"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UTD-Tv-3bt">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.94901353119999998" green="0.94901353119999998" blue="0.94901353119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemGray6Color"/>
             <constraints>
-                <constraint firstItem="62P-GO-9WY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="110-Kn-3vu"/>
-                <constraint firstItem="62P-GO-9WY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="240" id="86x-xv-Btu"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="62P-GO-9WY" secondAttribute="trailing" constant="8" id="Zw4-Kt-ljQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0ex-8K-CJW" secondAttribute="trailing" constant="8" id="haf-rK-zW2"/>
-                <constraint firstItem="0ex-8K-CJW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="lXc-wM-4qA"/>
-                <constraint firstItem="0ex-8K-CJW" firstAttribute="top" secondItem="62P-GO-9WY" secondAttribute="bottom" constant="32" id="xdt-4p-r7A"/>
+                <constraint firstItem="gX8-hF-alW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9zL-QM-zKm"/>
+                <constraint firstItem="gX8-hF-alW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="tJb-IT-uVV"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="-11"/>
+            <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
