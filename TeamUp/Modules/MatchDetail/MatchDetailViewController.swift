@@ -243,12 +243,12 @@ final class MatchDetailViewController: BaseViewController {
         changeTeam()
     }
 
-    @IBAction func backToHomeButtonTapped(_ sender: UIButton) {
+    @IBAction func backToLandingButtonTapped(_ sender: UIButton) {
         let landingVC: LandingViewController = UIViewController.instantiate(from: .landing)
-        navigationController?.pushViewController(landingVC, animated: true)
+        navigationController?.pushViewController(landingVC, animated: false)
     }
 
-    @IBAction func shareButtonTapped(_ sender: Any) {
+    @IBAction func shareButtonTapped(_ sender: UIButton) {
         let matchDate = defaults.string(forKey: "matchDate") ?? "N/A"
         let matchHour = defaults.string(forKey: "hour") ?? "N/A"
         let matchLocation = defaults.string(forKey: "city") ?? "N/A"

@@ -17,11 +17,13 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - PROPERTIES
 
-    private var slides = [OnboardingSlide]()
+    private var viewModel: OnboardingViewModelProtocol! {
+        didSet { viewModel.delegate = self }
+    }
     private var currentPage = 0 {
         didSet{
             pageControl.currentPage = currentPage
-            if currentPage == slides.count - 1 {
+            if currentPage == viewModel.slides.count - 1 {
                 nextLabel.setTitle("LET'S GET STARTED", for: .normal)
             } else {
                 nextLabel.setTitle("NEXT", for: .normal)
@@ -33,17 +35,14 @@ final class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(
-            UINib(nibName: OnboardingCell.identifier, bundle: nil),
-            forCellWithReuseIdentifier:  OnboardingCell.identifier
-        )
-        slides = OnboardingMockData.getSlides()
+        viewModel = OnboardingViewModel()
+        viewModel.viewDidLoad()
     }
 
     // MARK: - ACTIONS
 
     @IBAction func nextButton(_ sender: UIButton) {
-        if currentPage == slides.count - 1 {
+        if currentPage == viewModel.slides.count - 1 {
             let landingVC: LandingViewController = UIViewController.instantiate(from: .landing)
             navigationController?.pushViewController(landingVC, animated: true)
         } else {
@@ -59,16 +58,16 @@ final class OnboardingViewController: UIViewController {
 extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return slides.count
+        return viewModel.slides.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let slide = slides[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: OnboardingCell.identifier,
             for: indexPath
         ) as? OnboardingCell else { return UICollectionViewCell() }
+        let slide = viewModel.slides[indexPath.row]
         cell.setup(slide)
         return cell
     }
@@ -80,5 +79,16 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x/width)
+    }
+}
+
+// MARK: - OnboardingViewModelDelegate
+
+extension OnboardingViewController: OnboardingViewModelDelegate {
+    func setupUI() {
+        collectionView.register(
+            UINib(nibName: OnboardingCell.identifier, bundle: nil),
+            forCellWithReuseIdentifier:  OnboardingCell.identifier
+        )
     }
 }

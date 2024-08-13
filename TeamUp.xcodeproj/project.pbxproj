@@ -25,6 +25,7 @@
 		3DB61D2D2C5A37FE000ECAE0 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */; };
 		3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D332C5A385D000ECAE0 /* Router.swift */; };
 		3DB61D372C5A38E1000ECAE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB61D362C5A38E1000ECAE0 /* Constants.swift */; };
+		3DDD064B2C6AF62F00983617 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */; };
 		3DDF17642C59053400F2BF80 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17632C59053400F2BF80 /* FirebaseManager.swift */; };
 		3DDF17672C59059A00F2BF80 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF17662C59059A00F2BF80 /* Player.swift */; };
 		3DDF176B2C591B3900F2BF80 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF176A2C591B3900F2BF80 /* PlayerDetailViewController.xib */; };
@@ -128,6 +129,7 @@
 		3DB61D2C2C5A37FE000ECAE0 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		3DB61D332C5A385D000ECAE0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3DB61D362C5A38E1000ECAE0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		3DDF17632C59053400F2BF80 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		3DDF17662C59059A00F2BF80 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DDF17692C591B3900F2BF80 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				3DFC17D42C66AB2700917726 /* Cell */,
 				3DFC17D02C66AA9600917726 /* OnboardingViewController.swift */,
 				3DFC17D12C66AA9600917726 /* OnboardingViewController.xib */,
+				3DDD064A2C6AF62F00983617 /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				3DFC17DA2C66AC0500917726 /* OnboardingSlide.swift in Sources */,
 				3DB528D62C5A66BD004DD7B6 /* WeatherResponse.swift in Sources */,
 				3DB61D342C5A385D000ECAE0 /* Router.swift in Sources */,
+				3DDD064B2C6AF62F00983617 /* OnboardingViewModel.swift in Sources */,
 				3DA5BE5D2C5BC2450048C3AB /* UIAlertController.swift in Sources */,
 				4514B96A2C6364B200E54C95 /* CreateMatchViewModel.swift in Sources */,
 				3DDF17712C593F1E00F2BF80 /* PlayerCell.swift in Sources */,
